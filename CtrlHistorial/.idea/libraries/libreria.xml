@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="libreria">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/libreria/AbsoluteLayout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libreria/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libreria/mysql-connector-java-5.0.8-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libreria/iText-5.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
