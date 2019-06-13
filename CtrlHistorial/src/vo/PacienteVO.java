@@ -13,7 +13,6 @@ import java.util.Date;
  * @author apple
  */
 public class PacienteVO implements Serializable{
-    //datos personales del paciente
     private long id;
     private String nombre;
     private String apellidoPaterno;
@@ -31,26 +30,6 @@ public class PacienteVO implements Serializable{
         super();
     }
 
-    public PacienteVO(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String genero, String direcion, String telefono) {
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.genero = genero;
-        this.direcion = direcion;
-        this.telefono = telefono;
-    }
-
-    public PacienteVO(long id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String genero, String direcion, String telefono) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.fechaNacimiento = fechaNacimiento;
-        this.genero = genero;
-        this.direcion = direcion;
-        this.telefono = telefono;
-    }
 
     public long getId() {
         return id;

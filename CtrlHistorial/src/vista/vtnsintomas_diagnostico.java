@@ -44,7 +44,7 @@ public class vtnsintomas_diagnostico extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3), "Diagnostico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Traditional Arabic", 1, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3), "DiagnosticoVO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Traditional Arabic", 1, 18))); // NOI18N
 
         txadiagnostico.setBackground(new java.awt.Color(239, 239, 239));
         txadiagnostico.setColumns(20);
@@ -93,7 +93,7 @@ public class vtnsintomas_diagnostico extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Traditional Arabic", 1, 24)); // NOI18N
-        jLabel1.setText("Diagnostico y tratamiento del pacinete ");
+        jLabel1.setText("DiagnosticoVO y tratamiento del pacinete ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
