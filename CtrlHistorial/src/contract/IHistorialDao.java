@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IHistorialDao {
     public Result<List<HistorialVO>> findByAll();
-    public Result<HistorialVO> findById(HistorialVO historialVO);
+    public Result<HistorialVO> findById(int id);
     public Result<HistorialVO> add(HistorialVO historialVO);
     public Result<HistorialVO> update(HistorialVO historialVO);
     public Result<HistorialVO> delete(int id);

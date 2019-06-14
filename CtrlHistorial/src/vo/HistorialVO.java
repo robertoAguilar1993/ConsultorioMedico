@@ -9,7 +9,7 @@ public class HistorialVO {
     private int id;
     private String parecimientoActual;
     private String dxs;
-    private String plan_manejo;
+    private String planManejo;
     private List<HistorialSintomasVO> historialSintomasVOList;
 
     /**
@@ -43,12 +43,12 @@ public class HistorialVO {
         this.dxs = dxs;
     }
 
-    public String getPlan_manejo() {
-        return plan_manejo;
+    public String getPlanManejo() {
+        return planManejo;
     }
 
-    public void setPlan_manejo(String plan_manejo) {
-        this.plan_manejo = plan_manejo;
+    public void setPlanManejo(String planManejo) {
+        this.planManejo = planManejo;
     }
 
     public List<HistorialSintomasVO> getHistorialSintomasVOList() {
@@ -65,7 +65,7 @@ public class HistorialVO {
                 "id=" + id +
                 ", parecimientoActual='" + parecimientoActual + '\'' +
                 ", dxs='" + dxs + '\'' +
-                ", plan_manejo='" + plan_manejo + '\'' +
+                ", planManejo='" + planManejo + '\'' +
                 ", historialSintomasVOList=" + historialSintomasVOList +
                 '}';
     }

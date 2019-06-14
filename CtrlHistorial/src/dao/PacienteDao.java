@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Conexion;
+import util.ConsultorioMedicoConst;
 import util.Result;
 import vo.PacienteVO;
 
@@ -36,7 +37,7 @@ public class PacienteDao extends Conexion implements IPacienteDao{
         Connection con = getConexion();
        
         if(paciente == null ){
-            return new Result<>(false, "Debe de completar el formulario", null);
+            return new Result<PacienteVO>(false, "Debe de completar el formulario", null);
         }
                 
         String message = "";
@@ -72,7 +73,7 @@ public class PacienteDao extends Conexion implements IPacienteDao{
         }
         
         if ( !"".equals(message) ) {
-            return new Result<>(false, message, null);
+            return new Result<PacienteVO>(false, message, null);
         }
         
         String sql = "INSERT INTO const_dts_pacientes (nombre, ap_paterno,ap_materno, "
@@ -89,7 +90,7 @@ public class PacienteDao extends Conexion implements IPacienteDao{
             ps.setString(8,paciente.getOcupacion());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
-                 return new Result<>(true, "No se pudo guardar", null);
+                 return new Result<PacienteVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
             }
             ResultSet generatedKeys = ps.getGeneratedKeys();
             long idGenerado = 0;
@@ -98,10 +99,10 @@ public class PacienteDao extends Conexion implements IPacienteDao{
             }
             paciente.setId(idGenerado);
             System.err.println("idGenerado: " + idGenerado);
-            return new Result<>(true, "Se ha registrado exitosamente", paciente);
+            return new Result<PacienteVO>(true, ConsultorioMedicoConst.DB_REGISTRADO_CORRECTAMENTE, paciente);
         } catch (SQLException ex) {
             Logger.getLogger(PacienteDao.class.getName()).log(Level.SEVERE, null, ex);
-            return new Result<>(false, "Ha ocurrido un error SQL", null);
+            return new Result<PacienteVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
         }
     }
 
@@ -133,10 +134,10 @@ public class PacienteDao extends Conexion implements IPacienteDao{
                 paciente.setTelefono(rs.getString("telefono"));
                 pacienteVOs.add(paciente);
               }
-               return new Result<>(true, "OK", pacienteVOs);
+               return new Result<List<PacienteVO>>(true, ConsultorioMedicoConst.OK, pacienteVOs);
         } catch (SQLException ex) {
             Logger.getLogger(PacienteDao.class.getName()).log(Level.SEVERE, null, ex);
-            return new Result<>(false, "Ha ocurrido un error SQL", null);
+            return new Result<List<PacienteVO>>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
         }
     }
 
@@ -170,10 +171,10 @@ public class PacienteDao extends Conexion implements IPacienteDao{
                 paciente.setTelefono(rs.getString("telefono"));
                 pacienteVOs.add(paciente);
               }
-               return new Result<>(true, "OK", pacienteVOs);
+               return new Result<List<PacienteVO>>(true, ConsultorioMedicoConst.OK, pacienteVOs);
         } catch (SQLException ex) {
             Logger.getLogger(PacienteDao.class.getName()).log(Level.SEVERE, null, ex);
-            return new Result<>(false, "Ha ocurrido un error SQL", null);
+            return new Result<List<PacienteVO>>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
         }
     }
     

@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface IHistorialSintomasDao {
     public Result<List<HistorialSintomasVO>> findByAll();
-    public Result<HistorialSintomasVO> findById(HistorialSintomasVO historialSintomasVO);
+    public Result<List<HistorialSintomasVO>> findByIdHistorial(int idHistorial);
     public Result<HistorialSintomasVO> add(HistorialSintomasVO historialSintomasVO);
     public Result<HistorialSintomasVO> update(HistorialSintomasVO historialSintomasVO);
-    public Result<HistorialSintomasVO> delete(int id);
+    public Result<HistorialSintomasVO> deleteByHistorial(int idHistorial);
 }

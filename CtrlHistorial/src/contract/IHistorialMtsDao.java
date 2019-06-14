@@ -11,9 +11,11 @@ import java.util.List;
 public interface IHistorialMtsDao {
 
     public Result<List<HistorialMtsVO>> findByAll();
-    public Result<HistorialMtsVO> findById(HistorialMtsVO historialMtsVO);
+    public Result<HistorialMtsVO> findById(int id);
+    public Result<List<HistorialMtsVO>> findByIdPaciente(int id);
     public Result<HistorialMtsVO> add(HistorialMtsVO historialMtsVO);
     public Result<HistorialMtsVO> update(HistorialMtsVO historialMtsVO);
     public Result<HistorialMtsVO> delete(int id);
+    public Result<HistorialMtsVO> deleteByPaciente(int id);
 
 }

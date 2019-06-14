@@ -11,7 +11,7 @@ import java.util.List;
 public interface IReporteUltrasonicoDao {
 
     public Result<List<ReporteUltrasonicoVO>> findByAll();
-    public Result<ReporteUltrasonicoVO> findById(ReporteUltrasonicoVO reporteUltrasonicoVO);
+    public Result<ReporteUltrasonicoVO> findById(int id);
     public Result<ReporteUltrasonicoVO> add(ReporteUltrasonicoVO reporteUltrasonicoVO);
     public Result<ReporteUltrasonicoVO> update(ReporteUltrasonicoVO reporteUltrasonicoVO);
     public Result<ReporteUltrasonicoVO> delete(int id);

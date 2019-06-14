@@ -11,7 +11,7 @@ import java.util.List;
 public interface IRecetaDao {
 
     public Result<List<RecetaVO>> findByAll();
-    public Result<RecetaVO> findById(RecetaVO recetaVO);
+    public Result<RecetaVO> findById(int id);
     public Result<RecetaVO> add(RecetaVO recetaVO);
     public Result<RecetaVO> update(RecetaVO recetaVO);
     public Result<RecetaVO> delete(int id);
