@@ -16,6 +16,8 @@ public class RecetaVO {
     private String ta;
     private String rx;
     private Date fecha;
+    private Date fechaProximaCita;
+
 
     /**
      * not args
@@ -103,6 +105,22 @@ public class RecetaVO {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+    
+    
+    /**
+     * @return the fechaProximaCita
+     */
+    public Date getFechaProximaCita() {
+        return fechaProximaCita;
+    }
+
+    /**
+     * @param fechaProximaCita the fechaProximaCita to set
+     */
+    public void setFechaProximaCita(Date fechaProximaCita) {
+        this.fechaProximaCita = fechaProximaCita;
+    }
+    
 
     @Override
     public String toString() {
@@ -117,6 +135,8 @@ public class RecetaVO {
                 ", ta='" + ta + '\'' +
                 ", rx='" + rx + '\'' +
                 ", fecha=" + fecha +
+                ", fechaProximaCita=" + fechaProximaCita +
                 '}';
     }
+
 }

@@ -14,6 +14,11 @@ public class SintomasVO {
     public SintomasVO() {
         super();
     }
+    
+    public SintomasVO(String sintomas) {
+        this.sintomas = sintomas;
+    }
+    
 
     public int getId() {
         return id;

@@ -1,24 +1,35 @@
 package vo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author beto
  */
 public class HistorialMtsData {
     private int id;
+    private int idPaciente;
     private PacienteVO pacienteVO;
     private RecetaVO recetaVO;
     private HistorialVO historialVO;
     private ReporteUltrasonicoVO reporteUltrasonicoVO;
     private DiagnosticoVO diagnosticoVO;
     private Date date;
+    private List<SintomasVO> sintomasVOList;
 
     /**
      * Not args
      */
     public HistorialMtsData() {
         super();
+    }
+
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
     public int getId() {
@@ -77,6 +88,16 @@ public class HistorialMtsData {
         this.date = date;
     }
 
+    public List<SintomasVO> getSintomasVOList() {
+        return sintomasVOList;
+    }
+
+    public void setSintomasVOList(List<SintomasVO> sintomasVOList) {
+        this.sintomasVOList = sintomasVOList;
+    }
+
+
+
     @Override
     public String toString() {
         return "HistorialMtsData{" +
@@ -87,6 +108,7 @@ public class HistorialMtsData {
                 ", reporteUltrasonicoVO=" + reporteUltrasonicoVO +
                 ", diagnosticoVO=" + diagnosticoVO +
                 ", date=" + date +
+                ", sintomasVOList=" + sintomasVOList +
                 '}';
     }
 }

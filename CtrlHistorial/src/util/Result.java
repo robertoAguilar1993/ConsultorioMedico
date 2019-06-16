@@ -83,9 +83,13 @@ public class Result  <T>{
     public void setResult(T result) {
         this.result = result;
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "operationStatus=" + operationStatus +
+                ", message='" + message + '\'' +
+                ", result=" + result +
+                '}';
+    }
 }

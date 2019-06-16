@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import contract.IPacienteDao;
 import dao.PacienteDao;
 import java.util.List;
 import util.Result;
@@ -17,17 +18,22 @@ import vo.PacienteVO;
 public class PacienteController {
     
     public Result add(PacienteVO paciente) {
-        PacienteDao pacienteDao = new PacienteDao();
+        IPacienteDao pacienteDao = new PacienteDao();
         return pacienteDao.add(paciente);
     }
 
     public Result<List<PacienteVO>> findAll() {
-        PacienteDao pacienteDao = new PacienteDao();
+        IPacienteDao pacienteDao = new PacienteDao();
         return pacienteDao.findAll();
     }
 
     public Result<List<PacienteVO>> findByCriteria(String criteria) {
-        PacienteDao pacienteDao = new PacienteDao();
+        IPacienteDao pacienteDao = new PacienteDao();
         return pacienteDao.findByCriteria(criteria);
+    }
+
+    public Result<PacienteVO> findById(int id){
+        IPacienteDao pacienteDao = new PacienteDao();
+        return pacienteDao.findById(id);
     }
 }

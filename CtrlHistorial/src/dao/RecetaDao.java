@@ -25,7 +25,7 @@ public class RecetaDao extends Conexion implements IRecetaDao {
         ResultSet rs;
 
         try {
-            ps = con.prepareStatement("SELECT id_receta, edad, peso, talla, temp, fc, rf, ta, rx, fecha " +
+            ps = con.prepareStatement("SELECT id_receta, edad, peso, talla, temp, fc, rf, ta, rx, fecha, fecha_proxima_cita " +
                     "FROM const_dts_recetas");
             rs = ps.executeQuery();
             List<RecetaVO> recetaVOList = new ArrayList<RecetaVO>();
@@ -41,6 +41,8 @@ public class RecetaDao extends Conexion implements IRecetaDao {
                 recetaVO.setTa(rs.getString("ta"));
                 recetaVO.setRx(rs.getString("rx"));
                 recetaVO.setFecha(new java.util.Date( rs.getDate("fecha").getTime()));
+                recetaVO.setFechaProximaCita(new java.util.Date( rs.getDate("fecha_proxima_cita").getTime()));
+
                 recetaVOList.add(recetaVO);
             }
             return new Result<List<RecetaVO>>(true, ConsultorioMedicoConst.OK, recetaVOList);
@@ -57,7 +59,7 @@ public class RecetaDao extends Conexion implements IRecetaDao {
         ResultSet rs;
 
         try {
-            ps = con.prepareStatement("SELECT id_receta, edad, peso, talla, temp, fc, rf, ta, rx, fecha " +
+            ps = con.prepareStatement("SELECT id_receta, edad, peso, talla, temp, fc, rf, ta, rx, fecha, fecha_proxima_cita " +
                     "FROM const_dts_recetas  WHERE id_receta = " + id );
             rs = ps.executeQuery();
             RecetaVO receta  = null;
@@ -73,6 +75,8 @@ public class RecetaDao extends Conexion implements IRecetaDao {
                 receta.setTa(rs.getString("ta"));
                 receta.setRx(rs.getString("rx"));
                 receta.setFecha(new java.util.Date( rs.getDate("fecha").getTime()));
+                receta.setFechaProximaCita(new java.util.Date( rs.getDate("fecha_proxima_cita").getTime()));
+
             }
             return new Result<RecetaVO>(true, ConsultorioMedicoConst.OK, receta);
         } catch (SQLException ex) {
@@ -87,8 +91,8 @@ public class RecetaDao extends Conexion implements IRecetaDao {
         PreparedStatement ps;
         Connection con = getConexion();
 
-        String sql = "INSERT INTO const_dts_recetas (edad, peso, talla, temp, fc, rf, ta, rx, fecha ) " +
-                "VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO const_dts_recetas (edad, peso, talla, temp, fc, rf, ta, rx, fecha, fecha_proxima_cita ) " +
+                "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, recetaVO.getEdad());
@@ -100,6 +104,8 @@ public class RecetaDao extends Conexion implements IRecetaDao {
             ps.setString(7, recetaVO.getTa());
             ps.setString(8, recetaVO.getRx());
             ps.setDate(9, new java.sql.Date(recetaVO.getFecha().getTime()));
+            ps.setDate(10, new java.sql.Date(recetaVO.getFechaProximaCita().getTime()));
+
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
@@ -123,7 +129,8 @@ public class RecetaDao extends Conexion implements IRecetaDao {
         PreparedStatement ps;
         Connection con = getConexion();
 
-        String sql = "UPDATE  const_dts_recetas  SET edad = ?, peso = ?, talla = ?, temp = ?, fc = ?, rf = ?, ta = ?, rx = ?, fecha= ? " +
+        String sql = "UPDATE  const_dts_recetas  SET edad = ?, peso = ?, talla = ?, "
+                + "temp = ?, fc = ?, rf = ?, ta = ?, rx = ?, fecha= ?, fecha_proxima_cita = ? " +
                     "WHERE id_receta = ?";
 
         try {
@@ -137,6 +144,7 @@ public class RecetaDao extends Conexion implements IRecetaDao {
             ps.setString(7, recetaVO.getTa());
             ps.setString(8, recetaVO.getRx());
             ps.setDate(9, new java.sql.Date(recetaVO.getFecha().getTime()));
+            ps.setDate(9, new java.sql.Date(recetaVO.getFechaProximaCita().getTime()));
             ps.setInt(10, recetaVO.getId());
 
             int affectedRows = ps.executeUpdate();

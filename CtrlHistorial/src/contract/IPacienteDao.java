@@ -17,4 +17,5 @@ public interface IPacienteDao {
     public Result add(PacienteVO paciente);
     public Result<List<PacienteVO>> findAll();
     public Result<List<PacienteVO>> findByCriteria(String criteria);
+    public Result<PacienteVO> findById(int id);
 }

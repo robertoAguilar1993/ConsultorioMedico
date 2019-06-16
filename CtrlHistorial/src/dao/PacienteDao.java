@@ -177,8 +177,41 @@ public class PacienteDao extends Conexion implements IPacienteDao{
             return new Result<List<PacienteVO>>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
         }
     }
-    
-    
+
+    @Override
+    public Result<PacienteVO> findById(int id) {
+        PreparedStatement ps;
+        Connection con = getConexion();
+        ResultSet rs;
+
+        try {
+            ps = con.prepareStatement("SELECT id_paciente, nombre, ap_paterno, "
+                    + "ap_materno, domicilio, genero, fecha_nacimiento, telefono, "
+                    + " ocupacion FROM const_dts_pacientes where "
+                    + "id_paciente = " + id);
+            rs = ps.executeQuery();
+            PacienteVO paciente = null;
+
+            while (rs.next()) {
+                paciente = new PacienteVO();
+                paciente.setId(rs.getLong("id_paciente"));
+                paciente.setNombre(rs.getString("nombre"));
+                paciente.setApellidoPaterno(rs.getString("ap_paterno"));
+                paciente.setApellidoMaterno(rs.getString("ap_materno"));
+                paciente.setDirecion(rs.getString("domicilio"));
+                paciente.setGenero(rs.getString("genero"));
+                paciente.setFechaNacimiento(new java.util.Date( rs.getDate("fecha_nacimiento").getTime() ));
+                paciente.setTelefono(rs.getString("telefono"));
+                paciente.setOcupacion(rs.getString("ocupacion"));
+            }
+            return new Result< PacienteVO>(true, ConsultorioMedicoConst.OK, paciente);
+        } catch (SQLException ex) {
+            Logger.getLogger(PacienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return new Result<PacienteVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
+        }
+    }
+
+
     /**
      * Metodo encargado de validar Que sea un numero valido
      * @param number

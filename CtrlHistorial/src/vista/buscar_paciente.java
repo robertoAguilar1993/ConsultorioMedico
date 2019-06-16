@@ -11,6 +11,12 @@ import vo.PacienteVO;
 
 public class buscar_paciente extends javax.swing.JFrame {
 
+    /**
+     * Declarar variables
+     */
+    
+    PacienteVO pacienteVO = new PacienteVO();
+    
     public buscar_paciente() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -96,7 +102,6 @@ public class buscar_paciente extends javax.swing.JFrame {
         cbxgenero = new javax.swing.JComboBox<String>();
         txtdirecion = new javax.swing.JTextField();
         txttelefono = new javax.swing.JTextField();
-        fechaNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         txtApePaterno = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -105,6 +110,7 @@ public class buscar_paciente extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtOcupacion = new javax.swing.JTextField();
+        fechaNacimiento = new com.toedter.calendar.JDateChooser();
         btnVerHistorial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -163,7 +169,7 @@ public class buscar_paciente extends javax.swing.JFrame {
         jLabel1.setText("Nombre:");
 
         jLabel2.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
-        jLabel2.setText("Edad :");
+        jLabel2.setText("F. Nacimiento");
 
         jLabel3.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
         jLabel3.setText("sexo :");
@@ -212,38 +218,46 @@ public class buscar_paciente extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbxgenero, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6))
-                            .addGap(36, 36, 36)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtApePaterno)
-                                    .addComponent(txtnombre)
-                                    .addComponent(txtApeMaterno)
-                                    .addComponent(txtdirecion, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)))
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtApePaterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                                            .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtApeMaterno, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txttelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtOcupacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 1, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton4))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxgenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtdirecion, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -263,12 +277,13 @@ public class buscar_paciente extends javax.swing.JFrame {
                     .addComponent(txtApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(cbxgenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxgenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtdirecion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,11 +295,11 @@ public class buscar_paciente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2))
-                .addGap(30, 30, 30))
+                    .addComponent(jButton2)
+                    .addComponent(jButton4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnVerHistorial.setText("Ver historial");
@@ -320,9 +335,8 @@ public class buscar_paciente extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAgregarHistorial)
-                        .addComponent(btnVerHistorial)))
+                    .addComponent(btnAgregarHistorial)
+                    .addComponent(btnVerHistorial))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -330,7 +344,7 @@ public class buscar_paciente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -344,9 +358,29 @@ public class buscar_paciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         int linea = jtbpaciente.getSelectedRow();
         String id = jtbpaciente.getValueAt(linea, 0).toString();
-        String nombre = jtbpaciente.getValueAt(linea, 1).toString();
-        System.err.println("nombre: " +  nombre);             
         System.err.println("id: " +  id);
+        
+        PacienteController pacienteController = new PacienteController();
+        Result<PacienteVO> pacienteResult = pacienteController.findById(Integer.parseInt(id));
+        
+        if(!pacienteResult.isOperationStatus()){
+            JOptionPane.showMessageDialog(null,pacienteResult.getMessage() ,"Error",JOptionPane.ERROR_MESSAGE);
+        }else{
+            pacienteVO = pacienteResult.getResult();
+            pacienteVO.setId(pacienteVO.getId());
+            txtnombre.setText(pacienteVO.getNombre());
+            txtApePaterno.setText(pacienteVO.getApellidoPaterno());
+            txtApeMaterno.setText(pacienteVO.getApellidoMaterno());
+            txtdirecion.setText(pacienteVO.getDirecion());
+            
+            int numGenero = "Masculino".equalsIgnoreCase(pacienteVO.getGenero()) ? 1: 2;
+            
+            cbxgenero.setSelectedIndex(numGenero);
+            txttelefono.setText(pacienteVO.getTelefono());
+            fechaNacimiento.setDate(pacienteVO.getFechaNacimiento());
+            txtOcupacion.setText(pacienteVO.getOcupacion());
+        }
+        
     }//GEN-LAST:event_jtbpacienteMouseClicked
 
     private void jtbpacienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbpacienteMouseEntered
@@ -356,7 +390,7 @@ public class buscar_paciente extends javax.swing.JFrame {
 
     private void btnAgregarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarHistorialActionPerformed
         // TODO add your handling code here:
-        vtnAgregarHistorialPaciente lp= new vtnAgregarHistorialPaciente();
+        vtnAgregarHistorialPaciente lp= new vtnAgregarHistorialPaciente(this.pacienteVO);
         lp.setVisible(true);
     }//GEN-LAST:event_btnAgregarHistorialActionPerformed
 
@@ -366,7 +400,7 @@ public class buscar_paciente extends javax.swing.JFrame {
 
     private void btnVerHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialActionPerformed
         // TODO add your handling code here:
-        vtnVerHistorialPaciente lp= new vtnVerHistorialPaciente();
+        vtnVerHistorialPaciente lp= new vtnVerHistorialPaciente(this.pacienteVO);
         lp.setVisible(true);
     }//GEN-LAST:event_btnVerHistorialActionPerformed
 

@@ -16,6 +16,13 @@ public class HistorialSintomasVO {
     public HistorialSintomasVO() {
         super();
     }
+    
+    /**
+     * @param antecedenteImportante 
+     */
+    public HistorialSintomasVO(String antecedenteImportante) {
+        this.antecedenteImportante = antecedenteImportante;
+    }
 
     public int getId() {
         return id;

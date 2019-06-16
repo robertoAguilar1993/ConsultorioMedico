@@ -109,7 +109,7 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
         PreparedStatement ps;
         Connection con = getConexion();
 
-        String sql = "INSERT INTO const_dts_historial (id_paciente, id_receta, id_historial, id_reporte_ultrasonico, id_diagnostico, fecha) " +
+        String sql = "INSERT INTO const_dts_historial_mts (id_paciente, id_receta, id_historial, id_reporte_ultrasonico, id_diagnostico, fecha) " +
                 "VALUES(?,?,?,?,?,?)";
         try {
 

@@ -65,7 +65,7 @@ public class ReporteUltrasonicoDao extends Conexion implements IReporteUltrasoni
         PreparedStatement ps;
         Connection con = getConexion();
 
-        String sql = "INSERT INTO const_dts_reporte_ultrasonico (descripcion, ) " +
+        String sql = "INSERT INTO const_dts_reporte_ultrasonico (descripcion ) " +
                 "VALUES(?)";
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

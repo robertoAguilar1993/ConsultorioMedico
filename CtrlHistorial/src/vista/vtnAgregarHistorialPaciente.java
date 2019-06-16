@@ -5,6 +5,20 @@
  */
 package vista;
 
+import Controller.HistorialPacienteController;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import util.Result;
+import vo.DiagnosticoVO;
+import vo.HistorialMtsData;
+import vo.HistorialSintomasVO;
+import vo.HistorialVO;
+import vo.PacienteVO;
+import vo.RecetaVO;
+import vo.ReporteUltrasonicoVO;
+import vo.SintomasVO;
+
 /**
  *
  * @author apple
@@ -12,12 +26,27 @@ package vista;
 public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
     /**
+     * Variables
+     */
+    PacienteVO pacienteVO = new PacienteVO();
+    
+    /**
      * Creates new form vtnHistorialPaciente
      */
     public vtnAgregarHistorialPaciente() {
         initComponents();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    }
+    
+    public vtnAgregarHistorialPaciente(PacienteVO pacienteVO) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.pacienteVO = pacienteVO;
+        txtNombreCompleto.setText(pacienteVO.getNombre() + " " + 
+                pacienteVO.getApellidoPaterno() + " " + 
+                pacienteVO.getApellidoMaterno());
     }
 
     /**
@@ -29,17 +58,17 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnUpdateHistorial = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombreCompleto = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtsintoma = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        txtSintoma = new javax.swing.JTextField();
+        btnSintomas = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTblSintomas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -51,34 +80,34 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        txedad = new javax.swing.JTextField();
-        txpeso = new javax.swing.JTextField();
-        txtalla = new javax.swing.JTextField();
-        txfc = new javax.swing.JTextField();
-        txfr = new javax.swing.JTextField();
-        txta = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        txtemp = new javax.swing.JTextField();
+        txaRx = new javax.swing.JTextArea();
+        txEdad = new javax.swing.JTextField();
+        txPeso = new javax.swing.JTextField();
+        txtTalla = new javax.swing.JTextField();
+        txtFc = new javax.swing.JTextField();
+        txtFr = new javax.swing.JTextField();
+        txtTa = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
+        txtTemp = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDataProximaCita = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txaDxs = new javax.swing.JTextArea();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        txaPlanManejo = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
+        txaParecimientoActual = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
+        jTblAntecedentesImportantes = new javax.swing.JTable();
+        btnagregarSintomasImportantes = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextArea6 = new javax.swing.JTextArea();
+        txaReporteUltrasonico = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -87,8 +116,13 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
-        jButton1.setText("Guardar");
+        btnUpdateHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
+        btnUpdateHistorial.setText("Guardar");
+        btnUpdateHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateHistorialActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -97,16 +131,16 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Sintomas :");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_opc.png"))); // NOI18N
-        jButton3.setText("Agregar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSintomas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_opc.png"))); // NOI18N
+        btnSintomas.setText("Agregar");
+        btnSintomas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSintomasActionPerformed(evt);
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTblSintomas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTblSintomas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -125,7 +159,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTblSintomas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,9 +172,9 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtsintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton3)))
+                        .addComponent(btnSintomas)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,8 +183,8 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtsintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSintomas))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(56, Short.MAX_VALUE))
@@ -185,18 +219,18 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
         jLabel12.setText("PRÓXIMA CITA:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial Narrow", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txaRx.setColumns(20);
+        txaRx.setFont(new java.awt.Font("Arial Narrow", 0, 12)); // NOI18N
+        txaRx.setRows(5);
+        jScrollPane2.setViewportView(txaRx);
 
-        txfc.addActionListener(new java.awt.event.ActionListener() {
+        txtFc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txfcActionPerformed(evt);
+                txtFcActionPerformed(evt);
             }
         });
 
-        txtemp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtTemp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
         jLabel13.setText("RX:");
@@ -221,11 +255,11 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                                 .addComponent(jLabel11)
                                 .addGap(13, 13, 13)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField8)
-                            .addComponent(txfr, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfc, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtemp, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txta)))
+                            .addComponent(txtFecha)
+                            .addComponent(txtFr, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFc, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTa)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -233,16 +267,16 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txedad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtalla)
-                                .addComponent(txpeso)))))
+                                .addComponent(txtTalla)
+                                .addComponent(txPeso)))))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(54, 54, 54)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jDataProximaCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel13)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
@@ -259,39 +293,39 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txpeso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(txfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(txfr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(txta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
@@ -306,20 +340,20 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
         jLabel19.setText("DXS :");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane3.setViewportView(jTextArea2);
+        txaDxs.setColumns(20);
+        txaDxs.setRows(5);
+        jScrollPane3.setViewportView(txaDxs);
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane5.setViewportView(jTextArea4);
+        txaPlanManejo.setColumns(20);
+        txaPlanManejo.setRows(5);
+        jScrollPane5.setViewportView(txaPlanManejo);
 
-        jTextArea5.setColumns(20);
-        jTextArea5.setRows(5);
-        jScrollPane6.setViewportView(jTextArea5);
+        txaParecimientoActual.setColumns(20);
+        txaParecimientoActual.setRows(5);
+        jScrollPane6.setViewportView(txaParecimientoActual);
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTblAntecedentesImportantes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTblAntecedentesImportantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -338,13 +372,13 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTable2);
+        jScrollPane4.setViewportView(jTblAntecedentesImportantes);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_opc.png"))); // NOI18N
-        jButton4.setText("Agregar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnagregarSintomasImportantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_opc.png"))); // NOI18N
+        btnagregarSintomasImportantes.setText("Agregar");
+        btnagregarSintomasImportantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnagregarSintomasImportantesActionPerformed(evt);
             }
         });
 
@@ -362,7 +396,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                             .addGap(27, 27, 27)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton4))
+                            .addComponent(btnagregarSintomasImportantes))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel19)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
@@ -381,7 +415,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(28, 28, 28))
-                            .addComponent(jButton4)))
+                            .addComponent(btnagregarSintomasImportantes)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -404,9 +438,9 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
 
-        jTextArea6.setColumns(20);
-        jTextArea6.setRows(5);
-        jScrollPane7.setViewportView(jTextArea6);
+        txaReporteUltrasonico.setColumns(20);
+        txaReporteUltrasonico.setRows(5);
+        jScrollPane7.setViewportView(txaReporteUltrasonico);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -437,11 +471,11 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1)
+                        .addComponent(txtNombreCompleto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnUpdateHistorial))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -450,10 +484,10 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnUpdateHistorial)
                     .addComponent(jButton2)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -462,7 +496,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSintomasActionPerformed
 
         /**SqlPacientes modsql= new SqlPacientes();
         paciente mod = new paciente();
@@ -476,20 +510,114 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"no se registro el sintomas");
         }*/
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSintomasActionPerformed
 
-    private void txfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfcActionPerformed
+    private void txtFcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFcActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txfcActionPerformed
+    }//GEN-LAST:event_txtFcActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnagregarSintomasImportantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarSintomasImportantesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnagregarSintomasImportantesActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnUpdateHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHistorialActionPerformed
+        // TODO add your handling code here:
+
+        HistorialMtsData historialMtsData = new HistorialMtsData();       
+        List<SintomasVO> sintomasVOs = new ArrayList<SintomasVO>();
+        RecetaVO recetaVO = new RecetaVO();
+        HistorialVO historialVO = new HistorialVO();
+        List<HistorialSintomasVO> historialSintomasVOs = new ArrayList<HistorialSintomasVO>();
+        ReporteUltrasonicoVO reporteUltrasonicoVO = new ReporteUltrasonicoVO();
+        DiagnosticoVO diagnosticoVO = new DiagnosticoVO();
+        
+        
+        
+        /**
+         * Recetas
+         */
+        recetaVO.setEdad(26);
+        recetaVO.setPeso(68);
+        recetaVO.setTalla(1.68f);
+        recetaVO.setTemp("NA");
+        recetaVO.setFc("N/A");
+        recetaVO.setRf("N/A");
+        recetaVO.setTa("N/A");
+        recetaVO.setRx("N/A");
+        java.util.Date fechaNow = new Date();
+        recetaVO.setFecha(fechaNow);
+        recetaVO.setFechaProximaCita(fechaNow);
+        historialMtsData.setRecetaVO(recetaVO);
+        
+        
+        /**
+         * Historial
+         */
+        historialVO.setParecimientoActual("Parecimiento actual");
+        historialVO.setDxs("Dxs");
+        historialVO.setPlanManejo("Plan de manejo");
+        
+        
+          /***
+         * Historial de sintomas
+         */
+        
+        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 1"));
+        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 2"));
+        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 3"));
+        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 4"));
+        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 5"));
+        historialVO.setHistorialSintomasVOList(historialSintomasVOs);
+        
+        
+        
+        historialMtsData.setHistorialVO(historialVO);
+        
+        
+      
+        
+        
+        
+        /**
+         * Reporte ultrasonico
+         */
+        reporteUltrasonicoVO.setDescripcion("descripcion del reporte ultrasonico");
+        historialMtsData.setReporteUltrasonicoVO(reporteUltrasonicoVO);
+        
+        
+        
+        /**
+         * Diagnostico
+         */
+        diagnosticoVO.setDiagnostico("Diagnostico");
+        diagnosticoVO.setTratamiento("Tratamiento");
+        historialMtsData.setDiagnosticoVO(diagnosticoVO);
+        
+        
+        
+        sintomasVOs.add(new SintomasVO("Sintoma 1"));
+        sintomasVOs.add(new SintomasVO("Sintoma 2"));
+        sintomasVOs.add(new SintomasVO("Sintoma 3"));
+        sintomasVOs.add(new SintomasVO("Sintoma 4"));
+        sintomasVOs.add(new SintomasVO("Sintoma 5"));       
+        historialMtsData.setSintomasVOList(sintomasVOs);
+        
+        
+        historialMtsData.setIdPaciente((int) pacienteVO.getId());
+        historialMtsData.setDate(fechaNow);
+        
+        HistorialPacienteController historialPacienteController = 
+                new HistorialPacienteController();
+        
+        Result<HistorialMtsData> result= historialPacienteController.add(historialMtsData);
+        System.out.println(result.toString());
+        
+    }//GEN-LAST:event_btnUpdateHistorialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -528,11 +656,11 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSintomas;
+    private javax.swing.JButton btnUpdateHistorial;
+    private javax.swing.JButton btnagregarSintomasImportantes;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDataProximaCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -561,22 +689,22 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea5;
-    private javax.swing.JTextArea jTextArea6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField txedad;
-    private javax.swing.JTextField txfc;
-    private javax.swing.JTextField txfr;
-    private javax.swing.JTextField txpeso;
-    private javax.swing.JTextField txta;
-    private javax.swing.JTextField txtalla;
-    private javax.swing.JTextField txtemp;
-    private javax.swing.JTextField txtsintoma;
+    private javax.swing.JTable jTblAntecedentesImportantes;
+    private javax.swing.JTable jTblSintomas;
+    private javax.swing.JTextField txEdad;
+    private javax.swing.JTextField txPeso;
+    private javax.swing.JTextArea txaDxs;
+    private javax.swing.JTextArea txaParecimientoActual;
+    private javax.swing.JTextArea txaPlanManejo;
+    private javax.swing.JTextArea txaReporteUltrasonico;
+    private javax.swing.JTextArea txaRx;
+    private javax.swing.JTextField txtFc;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtFr;
+    private javax.swing.JTextField txtNombreCompleto;
+    private javax.swing.JTextField txtSintoma;
+    private javax.swing.JTextField txtTa;
+    private javax.swing.JTextField txtTalla;
+    private javax.swing.JTextField txtTemp;
     // End of variables declaration//GEN-END:variables
 }

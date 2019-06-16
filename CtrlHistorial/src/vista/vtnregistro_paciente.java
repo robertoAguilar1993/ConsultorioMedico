@@ -68,7 +68,7 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
         jLabel1.setText("Nombre:");
 
         jLabel2.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
-        jLabel2.setText("Edad :");
+        jLabel2.setText("Fecha de Nacimiento");
 
         jLabel3.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
         jLabel3.setText("sexo :");
@@ -187,7 +187,7 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel6)
@@ -231,7 +231,7 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,result.getMessage());
             limpliar();            
             this.dispose();
-            vtnAgregarHistorialPaciente lp= new vtnAgregarHistorialPaciente();
+            vtnAgregarHistorialPaciente lp= new vtnAgregarHistorialPaciente(paciente);
             lp.setVisible(true);
         }
         else{
