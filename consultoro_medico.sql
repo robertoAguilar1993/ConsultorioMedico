@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `const_dts_recetas`(
   `ta` varchar(20)  NULL,
   `rx` longtext  NULL,
   `fecha` date default NULL,
+  `fecha_proxima_cita` date default NULL,
   PRIMARY KEY (`id_receta`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
