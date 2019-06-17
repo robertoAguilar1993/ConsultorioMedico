@@ -35,9 +35,14 @@ public class menu extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        btnMenuVerCita = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        btnMenuReportesDiarios = new javax.swing.JMenuItem();
+        btnMenuReportesSemanal = new javax.swing.JMenuItem();
+        btnMenuReportesMensual = new javax.swing.JMenuItem();
+        btnMenuReportesAnual = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
@@ -83,29 +88,65 @@ public class menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/formulario.png"))); // NOI18N
-        jMenu4.setText("Formaularios ");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendar.png"))); // NOI18N
+        jMenu6.setText("Citas");
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reseta.png"))); // NOI18N
-        jMenuItem3.setText("Recetas Diaria");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add_icon.png"))); // NOI18N
+        jMenuItem5.setText("Agregar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem3);
+        jMenu6.add(jMenuItem5);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/a.png"))); // NOI18N
-        jMenuItem4.setText("Reporte de Ultrasonido");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        btnMenuVerCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ver.png"))); // NOI18N
+        btnMenuVerCita.setText("Ver");
+        btnMenuVerCita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                btnMenuVerCitaActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem4);
+        jMenu6.add(btnMenuVerCita);
 
-        jMenuBar1.add(jMenu4);
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/report.png"))); // NOI18N
+        jMenu4.setText("Reportes");
+
+        btnMenuReportesDiarios.setText("Diarios");
+        btnMenuReportesDiarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuReportesDiariosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuReportesDiarios);
+
+        btnMenuReportesSemanal.setText("Semanal");
+        btnMenuReportesSemanal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuReportesSemanalActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuReportesSemanal);
+
+        btnMenuReportesMensual.setText("Mensual");
+        btnMenuReportesMensual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuReportesMensualActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuReportesMensual);
+
+        btnMenuReportesAnual.setText("Anual");
+        btnMenuReportesAnual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuReportesAnualActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnMenuReportesAnual);
+
+        jMenu6.add(jMenu4);
+
+        jMenuBar1.add(jMenu6);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ayuda.png"))); // NOI18N
         jMenu1.setText("Ayuda");
@@ -164,22 +205,48 @@ public class menu extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        vtnreceta_diaria j=new vtnreceta_diaria();
-        j.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-            vtnultrasonido p=new vtnultrasonido();
-            p.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         this.dispose();
        vtnlogin in=new vtnlogin();
        in.setVisible(true);
         //System.exit(0);
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        VtnAgragarCitas vtnAgragarCitas = new VtnAgragarCitas();
+        vtnAgragarCitas.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void btnMenuReportesDiariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuReportesDiariosActionPerformed
+        // TODO add your handling code here:
+        VtnReporteDiariosDeCitas vtnReporteDiariosDeCitas = new VtnReporteDiariosDeCitas();
+        vtnReporteDiariosDeCitas.setVisible(true);
+    }//GEN-LAST:event_btnMenuReportesDiariosActionPerformed
+
+    private void btnMenuReportesSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuReportesSemanalActionPerformed
+        // TODO add your handling code here:
+        VtnReporteSemanalDeCitas vtnReporteSemanalDeCitas = new VtnReporteSemanalDeCitas();
+        vtnReporteSemanalDeCitas.setVisible(true);
+    }//GEN-LAST:event_btnMenuReportesSemanalActionPerformed
+
+    private void btnMenuReportesMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuReportesMensualActionPerformed
+        // TODO add your handling code here:
+        VtnReporteMensualCitas vtnReporteMensualCitas = new VtnReporteMensualCitas();
+        vtnReporteMensualCitas.setVisible(true);
+    }//GEN-LAST:event_btnMenuReportesMensualActionPerformed
+
+    private void btnMenuReportesAnualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuReportesAnualActionPerformed
+        // TODO add your handling code here:
+        VtnReporteAnualDeCitas vtnReporteAnualDeCitas = new VtnReporteAnualDeCitas();
+        vtnReporteAnualDeCitas.setVisible(true);
+    }//GEN-LAST:event_btnMenuReportesAnualActionPerformed
+
+    private void btnMenuVerCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuVerCitaActionPerformed
+        // TODO add your handling code here:
+        VtnVerCitas vtnVerCitas = new VtnVerCitas();
+        vtnVerCitas.setVisible(true);
+    }//GEN-LAST:event_btnMenuVerCitaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,17 +285,22 @@ public class menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnMenuReportesAnual;
+    private javax.swing.JMenuItem btnMenuReportesDiarios;
+    private javax.swing.JMenuItem btnMenuReportesMensual;
+    private javax.swing.JMenuItem btnMenuReportesSemanal;
+    private javax.swing.JMenuItem btnMenuVerCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 }
