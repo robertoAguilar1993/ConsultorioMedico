@@ -155,8 +155,8 @@ public class vtnpaciente extends javax.swing.JDialog {
 
     private void btnsigueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsigueActionPerformed
         this.dispose();    
-        vtnsintomas_diagnostico po= new vtnsintomas_diagnostico();
-                               po.setVisible(true);
+      /**  vtnsintomas_diagnostico po= new vtnsintomas_diagnostico();
+                               po.setVisible(true);*/
     }//GEN-LAST:event_btnsigueActionPerformed
 
     /**

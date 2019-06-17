@@ -73,7 +73,7 @@ public class menu extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
-        jMenuItem2.setText("Editar Historial");
+        jMenuItem2.setText("Cita Rápida");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
