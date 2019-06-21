@@ -166,6 +166,47 @@ CREATE TABLE IF NOT EXISTS `const_dts_sintomas` (
   PRIMARY KEY (`id_sintoma`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+--
+-- Estructura de tabla para la tabla `citas`
+-- Nota en la fecha no se coloca de tipo fecha para facilitar la busqueda
+--
+DROP TABLE IF EXISTS `const_dts_citas`;
+CREATE TABLE IF NOT EXISTS `const_dts_citas` (
+  `id_cita` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` varchar(15) NOT NULL,
+  `hora` varchar(10)  NULL,
+  `id_Paciente` int(11) NOT NULL,
+  PRIMARY KEY (`id_cita`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+--
+-- Estructura de tabla para la tabla `const_dts_conf_horario_trabajo`
+--
+
+DROP TABLE IF EXISTS `const_dts_conf_horario_trabajo`;
+CREATE TABLE IF NOT EXISTS `const_dts_conf_horario_trabajo` (
+  `id_horario_trabajo` int(11) NOT NULL AUTO_INCREMENT,
+  `hora_inicio` varchar(10) NOT NULL,
+  `hora_final` varchar(10)  NULL,
+  `dia` varchar(10) NOT NULL,
+  `dia_laboral` bit  NULL,
+  PRIMARY KEY (`id_horario_trabajo`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+-- VALOR CONFIGURADO POR DEFAULT
+INSERT INTO const_dts_conf_horario_trabajo(hora_inicio, hora_final,dia , dia_laboral) VALUES ('09 AM', '09 PM', 'Lunes', 1);
+INSERT INTO const_dts_conf_horario_trabajo(hora_inicio, hora_final,dia , dia_laboral) VALUES ('09 AM', '09 PM', 'Martes', 1);
+INSERT INTO const_dts_conf_horario_trabajo(hora_inicio, hora_final,dia , dia_laboral) VALUES ('09 AM', '09 PM', 'Miercoles', 1);
+INSERT INTO const_dts_conf_horario_trabajo(hora_inicio, hora_final,dia , dia_laboral) VALUES ('09 AM', '09 PM', 'Jueves', 1);
+INSERT INTO const_dts_conf_horario_trabajo(hora_inicio, hora_final,dia , dia_laboral) VALUES ('09 AM', '09 PM', 'Viernes', 1);
+INSERT INTO const_dts_conf_horario_trabajo(hora_inicio, hora_final,dia , dia_laboral) VALUES ('09 AM', '09 PM', 'Sabado', 1);
+INSERT INTO const_dts_conf_horario_trabajo(hora_inicio, hora_final,dia , dia_laboral) VALUES ('09 AM', '09 PM', 'Domingo', 1);
+
+
+
 
 -- Insert de test
 INSERT INTO historial_medico.const_dts_pacientes (nombre, ap_paterno, ap_materno, domicilio, genero, fecha_nacimiento, telefono, ocupacion) VALUES ('Roberto', 'Antonio', 'Aguilar', 'Conocido', 'Masculino', '1993-06-16', '3634634', 'albañil');
