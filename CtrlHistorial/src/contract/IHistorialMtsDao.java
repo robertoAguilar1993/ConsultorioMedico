@@ -6,7 +6,7 @@ import vo.HistorialMtsVO;
 import java.util.List;
 
 /**
- * @author beto
+ * @author Alex
  */
 public interface IHistorialMtsDao {
 

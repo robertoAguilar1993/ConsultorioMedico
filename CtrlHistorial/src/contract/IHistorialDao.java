@@ -6,7 +6,7 @@ import vo.HistorialVO;
 import java.util.List;
 
 /**
- * @author beto
+ * @author Alex
  */
 public interface IHistorialDao {
     public Result<List<HistorialVO>> findByAll();

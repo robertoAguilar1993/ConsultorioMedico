@@ -1,7 +1,7 @@
 package vo;
 
 /**
- * @author beto
+ * @author Alex
  */
 public class HistorialSintomasVO {
 

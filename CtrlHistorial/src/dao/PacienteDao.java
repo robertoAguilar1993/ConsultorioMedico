@@ -22,7 +22,7 @@ import vo.PacienteVO;
 
 /**
  *
- * @author apple
+ * @author Alex
  */
 public class PacienteDao extends Conexion implements IPacienteDao{
 

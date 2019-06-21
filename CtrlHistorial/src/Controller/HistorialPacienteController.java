@@ -8,7 +8,7 @@ import util.Result;
 import vo.*;
 
 /**
- * @author beto
+ * @author Alex
  */
 public class HistorialPacienteController {
 
@@ -26,9 +26,6 @@ public class HistorialPacienteController {
         IReporteUltrasonicoDao reporteUltrasonicoDao = new ReporteUltrasonicoDao();
         Result<ReporteUltrasonicoVO> ultrasonicoVOResult=  
                 reporteUltrasonicoDao.findById(historialMtsVO.getIdReporteUltrasonico());
-        IDiagnosticoDao diagnosticoDao = new DiagnosticoDao();
-        Result<DiagnosticoVO> diagnosticoVOResult = 
-                diagnosticoDao.findById(historialMtsVO.getIdDiagnostico());
         ISintomasDao sintomasDao = new SintomasDao();
         Result<List<SintomasVO>> sintomasVOResult = 
                 sintomasDao.findByIdHistorialMts(historialMtsVO.getId());
@@ -37,7 +34,6 @@ public class HistorialPacienteController {
         historialMtsData.setRecetaVO(recetaVOResult.getResult());
         historialMtsData.setHistorialVO(historialVOResult.getResult());
         historialMtsData.setReporteUltrasonicoVO(ultrasonicoVOResult.getResult());
-        historialMtsData.setDiagnosticoVO(diagnosticoVOResult.getResult());
         historialMtsData.setSintomasVOList(sintomasVOResult.getResult());
 
         return new Result<HistorialMtsData> (true,ConsultorioMedicoConst.OK ,historialMtsData);
@@ -83,12 +79,6 @@ public class HistorialPacienteController {
         System.out.println("fin del proceso de guardar el reporte de ultrasonido");
 
 
-        System.out.println("Inicial el proceso de guardar el diagnostico");
-        IDiagnosticoDao diagnosticoDao = new DiagnosticoDao();
-        Result<DiagnosticoVO> diagnosticoVOResult = diagnosticoDao.add(historialMtsData.getDiagnosticoVO());
-        System.out.println(diagnosticoVOResult.toString());
-        System.out.println("fin del proceso de guardar el diagnostico");
-
         System.out.println("Inicial el proceso de guardar El historial del paciente en la tabla maestra");
         IHistorialMtsDao historialMtsDao = new HistorialMtsDao();
         HistorialMtsVO historialMtsVO = new HistorialMtsVO();
@@ -96,7 +86,6 @@ public class HistorialPacienteController {
         historialMtsVO.setIdReceta(historialMtsData.getRecetaVO().getId());
         historialMtsVO.setIdHistorial(historialMtsData.getHistorialVO().getId());
         historialMtsVO.setIdReporteUltrasonico(historialMtsData.getReporteUltrasonicoVO().getId());
-        historialMtsVO.setIdDiagnostico(historialMtsData.getDiagnosticoVO().getId());
         historialMtsVO.setFecha(historialMtsData.getDate());
         Result<HistorialMtsVO> historialMtsVOResult = historialMtsDao.add(historialMtsVO);
         System.out.println(historialMtsVOResult.toString());
@@ -151,13 +140,7 @@ public class HistorialPacienteController {
         System.out.println(ultrasonicoVOResult.toString());
         System.out.println("fin del proceso de Actualizar el reporte de ultrasonido");
 
-        System.out.println("Inicial el proceso de Actualizar el diagnostico");
-        IDiagnosticoDao diagnosticoDao = new DiagnosticoDao();
-        Result<DiagnosticoVO> diagnosticoVOResult = diagnosticoDao.add(historialMtsData.getDiagnosticoVO());
-        System.out.println(diagnosticoVOResult.toString());
-        System.out.println("fin del proceso de Actualizar el diagnostico");
-        
-        
+
         ISintomasDao sintomasDao = new SintomasDao();
         System.out.println("Inicial el proceso para eliminar  los sintomas");
         sintomasDao.deleteByIdHistorialMts(historialMtsData.getHistorialVO().getId());

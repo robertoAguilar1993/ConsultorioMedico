@@ -11,7 +11,7 @@ import vo.PacienteVO;
 
 /**
  *
- * @author apple
+ * @author Alex
  */
 public interface IPacienteDao {
     public Result add(PacienteVO paciente);

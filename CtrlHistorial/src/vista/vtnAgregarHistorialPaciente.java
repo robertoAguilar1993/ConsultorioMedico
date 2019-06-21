@@ -11,8 +11,10 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import util.ConsultorioMedicoConst;
 import util.Result;
-import vo.DiagnosticoVO;
+import util.Util;
 import vo.HistorialMtsData;
 import vo.HistorialSintomasVO;
 import vo.HistorialVO;
@@ -548,7 +550,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
         this.datosDumy();
         
-        /**if(this.validateHistorial()){
+        /**if(this.validateForm()){
             this.crearHistorial();
         }**/
         
@@ -556,27 +558,151 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateHistorialActionPerformed
 
     
-    public boolean validateHistorial(){
-        return true;
-    }
-    
+
     public void crearHistorial(){
         HistorialMtsData historialMtsData = new HistorialMtsData();       
         
         historialMtsData.setRecetaVO(getRecetaVO());
         historialMtsData.setHistorialVO(getHistorial());
         historialMtsData.setReporteUltrasonicoVO(getReporteUltrasonico());
-        historialMtsData.setDiagnosticoVO(getDiagnostico());
         historialMtsData.setIdPaciente((int) pacienteVO.getId());
         
         java.util.Date fechaNow = new Date();
         historialMtsData.setDate(fechaNow);
-        
+        historialMtsData.setSintomasVOList(getSintomasVOs());
         
         Result<HistorialMtsData> result= historialPacienteController.add(historialMtsData);
         System.out.println(result.toString());
     }
-    
+
+    /**
+     * =================================================================================================================
+     * Validacon de los formularios
+     * =================================================================================================================
+     * @return
+     */
+    public boolean validateForm(){
+        String mensage = ConsultorioMedicoConst.STRING_EMPTY;
+        String sintomas = this.validateSintomas();
+        String recetaMedica = this.validateRecetasMedicas();
+        String historial = this.validateHistorial();
+        String reporteUltrasonico = this.validateReporteUltrasonico();
+
+        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(sintomas) ){
+            mensage += "Sintomas del paciente:\n";
+            mensage += sintomas;
+        }
+        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(recetaMedica) ) {
+            mensage += "Receta Medica:\n";
+            mensage += recetaMedica;
+        }
+        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(historial) ) {
+            mensage += "Historial:\n";
+            mensage += historial;
+        }
+        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(reporteUltrasonico) ) {
+            mensage += "Reporte de Ultrasonido:\n";
+            mensage += reporteUltrasonico;
+        }
+
+        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(mensage) ) {
+            mensage += "******* Favor los campos solicitados ********";
+            JOptionPane.showMessageDialog(null,mensage);
+            return false;
+        }
+
+        return true;
+    }
+    public String validateSintomas(){
+        if ( jTblSintomas.getRowCount() < 0 ) {
+            return "---->Debe de tener al menos un sintoma:\n";
+        }
+        return ConsultorioMedicoConst.STRING_EMPTY;
+    }
+    public String validateRecetasMedicas(){
+        String recetaMedica = ConsultorioMedicoConst.STRING_EMPTY;
+        if(!Util.validateString(txtEdad.getText())){
+            recetaMedica +="---->El campo 'edad' es requediro\n";
+        }else if(!Util.validateInteger(txtEdad.getText())){
+            recetaMedica +="---->El campo 'edad' debe ser un valor numerico\n";
+        }
+
+        if(!Util.validateString(txtPeso.getText())){
+            recetaMedica +="---->El campo 'peso' es requediro\n";
+        }else if(!Util.validateFloat(txtPeso.getText())){
+            recetaMedica +="---->El valor del campo 'peso' no es valido\n";
+        }
+
+        if(!Util.validateString(txtTalla.getText())){
+            recetaMedica +="---->El campo 'Talla' es requediro\n";
+        }else if(!Util.validateFloat(txtTalla.getText())){
+            recetaMedica +="---->El valor del 'Talla' peso no es valido\n";
+        }
+
+        if(!Util.validateString(txtTemp.getText())){
+            recetaMedica +="---->El campo 'Temp' es requediro\n";
+        }
+//        else if(!Util.validateFloat(txtTemp.getText())){
+//            recetaMedica +="---->El valor del 'Temp' peso no es valido";
+//        }
+
+        if(!Util.validateString(txtFc.getText())){
+            recetaMedica +="---->El campo 'Fc' es requediro\n";
+        }
+
+        if(!Util.validateString(txtFr.getText())){
+            recetaMedica +="---->El campo 'Fr' es requediro\n";
+        }
+
+        if(!Util.validateString(txtTa.getText())){
+            recetaMedica +="---->El campo 'T/A' es requediro\n";
+        }
+
+        if(!Util.validateString(txtFecha.getText())){
+            recetaMedica +="---->El campo 'fecha' es requediro\n";
+        }
+
+        if(!Util.validateString(txaRx.getText())){
+            recetaMedica +="---->El campo 'RX' es requediro\n";
+        }
+
+
+        return recetaMedica;
+    }
+
+    public String validateHistorial(){
+        String historial = ConsultorioMedicoConst.STRING_EMPTY;
+
+        if(!Util.validateString(txaParecimientoActual.getText())){
+            historial +="---->El campo 'Parecimiento Actual' es requediro\n";
+        }
+
+        if(!Util.validateString(txaDxs.getText())){
+            historial +="---->El campo 'Dxs' es requediro\n";
+        }
+
+        if(!Util.validateString(txaPlanManejo.getText())){
+            historial +="---->El campo 'Plan Manejo' es requediro\n";
+        }
+        return historial;
+    }
+
+    public String validateReporteUltrasonico(){
+        String reporteUltrasonico = ConsultorioMedicoConst.STRING_EMPTY;
+        if(!Util.validateString(txaReporteUltrasonico.getText())){
+            reporteUltrasonico +="---->El campo 'Reporte Ultrasonico' es requediro\n";
+        }
+        return reporteUltrasonico;
+    }
+
+
+
+    /**
+     * =================================================================================================================
+     * conversion de los formularios a objetos de negocio
+     * =================================================================================================================
+     * @return
+     */
     public RecetaVO getRecetaVO(){
         RecetaVO recetaVO = new RecetaVO();
         recetaVO.setEdad(Integer.parseInt(txtEdad.getText()));
@@ -619,17 +745,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         reporteUltrasonicoVO.setDescripcion("descripcion del reporte ultrasonico");
         return reporteUltrasonicoVO;
     }
-    
-    /**
-     * Falta implementar esta parte
-     * @return 
-     */
-    public DiagnosticoVO getDiagnostico(){
-        DiagnosticoVO diagnosticoVO = new DiagnosticoVO();
-        diagnosticoVO.setDiagnostico("Diagnostico");
-        diagnosticoVO.setTratamiento("Tratamiento");
-        return diagnosticoVO;
-    }
+
     
     public List<SintomasVO> getSintomasVOs(){
         List<SintomasVO> sintomasVOs = new ArrayList<SintomasVO>();
@@ -641,7 +757,13 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         }
         return sintomasVOs;
     }
-    
+
+
+    /**
+     * =================================================================================================================
+     * Datos Dumy
+     * =================================================================================================================
+     */
     public void datosDumy(){
         HistorialMtsData historialMtsData = new HistorialMtsData();       
         List<SintomasVO> sintomasVOs = new ArrayList<SintomasVO>();
@@ -649,8 +771,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         HistorialVO historialVO = new HistorialVO();
         List<HistorialSintomasVO> historialSintomasVOs = new ArrayList<HistorialSintomasVO>();
         ReporteUltrasonicoVO reporteUltrasonicoVO = new ReporteUltrasonicoVO();
-        DiagnosticoVO diagnosticoVO = new DiagnosticoVO();
-        
+
         
         
         /**
@@ -703,16 +824,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
          */
         reporteUltrasonicoVO.setDescripcion("descripcion del reporte ultrasonico");
         historialMtsData.setReporteUltrasonicoVO(reporteUltrasonicoVO);
-        
-        
-        
-         /**
-         * Diagnostico
-         */
-        diagnosticoVO.setDiagnostico("Diagnostico");
-        diagnosticoVO.setTratamiento("Tratamiento");
-        historialMtsData.setDiagnosticoVO(diagnosticoVO);
-        
+
         
         /**
          * Sintomas

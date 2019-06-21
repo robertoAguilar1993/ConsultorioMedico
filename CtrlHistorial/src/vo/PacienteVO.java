@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author apple
+ * @author Alex
  */
 public class PacienteVO implements Serializable{
     private long id;
@@ -110,17 +110,7 @@ public class PacienteVO implements Serializable{
 
     @Override
     public String toString() {
-        return "PacienteVO{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellidoPaterno='" + apellidoPaterno + '\'' +
-                ", apellidoMaterno='" + apellidoMaterno + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", genero='" + genero + '\'' +
-                ", direcion='" + direcion + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", ocupacion='" + ocupacion + '\'' +
-                '}';
+        return nombre + " " + apellidoPaterno + " " + apellidoMaterno; 
     }
 }
    

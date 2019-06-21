@@ -13,27 +13,24 @@ import vo.PacienteVO;
 
 /**
  *
- * @author apple
+ * @author Alex
  */
 public class PacienteController {
-    
+    IPacienteDao pacienteDao = new PacienteDao();
+
     public Result add(PacienteVO paciente) {
-        IPacienteDao pacienteDao = new PacienteDao();
         return pacienteDao.add(paciente);
     }
 
     public Result<List<PacienteVO>> findAll() {
-        IPacienteDao pacienteDao = new PacienteDao();
         return pacienteDao.findAll();
     }
 
     public Result<List<PacienteVO>> findByCriteria(String criteria) {
-        IPacienteDao pacienteDao = new PacienteDao();
         return pacienteDao.findByCriteria(criteria);
     }
 
     public Result<PacienteVO> findById(int id){
-        IPacienteDao pacienteDao = new PacienteDao();
         return pacienteDao.findById(id);
     }
 }

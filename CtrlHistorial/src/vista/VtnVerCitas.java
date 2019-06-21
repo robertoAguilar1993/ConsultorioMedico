@@ -5,15 +5,32 @@
  */
 package vista;
 
+import Controller.HorarioTrabajoController;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.table.DefaultTableModel;
+import util.ConsultorioMedicoConst;
+import util.Result;
+import static vista.VtnAgragarCitas.citasController;
+import static vista.VtnAgragarCitas.getCitaByHora;
+import vo.CitaVO;
+import vo.HorarioTrabajoVO;
+
 /**
  *
- * @author apple
+ * @author Alex
  */
 public class VtnVerCitas extends javax.swing.JFrame {
 
     /**
      * Creates new form VtnCitas
      */
+    public static HorarioTrabajoController horasTrabajoController = new HorarioTrabajoController();
+
+
     public VtnVerCitas() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -30,15 +47,15 @@ public class VtnVerCitas extends javax.swing.JFrame {
     private void initComponents() {
 
         jCheckBox1 = new javax.swing.JCheckBox();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jcalFechaVer = new com.toedter.calendar.JCalendar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtblHistorialCitasVer = new javax.swing.JTable();
 
         jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblHistorialCitasVer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"9:00 AM", "Disponible", null},
                 {"10: 00 AM", "Disponible", null},
@@ -63,7 +80,7 @@ public class VtnVerCitas extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtblHistorialCitasVer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,7 +88,7 @@ public class VtnVerCitas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 19, Short.MAX_VALUE)
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcalFechaVer, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
@@ -81,14 +98,101 @@ public class VtnVerCitas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcalFechaVer, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(112, Short.MAX_VALUE))
         );
 
+        jcalFechaVer.addPropertyChangeListener(new PropertyChangeListener(){
+            public void propertyChange(PropertyChangeEvent e) {
+                VtnVerCitas.setHistorialCitas();
+            }
+        });
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void setHistorialCitas(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String  fecha = formatter.format(jcalFechaVer.getDate());
+        getCitasByDay(fecha);
+    }
+    
+    /**
+     * Metodo encarga en buscar las citas por fechas
+     * @param fecha 
+     */
+    public static void getCitasByDay(String fecha){
+       Result<List<CitaVO>> result= citasController.getCitasByDate(fecha);
+       if(result.isOperationStatus()){
+            llenarCitas(result.getResult());
+       }
+    }
+    
+    /**
+     * Metodo encargado de llenar la tabla de citas
+     * @param citasList 
+     */
+    public static void llenarCitas(List<CitaVO> citasList){
+        SimpleDateFormat formatoLargoEsMX = new SimpleDateFormat(
+            "EEEE", new Locale("ES", "MX")
+         );
+        
+        String dia = formatoLargoEsMX.format( jcalFechaVer.getCalendar().getTime() );
+        
+        
+        String[] titulo = {
+            "Hora", "Estado","Nombre del paciente"
+        };
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, titulo);
+        Object[] fila = new Object[5];
+        Result<HorarioTrabajoVO> result = horasTrabajoController.getHorarioTrabajo(dia);
+        HorarioTrabajoVO horarioTrabajoVO = result.getResult();
+        List<String> horas = null ;
+        
+        if(horarioTrabajoVO.getDiaLobaral() == 1)  {
+            horas = citasController.getHoras(horarioTrabajoVO);
+        }
+
+        
+        if ( citasList != null && !citasList.isEmpty() && horarioTrabajoVO.getDiaLobaral() == 1 ) {
+            for ( String hora : horas ) {
+                CitaVO citaVO = getCitaByHora(hora, citasList);
+                if ( citaVO != null ) {
+                    fila[0] = citaVO.getHora();
+                    fila[1] = ConsultorioMedicoConst.STATUS_OCUPADO;
+                    fila[2] = citaVO.getPacienteVO().toString();
+                }else{
+                    fila[0] = hora;
+                    fila[1] = ConsultorioMedicoConst.STATUS_DISPONIBLE;
+                    fila[2] = ConsultorioMedicoConst.STRING_EMPTY;
+                }
+                modelo.addRow(fila);
+            }
+        } else if ( horarioTrabajoVO.getDiaLobaral() == 0 ) {
+            String[] tituloNone = {
+                "Día no disponible"
+            };
+            
+            DefaultTableModel modeloNone = new DefaultTableModel(null, tituloNone);
+            modelo = modeloNone;
+        }else {
+            for (String hora : horas) {
+                fila[0] = hora;
+                fila[1] = ConsultorioMedicoConst.STATUS_DISPONIBLE;
+                fila[2] = ConsultorioMedicoConst.STRING_EMPTY;
+                modelo.addRow(fila);
+
+            }
+        }
+        jtblHistorialCitasVer.setModel(modelo);
+    }
+    
+    
+    
+    
+            
     /**
      * @param args the command line arguments
      */
@@ -128,9 +232,9 @@ public class VtnVerCitas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static com.toedter.calendar.JCalendar jcalFechaVer;
+    public static javax.swing.JTable jtblHistorialCitasVer;
     // End of variables declaration//GEN-END:variables
 }

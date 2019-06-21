@@ -7,7 +7,7 @@ package util;
 
 /**
  *
- * @author apple
+ * @author Alex
  */
 public class Result  <T>{
     

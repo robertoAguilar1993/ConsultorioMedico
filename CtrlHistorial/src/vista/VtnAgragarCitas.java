@@ -5,6 +5,24 @@
  */
 package vista;
 
+import Controller.CitasController;
+import Controller.HorarioTrabajoController;
+import Controller.PacienteController;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import util.ConsultorioMedicoConst;
+import util.Result;
+import vo.CitaVO;
+import vo.HorarioTrabajoVO;
+import vo.PacienteVO;
+
 /**
  *
  * @author apple
@@ -12,12 +30,43 @@ package vista;
 public class VtnAgragarCitas extends javax.swing.JFrame {
 
     /**
+     * set variables
+     */
+    public static final String SELECCIONE_UN_PACIENTE ="Seleccione un Paciente";
+    boolean isOperationSearchPaciente;
+    List<PacienteVO> pacienteList = new ArrayList<PacienteVO>();
+    PacienteVO pacienteSeleccionado = null;
+    PacienteController pacienteController = new PacienteController();
+    public static HorarioTrabajoController horasTrabajoController = new HorarioTrabajoController();
+    public static CitasController citasController = new CitasController();
+    /**
      * Creates new form VtnCitas
      */
     public VtnAgragarCitas() {
         initComponents();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.initValores();
+        
+    }
+    
+    public final void initValores(){
+        Result<List<PacienteVO>> result = pacienteController.findAll();
+        if ( result.isOperationStatus() && result.getResult() != null ) {
+            pacienteList = result.getResult();
+        }
+        this.llenarComboPacientes();
+    }
+    
+    public void llenarComboPacientes(){
+        jcbPaciente.removeAllItems();
+        jcbPaciente.removeAll();
+        jcbPaciente.addItem(SELECCIONE_UN_PACIENTE);
+        String fecha;
+        for ( PacienteVO pacienteVO: pacienteList ) {
+             jcbPaciente.addItem( pacienteVO );
+        }
+        isOperationSearchPaciente = true;
     }
 
     /**
@@ -30,10 +79,12 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
     private void initComponents() {
 
         jCheckBox1 = new javax.swing.JCheckBox();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        menuHoras = new javax.swing.JPopupMenu();
+        menuEliminar = new javax.swing.JMenuItem();
+        jcalFecha = new com.toedter.calendar.JCalendar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox();
+        jtblHistorialCitas = new javax.swing.JTable();
+        jcbPaciente = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -45,13 +96,27 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtOcupación = new javax.swing.JTextField();
+        txtOcupacion = new javax.swing.JTextField();
 
         jCheckBox1.setText("jCheckBox1");
 
+        menuEliminar.setText("Eliminar cita");
+        menuEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEliminarActionPerformed(evt);
+            }
+        });
+        menuHoras.add(menuEliminar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jcalFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jcalFechaMousePressed(evt);
+            }
+        });
+
+        jtblHistorialCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"9:00 AM", "Disponible", null},
                 {"10: 00 AM", "Disponible", null},
@@ -76,38 +141,44 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jtblHistorialCitas.setComponentPopupMenu(menuHoras);
+        jScrollPane1.setViewportView(jtblHistorialCitas);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbPaciente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbPaciente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbPacienteItemStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Seleccione un paciente:");
 
         jButton1.setText("AGENDAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Edad:");
 
-        txtEdad.setEnabled(false);
         txtEdad.setFocusable(false);
 
         jLabel3.setText("Sexo:");
 
-        txtSexo.setEnabled(false);
         txtSexo.setFocusable(false);
 
         jLabel4.setText("Domicilio:");
 
-        txtDomicilio.setEnabled(false);
         txtDomicilio.setFocusable(false);
 
         jLabel5.setText("Telefono:");
 
-        txtTelefono.setEnabled(false);
         txtTelefono.setFocusable(false);
 
         jLabel6.setText("Ocupación:");
 
-        txtOcupación.setEnabled(false);
-        txtOcupación.setFocusable(false);
+        txtOcupacion.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,7 +190,7 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jcbPaciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -135,7 +206,7 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtSexo, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(txtOcupación))
+                            .addComponent(txtOcupacion))
                         .addGap(29, 29, 29)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
@@ -144,7 +215,7 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcalFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(12, 12, 12)))
@@ -156,7 +227,7 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -170,19 +241,252 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(txtOcupación, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcalFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jButton1)
                 .addGap(17, 17, 17))
         );
 
+        jcalFecha.addPropertyChangeListener(new PropertyChangeListener(){
+            public void propertyChange(PropertyChangeEvent e) {
+                VtnAgragarCitas.setHistorialCitas();
+            }
+        });
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcbPacienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbPacienteItemStateChanged
+        // TODO add your handling code here:
+        if ( jcbPaciente.getItemCount() > 0 && isOperationSearchPaciente) {
+           String paciente = jcbPaciente.getSelectedItem().toString();
+           if ( !SELECCIONE_UN_PACIENTE.equalsIgnoreCase(paciente)){
+               PacienteVO pacienteVO = (PacienteVO) jcbPaciente.getSelectedItem();
+               this.llenarInformacionPaciente(pacienteVO);
+               this.pacienteSeleccionado = pacienteVO;
+           } else {
+               this.limpiarInformacionPaciente();
+           }
+        }
+    }//GEN-LAST:event_jcbPacienteItemStateChanged
+
+    private void jcalFechaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcalFechaMousePressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jcalFechaMousePressed
+
+    /**
+     * Opcion para Agregar una nueva cita
+     * @param evt 
+     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if ( this.validateFormAgregarCita() ) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String  fecha = formatter.format(jcalFecha.getDate());
+            Integer linea = jtblHistorialCitas.getSelectedRow();
+            String hora = jtblHistorialCitas.getValueAt(linea, 0).toString(); 
+            String status = jtblHistorialCitas.getValueAt(linea, 1).toString();        
+
+            if( ConsultorioMedicoConst.STATUS_OCUPADO.equals(status) ){
+                JOptionPane.showMessageDialog(null,"Hora no disponible");
+            } else {
+                CitaVO citaVO = new CitaVO();
+                citaVO.setFecha(fecha);
+                citaVO.setHora(hora);
+                citaVO.setPacienteVO(this.pacienteSeleccionado);
+                Result<CitaVO> result = citasController.addCitas(citaVO);
+                if ( result.isOperationStatus() ) {
+                    setHistorialCitas();
+                    JOptionPane.showMessageDialog(null,"Agregado correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null,result.getMessage() ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+    * Opcion para eliminar un registro del paciente
+    */
+    private void menuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEliminarActionPerformed
+        // TODO add your handling code here:
+        System.out.println(jcalFecha.getDate());
+        if ( this.validateFormEliminarCita() ) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String  fecha = formatter.format(jcalFecha.getDate());
+            Integer linea = jtblHistorialCitas.getSelectedRow();
+            String hora = jtblHistorialCitas.getValueAt(linea, 0).toString(); 
+            String status = jtblHistorialCitas.getValueAt(linea, 1).toString();  
+            
+            if ( ConsultorioMedicoConst.STATUS_DISPONIBLE.equals(status) ) {
+                JOptionPane.showMessageDialog(null,"El horario esta disponible");
+            }else {
+                Result<CitaVO> result = citasController.deleteCitas(fecha, hora);
+                if ( result.isOperationStatus() ) {
+                    setHistorialCitas();
+                    JOptionPane.showMessageDialog(null,"Actualizado correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null,result.getMessage() ,"Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_menuEliminarActionPerformed
+
+    public boolean validateFormEliminarCita(){
+        String mensage = "";
+        
+        try {
+            int row = jtblHistorialCitas.getSelectedRow();
+            if(row <= 0){
+                mensage += "Seleccione una Hora\n";
+            }
+        }catch(Exception e){
+            System.err.println(e);
+             mensage += "Seleccione una Hora\n";
+        }
+        if(ConsultorioMedicoConst.STRING_EMPTY.equals(mensage)) {
+            return true;
+        }else {
+            JOptionPane.showMessageDialog(null,mensage);
+            return false;
+        }
+    }
+    
+    public boolean validateFormAgregarCita(){
+        String mensage = "";
+        if ( this.pacienteSeleccionado == null ) {
+            mensage += "Seleccione un paciente\n";
+        }
+        
+        try {
+            int row = jtblHistorialCitas.getSelectedRow();
+            if(row <= 0){
+                mensage += "Seleccione una Hora\n";
+            }
+        }catch(Exception e){
+            System.err.println(e);
+             mensage += "Seleccione una Hora\n";
+        }
+        
+        if(ConsultorioMedicoConst.STRING_EMPTY.equals(mensage)) {
+            return true;
+        }else {
+            JOptionPane.showMessageDialog(null,mensage);
+            return false;
+        }
+    }
+    
+    public void llenarInformacionPaciente(PacienteVO pacienteVO){
+        int edad = new Date().getYear() - pacienteVO.getFechaNacimiento().getYear(); 
+        txtEdad.setText(String.valueOf(edad));
+        txtSexo.setText(pacienteVO.getGenero());
+        txtDomicilio.setText(pacienteVO.getDirecion());
+        txtTelefono.setText(pacienteVO.getTelefono());
+        txtOcupacion.setText(pacienteVO.getOcupacion());
+    }
+    
+    public void limpiarInformacionPaciente(){
+        txtEdad.setText(String.valueOf(""));
+        txtSexo.setText("");
+        txtDomicilio.setText("");
+        txtTelefono.setText("");
+        txtOcupacion.setText("");
+        this.pacienteSeleccionado = null;
+    }
+    
+    public static void setHistorialCitas(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String  fecha = formatter.format(jcalFecha.getDate());
+        System.out.println(fecha);
+        getCitasByDay(fecha);
+    }
+    
+
+    /**
+     * Metodo encarga en buscar las citas por fechas
+     * @param fecha 
+     */
+    public static void getCitasByDay(String fecha){
+       Result<List<CitaVO>> result= citasController.getCitasByDate(fecha);
+       if(result.isOperationStatus()){
+            llenarCitas(result.getResult());
+       }
+    }
+    
+    /**
+     * Metodo encargado de llenar la tabla de citas
+     * @param citasList 
+     */
+    public static void llenarCitas(List<CitaVO> citasList){
+        SimpleDateFormat formatoLargoEsMX = new SimpleDateFormat(
+            "EEEE", new Locale("ES", "MX")
+         );
+        
+        String dia = formatoLargoEsMX.format( jcalFecha.getCalendar().getTime() );
+        
+        
+        String[] titulo = {
+            "Hora", "Estado","Nombre del paciente"
+        };
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, titulo);
+        Object[] fila = new Object[5];
+        Result<HorarioTrabajoVO> result = horasTrabajoController.getHorarioTrabajo(dia);
+        HorarioTrabajoVO horarioTrabajoVO = result.getResult();
+        List<String> horas = null ;
+        
+        if(horarioTrabajoVO.getDiaLobaral() == 1)  {
+            horas = citasController.getHoras(horarioTrabajoVO);
+        }
+
+        
+        if ( citasList != null && !citasList.isEmpty() && horarioTrabajoVO.getDiaLobaral() == 1 ) {
+            for ( String hora : horas ) {
+                CitaVO citaVO = getCitaByHora(hora, citasList);
+                if ( citaVO != null ) {
+                    fila[0] = citaVO.getHora();
+                    fila[1] = ConsultorioMedicoConst.STATUS_OCUPADO;
+                    fila[2] = citaVO.getPacienteVO().toString();
+                }else{
+                    fila[0] = hora;
+                    fila[1] = ConsultorioMedicoConst.STATUS_DISPONIBLE;
+                    fila[2] = ConsultorioMedicoConst.STRING_EMPTY;
+                }
+                modelo.addRow(fila);
+            }
+        } else if ( horarioTrabajoVO.getDiaLobaral() == 0 ) {
+            String[] tituloNone = {
+                "Día no disponible"
+            };
+            
+            DefaultTableModel modeloNone = new DefaultTableModel(null, tituloNone);
+            modelo = modeloNone;
+        }else {
+            for (String hora : horas) {
+                fila[0] = hora;
+                fila[1] = ConsultorioMedicoConst.STATUS_DISPONIBLE;
+                fila[2] = ConsultorioMedicoConst.STRING_EMPTY;
+                modelo.addRow(fila);
+
+            }
+        }
+        jtblHistorialCitas.setModel(modelo);
+    }
+    
+    public static CitaVO getCitaByHora(String hora, List<CitaVO> citasList ){
+        for ( CitaVO citaVO: citasList ) {
+            if ( hora.equals(citaVO.getHora()) ) {
+                return citaVO;
+            }
+        }
+        return null;
+    }
+   
     /**
      * @param args the command line arguments
      */
@@ -221,9 +525,7 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -231,10 +533,14 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static com.toedter.calendar.JCalendar jcalFecha;
+    private javax.swing.JComboBox jcbPaciente;
+    public static javax.swing.JTable jtblHistorialCitas;
+    private javax.swing.JMenuItem menuEliminar;
+    private javax.swing.JPopupMenu menuHoras;
     private javax.swing.JTextField txtDomicilio;
     private javax.swing.JTextField txtEdad;
-    private javax.swing.JTextField txtOcupación;
+    private javax.swing.JTextField txtOcupacion;
     private javax.swing.JTextField txtSexo;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

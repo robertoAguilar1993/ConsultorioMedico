@@ -2,7 +2,6 @@
 package modelo;
 
 import com.mysql.jdbc.Connection;
-import util.ConsultorioMedicoConst;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,10 +10,23 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Conexion {
+
+    /**
+     * Local
+     */
     private final String base = "historial_medico";
     private final String user ="root";
     private final String password ="1234";
     private final String url ="jdbc:mysql://localhost:33060/" + base;
+
+    /**
+     * db en la nube
+     */
+//    private final String base = "historial_medico";
+//    private final String user ="medico_user";
+//    private final String password ="12345678";
+//    private final String url ="jdbc:mysql://db4free.net:3306/" + base;
+
     private Connection con=null;
 
 

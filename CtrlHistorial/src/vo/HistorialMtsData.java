@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author beto
+ * @author Alex
  */
 public class HistorialMtsData {
     private int id;
@@ -13,7 +13,6 @@ public class HistorialMtsData {
     private RecetaVO recetaVO;
     private HistorialVO historialVO;
     private ReporteUltrasonicoVO reporteUltrasonicoVO;
-    private DiagnosticoVO diagnosticoVO;
     private Date date;
     private List<SintomasVO> sintomasVOList;
 
@@ -72,14 +71,6 @@ public class HistorialMtsData {
         this.reporteUltrasonicoVO = reporteUltrasonicoVO;
     }
 
-    public DiagnosticoVO getDiagnosticoVO() {
-        return diagnosticoVO;
-    }
-
-    public void setDiagnosticoVO(DiagnosticoVO diagnosticoVO) {
-        this.diagnosticoVO = diagnosticoVO;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -106,7 +97,6 @@ public class HistorialMtsData {
                 ", recetaVO=" + recetaVO +
                 ", historialVO=" + historialVO +
                 ", reporteUltrasonicoVO=" + reporteUltrasonicoVO +
-                ", diagnosticoVO=" + diagnosticoVO +
                 ", date=" + date +
                 ", sintomasVOList=" + sintomasVOList +
                 '}';

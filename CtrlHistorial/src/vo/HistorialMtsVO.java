@@ -11,7 +11,6 @@ public class HistorialMtsVO {
     private int idReceta;
     private int idHistorial;
     private int idReporteUltrasonico;
-    private int idDiagnostico;
     private Date fecha;
 
     /**
@@ -61,14 +60,6 @@ public class HistorialMtsVO {
         this.idReporteUltrasonico = idReporteUltrasonico;
     }
 
-    public int getIdDiagnostico() {
-        return idDiagnostico;
-    }
-
-    public void setIdDiagnostico(int idDiagnostico) {
-        this.idDiagnostico = idDiagnostico;
-    }
-
     public Date getFecha() {
         return fecha;
     }
@@ -85,7 +76,6 @@ public class HistorialMtsVO {
                 ", idReceta=" + idReceta +
                 ", idHistorial=" + idHistorial +
                 ", idReporteUltrasonico=" + idReporteUltrasonico +
-                ", idDiagnostico=" + idDiagnostico +
                 ", fecha=" + fecha +
                 '}';
     }

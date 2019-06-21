@@ -31,6 +31,31 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(45) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `jerarquia` varchar(45) NOT NULL,
+  `nombre_completo` varchar(65) NOT NULL,
+  `direccion` varchar(100) NOT NULL,
+  PRIMARY KEY (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` ( `usuario`, `password`, `jerarquia`, `nombre_completo`, `direccion`) VALUES
+('admin', 'admin', 'doctor', 'Victor Manuel Garcia Dominguez', '4a. avenida poniente norte No.85, barrio Cruz Grande,Comitan de Domguez, Chiapas.');
+
+
+
 --
 -- Estructura de tabla para la tabla `const_dts_pacientes`
 --
@@ -113,17 +138,6 @@ CREATE TABLE IF NOT EXISTS `const_dts_reporte_ultrasonico` (
 
 
 
---
--- Estructura de tabla para la tabla `const_dts_diagnostico`
---
-DROP TABLE IF EXISTS `const_dts_diagnostico`;
-CREATE TABLE IF NOT EXISTS `const_dts_diagnostico` (
-  `id_diagnostico` int(11) NOT NULL AUTO_INCREMENT,
-  `diagnostico` longtext  NULL,
-  `tratamiento` longtext  NULL,
-  PRIMARY KEY (`id_diagnostico`)
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
 
 --
 -- Estructura de tabla para la tabla `const_dts_reporte_ultrasonico`
@@ -133,9 +147,8 @@ CREATE TABLE IF NOT EXISTS `const_dts_historial_mts` (
   `id_historial_mts` int(11) NOT NULL AUTO_INCREMENT,
   `id_paciente` int (11),
   `id_receta` int (11),
-  `` int (11),
+  `id_historial` int (11),
   `id_reporte_ultrasonico` int (11),
-  `id_diagnostico` int (11),
   `fecha` date NULL,
   PRIMARY KEY (`id_historial_mts`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
@@ -154,20 +167,13 @@ CREATE TABLE IF NOT EXISTS `const_dts_sintomas` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
-
-
-
-commit ;
-
+-- Insert de test
 INSERT INTO historial_medico.const_dts_pacientes (nombre, ap_paterno, ap_materno, domicilio, genero, fecha_nacimiento, telefono, ocupacion) VALUES ('Roberto', 'Antonio', 'Aguilar', 'Conocido', 'Masculino', '1993-06-16', '3634634', 'albañil');
 INSERT INTO historial_medico.const_dts_pacientes (nombre, ap_paterno, ap_materno, domicilio, genero, fecha_nacimiento, telefono, ocupacion) VALUES ('Luis', 'camor', 'denor', 'conocido', 'Masculino', '1990-06-06', '345346', '');
 INSERT INTO historial_medico.const_dts_pacientes (nombre, ap_paterno, ap_materno, domicilio, genero, fecha_nacimiento, telefono, ocupacion) VALUES ('Juan', 'almar', 'toscano', 'conocido', 'Masculino', '1992-06-12', '435643626', '');
 
 
-SELECT * FROM const_dts_pacientes;
+commit ;
 
 
-SELECT * FROM const_dts_pacientes where nombre like  CONVERT( _utf8 '%sd%' USING latin1 ) or telefono like  '%3%';
 
-
-DROP TABLE const_dts_pacientes;

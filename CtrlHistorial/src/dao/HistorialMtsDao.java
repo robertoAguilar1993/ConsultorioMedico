@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author beto
+ * @author Alex
  */
 public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
     @Override
@@ -24,7 +24,7 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
 
         try {
             ps = con.prepareStatement("SELECT id_historial_mts, id_paciente, id_receta, id_historial, " +
-                    "id_reporte_ultrasonico, id_diagnostico, fecha  FROM const_dts_historial_mts");
+                    "id_reporte_ultrasonico, fecha  FROM const_dts_historial_mts");
             rs = ps.executeQuery();
             List<HistorialMtsVO> historialMtsVOList = new ArrayList<HistorialMtsVO>();
             while (rs.next()) {
@@ -34,7 +34,6 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
                 historialMtsVO.setIdReceta(rs.getInt("id_receta"));
                 historialMtsVO.setIdHistorial(rs.getInt("id_historial"));
                 historialMtsVO.setIdReporteUltrasonico(rs.getInt("id_reporte_ultrasonico"));
-                historialMtsVO.setIdDiagnostico(rs.getInt("id_diagnostico"));
                 historialMtsVO.setFecha(new java.util.Date(rs.getDate("fecha").getTime()));
                 historialMtsVOList.add(historialMtsVO);
             }
@@ -53,7 +52,7 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
 
         try {
             ps = con.prepareStatement("SELECT id_historial_mts, id_paciente, id_receta, id_historial, " +
-                    "id_reporte_ultrasonico, id_diagnostico, fecha  FROM const_dts_historial_mts " +
+                    "id_reporte_ultrasonico, fecha  FROM const_dts_historial_mts " +
                     "WHERE id_historial_mts = " + id );
             rs = ps.executeQuery();
             HistorialMtsVO historialMtsVO = null;
@@ -64,7 +63,6 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
                 historialMtsVO.setIdReceta(rs.getInt("id_receta"));
                 historialMtsVO.setIdHistorial(rs.getInt("id_historial"));
                 historialMtsVO.setIdReporteUltrasonico(rs.getInt("id_reporte_ultrasonico"));
-                historialMtsVO.setIdDiagnostico(rs.getInt("id_diagnostico"));
                 historialMtsVO.setFecha(new java.util.Date(rs.getDate("fecha").getTime()));
             }
             return new Result<HistorialMtsVO>(true, ConsultorioMedicoConst.OK, historialMtsVO);
@@ -82,7 +80,7 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
 
         try {
             ps = con.prepareStatement("SELECT id_historial_mts, id_paciente, id_receta, id_historial, " +
-                    "id_reporte_ultrasonico, id_diagnostico, fecha  FROM const_dts_historial_mts " +
+                    "id_reporte_ultrasonico, fecha  FROM const_dts_historial_mts " +
                     "WHERE id_paciente = " + id );
             rs = ps.executeQuery();
             List<HistorialMtsVO> historialMtsVOList = new ArrayList<HistorialMtsVO>();
@@ -93,7 +91,6 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
                 historialMtsVO.setIdReceta(rs.getInt("id_receta"));
                 historialMtsVO.setIdHistorial(rs.getInt("id_historial"));
                 historialMtsVO.setIdReporteUltrasonico(rs.getInt("id_reporte_ultrasonico"));
-                historialMtsVO.setIdDiagnostico(rs.getInt("id_diagnostico"));
                 historialMtsVO.setFecha(new java.util.Date(rs.getDate("fecha").getTime()));
                 historialMtsVOList.add(historialMtsVO);
             }
@@ -109,8 +106,8 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
         PreparedStatement ps;
         Connection con = getConexion();
 
-        String sql = "INSERT INTO const_dts_historial_mts (id_paciente, id_receta, id_historial, id_reporte_ultrasonico, id_diagnostico, fecha) " +
-                "VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO const_dts_historial_mts (id_paciente, id_receta, id_historial, id_reporte_ultrasonico, fecha) " +
+                "VALUES(?,?,?,?,?)";
         try {
 
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -118,8 +115,7 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
             ps.setInt(2, historialMtsVO.getIdReceta());
             ps.setInt(3, historialMtsVO.getIdHistorial());
             ps.setInt(4, historialMtsVO.getIdReporteUltrasonico());
-            ps.setInt(5, historialMtsVO.getIdDiagnostico());
-            ps.setDate(6, new java.sql.Date((historialMtsVO.getFecha().getTime())));
+            ps.setDate(5, new java.sql.Date((historialMtsVO.getFecha().getTime())));
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {

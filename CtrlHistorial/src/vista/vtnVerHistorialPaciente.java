@@ -25,7 +25,7 @@ import vo.SintomasVO;
 
 /**
  *
- * @author apple
+ * @author Alex
  */
 public class vtnVerHistorialPaciente extends javax.swing.JFrame {
 
