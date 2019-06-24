@@ -18,8 +18,16 @@ import vo.PacienteVO;
 public class PacienteController {
     IPacienteDao pacienteDao = new PacienteDao();
 
-    public Result add(PacienteVO paciente) {
+    public Result<PacienteVO> add(PacienteVO paciente) {
         return pacienteDao.add(paciente);
+    }
+    
+    public Result<PacienteVO> delete(int id) {
+        return pacienteDao.deleteById(id);
+    }
+    
+    public Result<PacienteVO> update(PacienteVO paciente) {
+        return pacienteDao.update(paciente);
     }
 
     public Result<List<PacienteVO>> findAll() {

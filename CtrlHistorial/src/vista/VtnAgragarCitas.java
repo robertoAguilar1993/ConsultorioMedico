@@ -50,6 +50,22 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
         
     }
     
+    public VtnAgragarCitas(PacienteVO pacienteVO) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.initValores();
+        jcbPaciente.setSelectedItem(pacienteVO);
+        PacienteVO pacienteRecorrido;
+        for ( int x=1; x < jcbPaciente.getItemCount(); x++) {
+            pacienteRecorrido = (PacienteVO) jcbPaciente.getItemAt(x);
+            if(pacienteRecorrido.getId() == pacienteVO.getId()) {
+                jcbPaciente.setSelectedIndex(x);
+                break;
+            }
+        }
+    }
+    
     public final void initValores(){
         Result<List<PacienteVO>> result = pacienteController.findAll();
         if ( result.isOperationStatus() && result.getResult() != null ) {
@@ -303,6 +319,12 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                 if ( result.isOperationStatus() ) {
                     setHistorialCitas();
                     JOptionPane.showMessageDialog(null,"Agregado correctamente");
+                    try{
+                        vtnAgregarHistorialPaciente.setProximaCita(jcalFecha);
+                    }catch(Exception e){
+                        
+                    }
+                    
                 } else {
                     JOptionPane.showMessageDialog(null,result.getMessage() ,"Error",JOptionPane.ERROR_MESSAGE);
                 }

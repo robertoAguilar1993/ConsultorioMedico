@@ -29,13 +29,13 @@ public class ReporteDao extends Conexion implements IReporteDao {
 
     @Override
     public Result<List<ReporteBody>> findByDay(String date) {
-        String sql = SQL_REPORT_BODY + "WHERE mts.fecha = " + date;
+        String sql = SQL_REPORT_BODY + "WHERE mts.fecha = '" + date + "'";
         return getReportByCriteria(sql);
     }
 
     @Override
     public Result<List<ReporteBody>> findByWeeks(String startDate, String endDate) {
-        String sql = SQL_REPORT_BODY + "WHERE mts.fecha BETWEEN " + startDate +  " AND " + endDate;
+        String sql = SQL_REPORT_BODY + "WHERE mts.fecha BETWEEN '" + startDate +  "' AND '" + endDate + "'";
         return getReportByCriteria(sql);
     }
 

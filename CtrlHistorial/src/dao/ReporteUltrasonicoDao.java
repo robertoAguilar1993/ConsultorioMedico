@@ -105,7 +105,7 @@ public class ReporteUltrasonicoDao extends Conexion implements IReporteUltrasoni
                 return new Result<ReporteUltrasonicoVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
             }
 
-            return new Result<ReporteUltrasonicoVO>(true, ConsultorioMedicoConst.DB_REGISTRADO_CORRECTAMENTE, reporteUltrasonicoVO);
+            return new Result<ReporteUltrasonicoVO>(true, ConsultorioMedicoConst.DB_ACTUALIZAR_CORRECTAMENTE, reporteUltrasonicoVO);
         } catch (SQLException ex) {
             Logger.getLogger(ReporteUltrasonicoDao.class.getName()).log(Level.SEVERE, null, ex);
             return new Result<ReporteUltrasonicoVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);

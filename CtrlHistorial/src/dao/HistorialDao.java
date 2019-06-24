@@ -117,7 +117,7 @@ public class HistorialDao extends Conexion implements IHistorialDao {
                 return new Result<HistorialVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
             }
 
-            return new Result<HistorialVO>(true, ConsultorioMedicoConst.DB_REGISTRADO_CORRECTAMENTE, historialVO);
+            return new Result<HistorialVO>(true, ConsultorioMedicoConst.DB_ACTUALIZAR_CORRECTAMENTE, historialVO);
         } catch (SQLException ex) {
             Logger.getLogger(HistorialDao.class.getName()).log(Level.SEVERE, null, ex);
             return new Result<HistorialVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);

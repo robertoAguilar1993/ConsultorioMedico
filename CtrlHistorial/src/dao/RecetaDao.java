@@ -75,7 +75,8 @@ public class RecetaDao extends Conexion implements IRecetaDao {
                 receta.setTa(rs.getString("ta"));
                 receta.setRx(rs.getString("rx"));
                 receta.setFecha(new java.util.Date( rs.getDate("fecha").getTime()));
-                receta.setFechaProximaCita(new java.util.Date( rs.getDate("fecha_proxima_cita").getTime()));
+                receta.setFechaProximaCita(rs.getDate("fecha_proxima_cita") != null ?
+                        new java.util.Date( rs.getDate("fecha_proxima_cita").getTime()): null);
 
             }
             return new Result<RecetaVO>(true, ConsultorioMedicoConst.OK, receta);
@@ -104,7 +105,8 @@ public class RecetaDao extends Conexion implements IRecetaDao {
             ps.setString(7, recetaVO.getTa());
             ps.setString(8, recetaVO.getRx());
             ps.setDate(9, new java.sql.Date(recetaVO.getFecha().getTime()));
-            ps.setDate(10, new java.sql.Date(recetaVO.getFechaProximaCita().getTime()));
+            ps.setDate(10, recetaVO.getFechaProximaCita() != null ?  
+                    new java.sql.Date(recetaVO.getFechaProximaCita().getTime()): null);
 
 
             int affectedRows = ps.executeUpdate();
@@ -144,8 +146,9 @@ public class RecetaDao extends Conexion implements IRecetaDao {
             ps.setString(7, recetaVO.getTa());
             ps.setString(8, recetaVO.getRx());
             ps.setDate(9, new java.sql.Date(recetaVO.getFecha().getTime()));
-            ps.setDate(9, new java.sql.Date(recetaVO.getFechaProximaCita().getTime()));
-            ps.setInt(10, recetaVO.getId());
+            ps.setDate(10, recetaVO.getFechaProximaCita() != null ?
+                    new java.sql.Date(recetaVO.getFechaProximaCita().getTime()): null);
+            ps.setInt(11, recetaVO.getId());
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {

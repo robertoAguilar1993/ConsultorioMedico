@@ -14,7 +14,9 @@ import vo.PacienteVO;
  * @author Alex
  */
 public interface IPacienteDao {
-    public Result add(PacienteVO paciente);
+    public Result<PacienteVO> add(PacienteVO paciente);
+    public Result<PacienteVO> update(PacienteVO paciente);
+    public Result<PacienteVO> deleteById(int id);
     public Result<List<PacienteVO>> findAll();
     public Result<List<PacienteVO>> findByCriteria(String criteria);
     public Result<PacienteVO> findById(int id);

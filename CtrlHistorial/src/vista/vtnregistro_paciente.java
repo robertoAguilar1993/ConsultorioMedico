@@ -9,15 +9,22 @@ import vo.PacienteVO;
 public class vtnregistro_paciente extends javax.swing.JFrame {
 
     /**
+     * Varables globales
+     */
+    PacienteVO pacienteCreado = null;
+    
+    /**
      * Creates new form vtnregistro_paciente
      */
     public vtnregistro_paciente() {
         initComponents();
         this.setLocationRelativeTo(null);
+        btnNuevo.setEnabled(false);
+        btnAgregarCita.setEnabled(false);
+        btnIrConsulta.setEnabled(false);
     }
     
     private void limpliar(){
-         
         txtnombre.setText(null);
         txtApePaterno.setText(null);
         txtApeMaterno.setText(null);
@@ -55,7 +62,10 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
         txtApeMaterno = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtOcupacion = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
+        btnAgregarCita = new javax.swing.JButton();
+        btnIrConsulta = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -169,12 +179,33 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
-        jButton1.setText("Registar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
+        btnRegistrar.setText("Registar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        btnAgregarCita.setText("Agendar cita");
+        btnAgregarCita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCitaActionPerformed(evt);
+            }
+        });
+
+        btnIrConsulta.setText("Registrar consulta");
+        btnIrConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIrConsultaActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
             }
         });
 
@@ -184,9 +215,16 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRegistrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevo)
+                        .addGap(13, 13, 13)
+                        .addComponent(btnAgregarCita)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIrConsulta)))
                 .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -195,20 +233,24 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(15, 15, 15))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRegistrar)
+                    .addComponent(btnIrConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
 
         SqlPacientes modsql= new SqlPacientes();
         PacienteController pacienteController = new PacienteController();
@@ -229,16 +271,40 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
         
          if(result.isOperationStatus()){
             JOptionPane.showMessageDialog(null,result.getMessage());
-            limpliar();            
-            this.dispose();
-            vtnAgregarHistorialPaciente lp= new vtnAgregarHistorialPaciente(paciente);
-            lp.setVisible(true);
+            pacienteCreado = (PacienteVO) result.getResult();
+            btnAgregarCita.setEnabled(true);
+            btnIrConsulta.setEnabled(true);
+            btnNuevo.setEnabled(true);
+            btnRegistrar.setEnabled(false);
         }
         else{
            JOptionPane.showMessageDialog(null,result.getMessage()); 
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnAgregarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCitaActionPerformed
+        // TODO add your handling code here:
+        VtnAgragarCitas vtnAgragarCitas = new VtnAgragarCitas(this.pacienteCreado);
+        vtnAgragarCitas.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAgregarCitaActionPerformed
+
+    private void btnIrConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrConsultaActionPerformed
+        // TODO add your handling code here:
+        vtnAgregarHistorialPaciente historial = new vtnAgregarHistorialPaciente(this.pacienteCreado);
+        historial.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnIrConsultaActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        this.limpliar();
+        btnAgregarCita.setEnabled(false);
+        btnIrConsulta.setEnabled(false);
+        btnNuevo.setEnabled(false);
+        btnRegistrar.setEnabled(true);
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     
     /**
@@ -277,9 +343,12 @@ public class vtnregistro_paciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarCita;
+    private javax.swing.JButton btnIrConsulta;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnRegistrar;
     public javax.swing.JComboBox<String> cbxgenero;
     private com.toedter.calendar.JDateChooser fechaNacimiento;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;

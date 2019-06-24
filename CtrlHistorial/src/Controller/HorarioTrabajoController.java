@@ -24,7 +24,9 @@ public class HorarioTrabajoController {
     public Result<HorarioTrabajoVO> getHorarioTrabajo(String dia){
         return  horarioTrabajoDao.findByDay(dia);
     }
-    
+    public Result<HorarioTrabajoVO> update(HorarioTrabajoVO horarioTrabajoVO){
+        return  horarioTrabajoDao.update(horarioTrabajoVO);
+    }
     public List<String> getHoras () {
         List<String> horas = new ArrayList<String>();
         horas.add(ConsultorioMedicoConst.HORA_00_AM);

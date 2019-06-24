@@ -120,7 +120,7 @@ public class HistorialSintomasDao extends Conexion implements IHistorialSintomas
                 return new Result<HistorialSintomasVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
             }
 
-            return new Result<HistorialSintomasVO>(true, ConsultorioMedicoConst.DB_REGISTRADO_CORRECTAMENTE, historialSintomasVO);
+            return new Result<HistorialSintomasVO>(true, ConsultorioMedicoConst.DB_ACTUALIZAR_CORRECTAMENTE, historialSintomasVO);
         } catch (SQLException ex) {
             Logger.getLogger(HistorialSintomasDao.class.getName()).log(Level.SEVERE, null, ex);
             return new Result<HistorialSintomasVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);

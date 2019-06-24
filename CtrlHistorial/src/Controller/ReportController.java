@@ -26,5 +26,20 @@ public class ReportController {
     public Result<List<ReporteBody>> findByYear(int year){
         return reporteDao.findByYear(year);
     }
+    
+    /*public static void main(String[] args) {
+        ReportController reportController = new ReportController();
+        //Result<List<ReporteBody>> result = reportController.findByDay("2019-06-16");
+        //Result<List<ReporteBody>> result = reportController.findByWeeks("2019-06-11", "2019-06-16");
+        //Result<List<ReporteBody>> result = reportController.findByMonth(6, 2019);Result<List<ReporteBody>> result = reportController.findByMonth(6, 2019);
+        Result<List<ReporteBody>> result = reportController.findByYear(2019);
+        
+        imprimir(result.getResult());
+    }
 
+    public static void imprimir(List<ReporteBody> reports){
+        for (ReporteBody report: reports) {
+            System.err.println(report.toString());
+        }
+    }*/
 }

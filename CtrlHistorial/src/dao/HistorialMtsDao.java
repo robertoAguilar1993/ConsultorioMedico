@@ -144,7 +144,7 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
         PreparedStatement ps;
         Connection con = getConexion();
 
-        String sql = "DELETE from const_dts_historial  WHERE id_historial_mts = ?";
+        String sql = "DELETE from const_dts_historial_mts  WHERE id_historial_mts = ?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -167,7 +167,7 @@ public class HistorialMtsDao extends Conexion implements IHistorialMtsDao {
         PreparedStatement ps;
         Connection con = getConexion();
 
-        String sql = "DELETE from const_dts_historial  WHERE id_paciente = ?";
+        String sql = "DELETE from const_dts_historial_mts  WHERE id_paciente = ?";
 
         try {
             ps = con.prepareStatement(sql);

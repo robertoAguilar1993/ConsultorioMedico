@@ -7,7 +7,9 @@ package vista;
 
 import Controller.HorarioTrabajoController;
 import java.util.List;
+import javax.swing.JOptionPane;
 import util.ConsultorioMedicoConst;
+import util.Result;
 import vo.HorarioTrabajoVO;
 
 /**
@@ -25,9 +27,9 @@ public class VtnAdministracionHoras extends javax.swing.JFrame {
     HorarioTrabajoVO horarioMartes = null;
     HorarioTrabajoVO horarioMiercoles = null;
     HorarioTrabajoVO horarioJueves = null;
-    HorarioTrabajoVO horarioVienes = null;
+    HorarioTrabajoVO horarioViernes = null;
     HorarioTrabajoVO horarioSabado = null;
-    HorarioTrabajoVO horarioDimingo = null;
+    HorarioTrabajoVO horarioDomingo = null;
     
     /**
      * Creates new form VtnAdministracionHoras
@@ -100,12 +102,12 @@ public class VtnAdministracionHoras extends javax.swing.JFrame {
         jcbJueves.setSelected((this.horarioJueves.getDiaLobaral() == 1));
     }
     public void setValoresViernes(){
-        this.horarioVienes = 
+        this.horarioViernes = 
             horarioTrabajoController.getHorarioTrabajo(ConsultorioMedicoConst.VIERNES)
                     .getResult();        
-        cbVierHoraInicio.setSelectedItem(this.horarioVienes.getHoraInicio());
-        cbVierHoraFin.setSelectedItem(this.horarioVienes.getHoraFinal());
-        jcbViernes.setSelected((this.horarioVienes.getDiaLobaral() == 1));
+        cbVierHoraInicio.setSelectedItem(this.horarioViernes.getHoraInicio());
+        cbVierHoraFin.setSelectedItem(this.horarioViernes.getHoraFinal());
+        jcbViernes.setSelected((this.horarioViernes.getDiaLobaral() == 1));
     }
     public void setValoresSabado(){
         this.horarioSabado = 
@@ -116,12 +118,12 @@ public class VtnAdministracionHoras extends javax.swing.JFrame {
         jcbSabado.setSelected((this.horarioSabado.getDiaLobaral() == 1));
     }
     public void setValoresDomingo(){
-        this.horarioMartes = 
+        this.horarioDomingo = 
             horarioTrabajoController.getHorarioTrabajo(ConsultorioMedicoConst.DOMINGO)
                     .getResult();        
-        cbDomHoraInicio.setSelectedItem(this.horarioMartes.getHoraInicio());
-        cbDomHoraFin.setSelectedItem(this.horarioMartes.getHoraFinal());
-        jcbDomingo.setSelected((this.horarioMartes.getDiaLobaral() == 1));
+        cbDomHoraInicio.setSelectedItem(this.horarioDomingo.getHoraInicio());
+        cbDomHoraFin.setSelectedItem(this.horarioDomingo.getHoraFinal());
+        jcbDomingo.setSelected((this.horarioDomingo.getDiaLobaral() == 1));
     }
     
     public void removeItemsAll(){
@@ -311,6 +313,11 @@ public class VtnAdministracionHoras extends javax.swing.JFrame {
         jLabel38.setText("--------------------------------------------------------------------------------------");
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -501,6 +508,81 @@ public class VtnAdministracionHoras extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        
+        /**
+         * Lunes
+         */
+        horarioLunes.setHoraFinal(cbLunHoraFin.getSelectedItem().toString());
+        horarioLunes.setHoraInicio(cbLunHoraInicio.getSelectedItem().toString());
+        horarioLunes.setDiaLobaral((byte) (jcbLunes.isSelected() ? 1:0));
+        Result<HorarioTrabajoVO> resultLunes = horarioTrabajoController.update(horarioLunes);
+        
+        
+        /**
+         * Martes
+         */
+        horarioMartes.setHoraFinal(cbMarHoraFin.getSelectedItem().toString());
+        horarioMartes.setHoraInicio(cbMarHoraInicio.getSelectedItem().toString());
+        horarioMartes.setDiaLobaral((byte) (jcbMartes.isSelected() ? 1:0));
+        Result<HorarioTrabajoVO> resultMartes = horarioTrabajoController.update(horarioMartes);
+        
+        
+        /**
+         * Miercoles
+         */
+        horarioMiercoles.setHoraFinal(cbMierHoraFin.getSelectedItem().toString());
+        horarioMiercoles.setHoraInicio(cbMierHoraInicio.getSelectedItem().toString());
+        horarioMiercoles.setDiaLobaral((byte) (jcbMiercoles.isSelected() ? 1:0));
+        Result<HorarioTrabajoVO> resultMiercoles = horarioTrabajoController.update(horarioMartes);
+        
+        
+        /**
+         * Jueves
+         */
+        horarioJueves.setHoraFinal(cbJuevHoraFin.getSelectedItem().toString());
+        horarioJueves.setHoraInicio(cbJuevHoraInicio.getSelectedItem().toString());
+        horarioJueves.setDiaLobaral((byte) (jcbJueves.isSelected() ? 1:0));
+        Result<HorarioTrabajoVO> resultJueves = horarioTrabajoController.update(horarioJueves);
+        
+        
+        /**
+         * Viernes
+         */
+        horarioViernes.setHoraFinal(cbVierHoraFin.getSelectedItem().toString());
+        horarioViernes.setHoraInicio(cbVierHoraInicio.getSelectedItem().toString());
+        horarioViernes.setDiaLobaral((byte) (jcbViernes.isSelected() ? 1:0));
+        Result<HorarioTrabajoVO> resultViernes = horarioTrabajoController.update(horarioViernes);
+        
+        
+        /**
+         * Sabado
+         */
+        horarioSabado.setHoraFinal(cbSabHoraFin.getSelectedItem().toString());
+        horarioSabado.setHoraInicio(cbSabHoraInicio.getSelectedItem().toString());
+        horarioSabado.setDiaLobaral((byte) (jcbSabado.isSelected() ? 1:0));
+        Result<HorarioTrabajoVO> resultSabado = horarioTrabajoController.update(horarioSabado);
+        
+        /**
+         * Domingo
+         */
+        horarioDomingo.setHoraFinal(cbDomHoraFin.getSelectedItem().toString());
+        horarioDomingo.setHoraInicio(cbDomHoraInicio.getSelectedItem().toString());
+        horarioDomingo.setDiaLobaral((byte) (jcbDomingo.isSelected() ? 1:0));
+        Result<HorarioTrabajoVO> resultDomingo = horarioTrabajoController.update(horarioDomingo);
+        
+        String mensaje =
+                "Lunes------->" + resultLunes.getMessage()     +
+                "\nMartes------>" + resultMartes.getMessage()    +
+                "\nMiercoles--->" + resultMiercoles.getMessage() +
+                "\nJueves------>" + resultJueves.getMessage()    +
+                "\nViernes----->" + resultViernes.getMessage()   +
+                "\nSabado------>" + resultSabado.getMessage()    +
+                "\nDomingo----->" + resultDomingo.getMessage();
+        JOptionPane.showMessageDialog(null, mensaje);
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments

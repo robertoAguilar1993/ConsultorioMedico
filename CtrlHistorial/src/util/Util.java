@@ -2,6 +2,8 @@ package util;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import vo.ReporteBody;
 
 /**
  * Clase de utilidades, contiene metodos que son utilizadas en la mayoria de las clases para validaciones
@@ -81,6 +83,51 @@ public class Util {
 
         return  listHora;
     }
+    
+    public static DefaultTableModel getReport(Result<List<ReporteBody>> result){
+        
+        if(result.isOperationStatus()) {
+            String[] titulo = {
+                "#", "Fecha", "Nombre del paciente", "Domicilio", "Telefono"
+            };
+            Object[] fila = new Object[6];
+            DefaultTableModel modelo = new DefaultTableModel(null, titulo);
+            
+            if ( result.getResult() == null || result.getResult().isEmpty() ) {
+                 String[] tituloVacio = {
+                    "No hay información para esta consulta"
+                };
+                return new DefaultTableModel(null, tituloVacio);
+            }
+            
+            
+            for(ReporteBody reporteBody:result.getResult() ){
+                fila[0] = reporteBody.getIndex();
+                fila[1] = reporteBody.getFecha();
+                fila[2] = reporteBody.getNombre();
+                fila[3] = reporteBody.getDomicilio();
+                fila[4] = reporteBody.getTelefono();
+                modelo.addRow(fila);
+            }
+            return modelo;
+        } else {
+            String[] tituloError = {
+                result.getMessage()
+            };
+            return new DefaultTableModel(null, tituloError);
+        }
+    }
+    
+    public static DefaultTableModel getReportInit(){
+        String[] titulo = {
+            "#", "Fecha", "Nombre del paciente", "Domicilio", "Telefono"
+        };
+        Object[] fila = new Object[6];
+        DefaultTableModel modelo = new DefaultTableModel(null, titulo);
+        return modelo;
+    }
+
+            
     
 
     public static void main(String[] args) {

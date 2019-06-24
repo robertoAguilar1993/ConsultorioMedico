@@ -32,46 +32,17 @@ public class PacienteDao extends Conexion implements IPacienteDao{
      * @return 
      */
     @Override
-    public Result add(PacienteVO paciente) {
+    public Result<PacienteVO> add(PacienteVO paciente) {
         PreparedStatement ps;
         Connection con = getConexion();
        
+        
         if(paciente == null ){
             return new Result<PacienteVO>(false, "Debe de completar el formulario", null);
         }
                 
-        String message = "";
-        
-        if ( validateStringEmpty(paciente.getNombre())) {
-            message = message + "* El nombre es un campo requerido";
-        }
-
-        if ( validateStringEmpty(paciente.getApellidoPaterno())) {
-            message = message + "\n* El apellido paterno es un campo requerido";
-        }
-
-        if ( validateStringEmpty(paciente.getApellidoMaterno())) {
-            message = message + "\n* El apellido materno es un campo requerido";
-        }
-        
-        if ( paciente.getFechaNacimiento() == null ||  "".equals(paciente.getFechaNacimiento()) ) {
-            message = message + "\n* La fecha de nacimiento es requerido";
-        }
-        
-        if (paciente.getGenero() == null || "Seleccione".equals(paciente.getGenero())) {
-            message = message + "\n* El genero es requerido";
-        }
-        
-        if (validateStringEmpty(paciente.getDirecion())) {
-            message = message + "\n* La direcion es requerido";
-        }
-        
-      
-        if(paciente.getTelefono() != null &&  !"".equals(paciente.getTelefono())
-                && !validateNumber(paciente.getTelefono())){
-            message = message + "\n* Capture un telefono valido";
-        }
-        
+        String message = validatePaciente(paciente);
+  
         if ( !"".equals(message) ) {
             return new Result<PacienteVO>(false, message, null);
         }
@@ -100,6 +71,45 @@ public class PacienteDao extends Conexion implements IPacienteDao{
             paciente.setId(idGenerado);
             System.err.println("idGenerado: " + idGenerado);
             return new Result<PacienteVO>(true, ConsultorioMedicoConst.DB_REGISTRADO_CORRECTAMENTE, paciente);
+        } catch (SQLException ex) {
+            Logger.getLogger(PacienteDao.class.getName()).log(Level.SEVERE, null, ex);
+            return new Result<PacienteVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
+        }
+    }
+    
+     @Override
+    public Result<PacienteVO> update(PacienteVO paciente) {
+        PreparedStatement ps;
+        Connection con = getConexion();
+        
+        String message = validatePaciente(paciente);
+  
+        if ( !"".equals(message) ) {
+            return new Result<PacienteVO>(false, message, null);
+        }
+
+        String sql = "UPDATE  const_dts_pacientes SET nombre = ?, ap_paterno = ?, "
+                + "ap_materno = ?, domicilio = ?, genero = ?, fecha_nacimiento = ?, "
+                + "telefono = ?, ocupacion = ?  " +
+                "WHERE id_paciente = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, paciente.getNombre());
+            ps.setString(2, paciente.getApellidoPaterno());
+            ps.setString(3, paciente.getApellidoMaterno());
+            ps.setString(4, paciente.getDirecion());
+            ps.setString(5, paciente.getGenero());
+            ps.setDate(6, new java.sql.Date(paciente.getFechaNacimiento().getTime()));
+            ps.setString(7, paciente.getTelefono());
+            ps.setString(8, paciente.getOcupacion());
+            ps.setInt(9, (int) paciente.getId());
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                return new Result<PacienteVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
+            }
+
+            return new Result<PacienteVO>(true, ConsultorioMedicoConst.DB_ACTUALIZAR_CORRECTAMENTE, paciente);
         } catch (SQLException ex) {
             Logger.getLogger(PacienteDao.class.getName()).log(Level.SEVERE, null, ex);
             return new Result<PacienteVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
@@ -226,6 +236,8 @@ public class PacienteDao extends Conexion implements IPacienteDao{
         }
     }
     
+    
+    
     /**
      * Metodo encargado de validar que el campo no venga vacio
      * @param value
@@ -234,7 +246,64 @@ public class PacienteDao extends Conexion implements IPacienteDao{
     private boolean validateStringEmpty(String value){
         return  value == null  || "".equals(value);
     }
-    
+
+    private String validatePaciente(PacienteVO paciente){
+        String message = "";
+        if ( validateStringEmpty(paciente.getNombre())) {
+            message = message + "* El nombre es un campo requerido";
+        }
+
+        if ( validateStringEmpty(paciente.getApellidoPaterno())) {
+            message = message + "\n* El apellido paterno es un campo requerido";
+        }
+
+        if ( validateStringEmpty(paciente.getApellidoMaterno())) {
+            message = message + "\n* El apellido materno es un campo requerido";
+        }
+        
+        if ( paciente.getFechaNacimiento() == null ||  "".equals(paciente.getFechaNacimiento()) ) {
+            message = message + "\n* La fecha de nacimiento es requerido";
+        }
+        
+        if (paciente.getGenero() == null || "Seleccione".equals(paciente.getGenero())) {
+            message = message + "\n* El genero es requerido";
+        }
+        
+        if (validateStringEmpty(paciente.getDirecion())) {
+            message = message + "\n* La direcion es requerido";
+        }
+        
+      
+        if(paciente.getTelefono() != null &&  !"".equals(paciente.getTelefono())
+                && !validateNumber(paciente.getTelefono())){
+            message = message + "\n* Capture un telefono valido";
+        }
+        return message;
+    }
+
+    @Override
+    public Result<PacienteVO> deleteById(int id) {
+        PreparedStatement ps;
+        Connection con = getConexion();
+
+        String sql = "DELETE from const_dts_pacientes  WHERE id_paciente = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows == 0) {
+                return new Result<PacienteVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
+            }
+
+            return new Result<PacienteVO>(true, ConsultorioMedicoConst.DB_ELIMANDO_EXITOSAMENTE, null);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReporteUltrasonicoDao.class.getName()).log(Level.SEVERE, null, ex);
+            return new Result<PacienteVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);
+        }
+    }
+   
     
     
     

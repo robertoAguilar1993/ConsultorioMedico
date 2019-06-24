@@ -5,7 +5,6 @@
  */
 package vista;
 
-import Controller.HistorialPacienteController;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,13 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import util.ConsultorioMedicoConst;
-import util.Result;
 import util.Util;
 import vo.HistorialMtsData;
-import vo.HistorialMtsVO;
-import vo.HistorialSintomasVO;
 import vo.HistorialVO;
-import vo.PacienteVO;
 import vo.RecetaVO;
 import vo.ReporteUltrasonicoVO;
 import vo.SintomasVO;
@@ -29,47 +24,26 @@ import vo.SintomasVO;
  *
  * @author Alex
  */
-public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
+public class VtnCitaRapira extends javax.swing.JFrame {
 
-    /**
-     * Variables
-     */
-    PacienteVO pacienteVO = new PacienteVO();
-    HistorialPacienteController historialPacienteController = 
-                new HistorialPacienteController();
-    HistorialMtsVO historialMtsVO;
     /**
      * Creates new form vtnHistorialPaciente
      */
-    public vtnAgregarHistorialPaciente() {
+    public VtnCitaRapira() {
         initComponents();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    }
-    
-    public vtnAgregarHistorialPaciente(PacienteVO pacienteVO) {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        this.pacienteVO = pacienteVO;
         this.initValores();
     }
-    
+
     public final void initValores(){
-        txtNombreCompleto.setText(pacienteVO.getNombre() + " " + 
-                pacienteVO.getApellidoPaterno() + " " + 
-                pacienteVO.getApellidoMaterno());
         
-        int edad = new Date().getYear() - pacienteVO.getFechaNacimiento().getYear();
-        
-        txtEdad.setText(String.valueOf(edad));
         txtEdad.setEditable(false);
-        
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String  fecha = formatter.format(new Date());
         txtFecha.setText(fecha);
         txtFecha.setEditable(false);
-        jDataProximaCita.setEnabled(false);
+        //jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Traditional Arabic", 1, 18))); // NOI18N
     }
 
 
@@ -85,9 +59,24 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         menuSintomas = new javax.swing.JPopupMenu();
         jmiEliminar = new javax.swing.JMenuItem();
         btnUpdateHistorial = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtNombreCompleto = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtnombre = new javax.swing.JTextField();
+        cbxgenero = new javax.swing.JComboBox<String>();
+        txtdirecion = new javax.swing.JTextField();
+        txttelefono = new javax.swing.JTextField();
+        fechaNacimiento = new com.toedter.calendar.JDateChooser();
+        jLabel20 = new javax.swing.JLabel();
+        txtApePaterno = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        txtApeMaterno = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        txtOcupacion = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtSintoma = new javax.swing.JTextField();
@@ -103,7 +92,6 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txaRx = new javax.swing.JTextArea();
         txtEdad = new javax.swing.JTextField();
@@ -115,8 +103,6 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         txtFecha = new javax.swing.JTextField();
         txtTemp = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jDataProximaCita = new com.toedter.calendar.JDateChooser();
-        btnAgendarCita = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -127,9 +113,6 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         txaPlanManejo = new javax.swing.JTextArea();
         jScrollPane6 = new javax.swing.JScrollPane();
         txaParecimientoActual = new javax.swing.JTextArea();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTblAntecedentesImportantes = new javax.swing.JTable();
-        btnagregarSintomasImportantes = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         txaReporteUltrasonico = new javax.swing.JTextArea();
@@ -149,14 +132,122 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             }
         });
 
-        btnUpdateHistorial.setText("Guardar");
+        btnUpdateHistorial.setText("Generar Reporte");
         btnUpdateHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateHistorialActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Nombre del paciente:");
+        jLabel1.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel1.setText("Nombre:");
+
+        jLabel3.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel3.setText("Fecha de Nacimiento");
+
+        jLabel14.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel14.setText("sexo :");
+
+        jLabel15.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel15.setText("Domicilio :");
+
+        jLabel16.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel16.setText("Telefono :");
+
+        txtnombre.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        cbxgenero.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        cbxgenero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione", "Masculino", "Femenino" }));
+
+        txtdirecion.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        txttelefono.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        jLabel20.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel20.setText("Apellido paterno:");
+
+        txtApePaterno.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel21.setText("Apellido materno:");
+
+        txtApeMaterno.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        jLabel22.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel22.setText("Ocupación");
+
+        txtOcupacion.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(152, 152, 152)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel22))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtApePaterno)
+                        .addComponent(txtnombre)
+                        .addComponent(fechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtApeMaterno)
+                        .addComponent(cbxgenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtdirecion, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(174, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(75, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApePaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxgenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtdirecion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(txtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(66, 66, 66))
+        );
+
+        jTabbedPane1.addTab("Datos Personales", jPanel5);
+        jPanel5.getAccessibleContext().setAccessibleName("");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("Sintomas :");
@@ -203,7 +294,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                         .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(btnSintomas)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +306,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                     .addComponent(btnSintomas))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sintomas del Paciente", jPanel1);
@@ -244,9 +335,6 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Fecha:");
 
-        jLabel12.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
-        jLabel12.setText("PRÓXIMA CITA:");
-
         txaRx.setColumns(20);
         txaRx.setFont(new java.awt.Font("Arial Narrow", 0, 12)); // NOI18N
         txaRx.setRows(5);
@@ -262,13 +350,6 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
         jLabel13.setText("RX:");
-
-        btnAgendarCita.setText("Agendar cita");
-        btnAgendarCita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgendarCitaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -309,14 +390,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addGap(18, 18, 18)
-                            .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAgendarCita))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -361,12 +435,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgendarCita))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Receta Medica", jPanel2);
@@ -389,65 +458,26 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         txaParecimientoActual.setRows(5);
         jScrollPane6.setViewportView(txaParecimientoActual);
 
-        jTblAntecedentesImportantes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTblAntecedentesImportantes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Antecedentes Importantes "
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(jTblAntecedentesImportantes);
-
-        btnagregarSintomasImportantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_opc.png"))); // NOI18N
-        btnagregarSintomasImportantes.setText("Agregar");
-        btnagregarSintomasImportantes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnagregarSintomasImportantesActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnagregarSintomasImportantes))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel19)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-                            .addComponent(jLabel18)
-                            .addComponent(jScrollPane5)
-                            .addComponent(jScrollPane6))))
-                .addGap(0, 28, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel19)
+                        .addComponent(jScrollPane3)
+                        .addComponent(jLabel18)
+                        .addComponent(jScrollPane5)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnagregarSintomasImportantes))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -459,7 +489,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Historial", jPanel4);
@@ -495,26 +525,17 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNombreCompleto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdateHistorial)
-                        .addGap(110, 110, 110))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnUpdateHistorial)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdateHistorial)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
+                .addComponent(btnUpdateHistorial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(71, Short.MAX_VALUE))
         );
@@ -544,17 +565,6 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFcActionPerformed
 
-    /**
-     * Metodo encargado en abrir la ventana para ver los antecedentes importantes
-     * @param evt 
-     */
-    private void btnagregarSintomasImportantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarSintomasImportantesActionPerformed
-        // TODO add your handling code here:
-        VtnAntecedentesImportantes  vtnAntecedentesImportantes = 
-                new VtnAntecedentesImportantes(this, true);
-        vtnAntecedentesImportantes.setVisible(true);
-    }//GEN-LAST:event_btnagregarSintomasImportantesActionPerformed
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         this.dispose();
@@ -565,63 +575,27 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
         //this.datosDumy();
          if ( this.validateForm() ) {
-             if (null != btnUpdateHistorial.getText() ) switch (btnUpdateHistorial.getText()) {
-                 case "Guardar":
-                     this.crearHistorial();
-                     btnUpdateHistorial.setText( "Actualizar" );
-                     break;
-                 case "Actualizar":
-                     this.actualizarHistorial();
-                     break;
-             }
+             this.crearReporte();
          }
         
     }//GEN-LAST:event_btnUpdateHistorialActionPerformed
 
     
 
-    public void crearHistorial(){
+    public void crearReporte(){
         HistorialMtsData historialMtsData = new HistorialMtsData();       
         
         historialMtsData.setRecetaVO(getRecetaVO());
         historialMtsData.setHistorialVO(getHistorial());
         historialMtsData.setReporteUltrasonicoVO(getReporteUltrasonico());
-        historialMtsData.setIdPaciente((int) pacienteVO.getId());
+        historialMtsData.setIdPaciente(0);
         
         java.util.Date fechaNow = new Date();
         historialMtsData.setDate(fechaNow);
         historialMtsData.setSintomasVOList(getSintomasVOs());
         
-        Result<HistorialMtsData> result= historialPacienteController.add(historialMtsData);
-        if(result.isOperationStatus()){
-            historialMtsVO = new HistorialMtsVO();
-            historialMtsVO.setId(result.getResult().getId() );
-            historialMtsVO.setIdHistorial(result.getResult().getHistorialVO().getId());
-            historialMtsVO.setIdPaciente((int) this.pacienteVO.getId());
-            historialMtsVO.setIdReceta(result.getResult().getRecetaVO().getId());
-            historialMtsVO.setIdReporteUltrasonico(result.getResult().getReporteUltrasonicoVO().getId());
-            System.err.println("historialMtsVO: " + historialMtsVO.toString());
-        }
-        JOptionPane.showMessageDialog(null, result.getMessage());
+        JOptionPane.showMessageDialog(null,"Procesando la información para crear reporte");
     }
-    
-    public void actualizarHistorial(){
-        HistorialMtsData historialMtsData = new HistorialMtsData();       
-        historialMtsData.setId(historialMtsVO.getId());
-        historialMtsData.setRecetaVO(getRecetaVO());
-        historialMtsData.setHistorialVO(getHistorial());
-        historialMtsData.setReporteUltrasonicoVO(getReporteUltrasonico());
-        historialMtsData.setIdPaciente((int) pacienteVO.getId());
-        
-        java.util.Date fechaNow = new Date();
-        historialMtsData.setDate(fechaNow);
-        historialMtsData.setSintomasVOList(getSintomasVOs());
-        
-        Result<HistorialMtsData> result= historialPacienteController.update(historialMtsData);
-        System.out.println(result.toString());
-        JOptionPane.showMessageDialog(null, result.getMessage());
-    }
-    
 
     /**
      * =================================================================================================================
@@ -753,9 +727,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
      */
     public RecetaVO getRecetaVO(){
         RecetaVO recetaVO = new RecetaVO();
-        if (historialMtsVO != null) {
-            recetaVO.setId(historialMtsVO.getIdReceta());
-        }
+       
         recetaVO.setEdad(Integer.parseInt(txtEdad.getText()));
         recetaVO.setPeso(Float.parseFloat(txtPeso.getText()));
         recetaVO.setTalla(Float.parseFloat(txtTalla.getText()));
@@ -766,39 +738,22 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         recetaVO.setRx(txaRx.getText());
         java.util.Date fechaNow = new Date();
         recetaVO.setFecha(fechaNow);
-        java.util.Date proximaxita = jDataProximaCita.getDate();
-        recetaVO.setFechaProximaCita(proximaxita);
+        recetaVO.setFechaProximaCita(null);
         return recetaVO;
     }
     
     public HistorialVO getHistorial(){
         HistorialVO historialVO = new HistorialVO();
-        if (historialMtsVO != null) {
-            historialVO.setId(historialMtsVO.getIdHistorial());
-        }  
         historialVO.setParecimientoActual(txaParecimientoActual.getText());
         historialVO.setDxs(txaDxs.getText());
         historialVO.setPlanManejo(txaPlanManejo.getText());
-        historialVO.setHistorialSintomasVOList(getHistorialSintomasVOs());
+        historialVO.setHistorialSintomasVOList(null);
         return historialVO;
     }
     
-    public List<HistorialSintomasVO> getHistorialSintomasVOs(){
-        List<HistorialSintomasVO> historialSintomasVOs = new ArrayList<HistorialSintomasVO>();
-        DefaultTableModel model = (DefaultTableModel) jTblAntecedentesImportantes.getModel(); 
-        int columna = 0;
-        for(int row = 0; row < model.getRowCount(); row++ ) {
-            String antecedenteImportante = model.getValueAt(row, columna).toString();
-             historialSintomasVOs.add(new HistorialSintomasVO(antecedenteImportante));
-        }
-        return historialSintomasVOs;
-    }
     
     public ReporteUltrasonicoVO getReporteUltrasonico(){
         ReporteUltrasonicoVO reporteUltrasonicoVO = new ReporteUltrasonicoVO();
-        if (historialMtsVO != null) {
-            reporteUltrasonicoVO.setId(historialMtsVO.getIdReporteUltrasonico());
-        } 
         reporteUltrasonicoVO.setDescripcion(txaReporteUltrasonico.getText());
         return reporteUltrasonicoVO;
     }
@@ -816,99 +771,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     }
 
 
-    /**
-     * =================================================================================================================
-     * Datos Dumy
-     * =================================================================================================================
-     */
-    public void datosDumy(){
-        HistorialMtsData historialMtsData = new HistorialMtsData();       
-        List<SintomasVO> sintomasVOs = new ArrayList<SintomasVO>();
-        RecetaVO recetaVO = new RecetaVO();
-        HistorialVO historialVO = new HistorialVO();
-        List<HistorialSintomasVO> historialSintomasVOs = new ArrayList<HistorialSintomasVO>();
-        ReporteUltrasonicoVO reporteUltrasonicoVO = new ReporteUltrasonicoVO();
-
-        
-        
-        /**
-         * Recetas
-         */
-        recetaVO.setEdad(26);
-        recetaVO.setPeso(68);
-        recetaVO.setTalla(1.68f);
-        recetaVO.setTemp("NA");
-        recetaVO.setFc("N/A");
-        recetaVO.setRf("N/A");
-        recetaVO.setTa("N/A");
-        recetaVO.setRx("N/A");
-        java.util.Date fechaNow = new Date();
-        recetaVO.setFecha(fechaNow);
-        recetaVO.setFechaProximaCita(fechaNow);
-        historialMtsData.setRecetaVO(recetaVO);
-        
-        
-        /**
-         * Historial
-         */
-        historialVO.setParecimientoActual("Parecimiento actual");
-        historialVO.setDxs("Dxs");
-        historialVO.setPlanManejo("Plan de manejo");
-        
-        
-          /***
-         * Historial de sintomas
-         */
-        
-        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 1"));
-        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 2"));
-        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 3"));
-        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 4"));
-        historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 5"));
-        historialVO.setHistorialSintomasVOList(historialSintomasVOs);
-        
-        
-        
-        historialMtsData.setHistorialVO(historialVO);
-        
-        
-      
-        
-        
-        
-        /**
-         * Reporte ultrasonico
-         */
-        reporteUltrasonicoVO.setDescripcion("descripcion del reporte ultrasonico");
-        historialMtsData.setReporteUltrasonicoVO(reporteUltrasonicoVO);
-
-        
-        /**
-         * Sintomas
-         */
-        sintomasVOs.add(new SintomasVO("Sintoma 1"));
-        sintomasVOs.add(new SintomasVO("Sintoma 2"));
-        sintomasVOs.add(new SintomasVO("Sintoma 3"));
-        sintomasVOs.add(new SintomasVO("Sintoma 4"));
-        sintomasVOs.add(new SintomasVO("Sintoma 5"));       
-        historialMtsData.setSintomasVOList(sintomasVOs);
-        
-        /**
-         * Id del paciente
-         */
-        historialMtsData.setIdPaciente((int) pacienteVO.getId());
-        
-        /**
-         * Fecha
-         */
-        historialMtsData.setDate(fechaNow);
-        
-        
-        
-        Result<HistorialMtsData> result= historialPacienteController.add(historialMtsData);
-        System.out.println(result.toString());
-    }
-    
+   
     
     private void jmiEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarActionPerformed
         // TODO add your handling code here:
@@ -917,16 +780,6 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
        jTblSintomas.setModel(model);
     }//GEN-LAST:event_jmiEliminarActionPerformed
 
-    private void btnAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarCitaActionPerformed
-        // TODO add your handling code here:
-        VtnAgragarCitas vtnAgragarCitas = new VtnAgragarCitas(this.pacienteVO);
-        vtnAgragarCitas.setVisible(true);
-        
-    }//GEN-LAST:event_btnAgendarCitaActionPerformed
-
-    public static void setProximaCita(com.toedter.calendar.JCalendar fechaProximaCita){
-        jDataProximaCita.setDate(fechaProximaCita.getDate());
-    }
     
     /**
      * @param args the command line arguments
@@ -945,40 +798,47 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(vtnAgregarHistorialPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnCitaRapira.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(vtnAgregarHistorialPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnCitaRapira.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(vtnAgregarHistorialPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnCitaRapira.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(vtnAgregarHistorialPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VtnCitaRapira.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new vtnAgregarHistorialPaciente().setVisible(true);
+                new VtnCitaRapira().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgendarCita;
     private javax.swing.JButton btnSintomas;
     private javax.swing.JButton btnUpdateHistorial;
-    private javax.swing.JButton btnagregarSintomasImportantes;
-    private static com.toedter.calendar.JDateChooser jDataProximaCita;
+    public javax.swing.JComboBox<String> cbxgenero;
+    private com.toedter.calendar.JDateChooser fechaNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -989,15 +849,14 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTblAntecedentesImportantes;
     private javax.swing.JTable jTblSintomas;
     private javax.swing.JMenuItem jmiEliminar;
     private javax.swing.JPopupMenu menuSintomas;
@@ -1006,15 +865,20 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     private javax.swing.JTextArea txaPlanManejo;
     private javax.swing.JTextArea txaReporteUltrasonico;
     private javax.swing.JTextArea txaRx;
+    public javax.swing.JTextField txtApeMaterno;
+    public javax.swing.JTextField txtApePaterno;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtFc;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtFr;
-    private javax.swing.JTextField txtNombreCompleto;
+    public javax.swing.JTextField txtOcupacion;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtSintoma;
     private javax.swing.JTextField txtTa;
     private javax.swing.JTextField txtTalla;
     private javax.swing.JTextField txtTemp;
+    public javax.swing.JTextField txtdirecion;
+    public javax.swing.JTextField txtnombre;
+    public javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
 }

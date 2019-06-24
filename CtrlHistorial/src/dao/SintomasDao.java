@@ -133,7 +133,7 @@ public class SintomasDao extends Conexion implements ISintomasDao {
                 return new Result<SintomasVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
             }
 
-            return new Result<SintomasVO>(true, ConsultorioMedicoConst.DB_REGISTRADO_CORRECTAMENTE, sintomasVO);
+            return new Result<SintomasVO>(true, ConsultorioMedicoConst.DB_ACTUALIZAR_CORRECTAMENTE, sintomasVO);
         } catch (SQLException ex) {
             Logger.getLogger(HistorialDao.class.getName()).log(Level.SEVERE, null, ex);
             return new Result<SintomasVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);

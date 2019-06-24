@@ -14,17 +14,19 @@ public class buscar_paciente extends javax.swing.JFrame {
     /**
      * Declarar variables
      */
-    
     PacienteVO pacienteVO = new PacienteVO();
+    PacienteController pacienteController = new PacienteController();
     
     public buscar_paciente() {
         initComponents();
         this.setLocationRelativeTo(null);
-        bindAll();
+        findAll();
+        btnVerHistorial.setEnabled(false);
+        btnAgregarHistorial.setEnabled(false);
+        btnActualizar.setEnabled(false);
     }
     
-    private void bindAll(){
-        PacienteController pacienteController = new PacienteController();
+    private void findAll(){
         Result<List<PacienteVO>> result  =pacienteController.findAll();
         if ( result.isOperationStatus() ) {
             llenar(result.getResult());
@@ -35,9 +37,8 @@ public class buscar_paciente extends javax.swing.JFrame {
     
     private void bindByCriteria(){
         if(txtBuscar1.getText() == null || "".equals(txtBuscar1.getText())){
-            bindAll();
+            findAll();
         }else{
-            PacienteController pacienteController = new PacienteController();
             Result<List<PacienteVO>> result  = pacienteController
                     .findByCriteria(txtBuscar1.getText());
             if ( result.isOperationStatus() ) {
@@ -59,15 +60,15 @@ public class buscar_paciente extends javax.swing.JFrame {
             "Telefono "};
         
         if( pacienteVOs != null && !pacienteVOs.isEmpty() ) {
-            DefaultTableModel modelo = new DefaultTableModel(null,titulo);;
+            DefaultTableModel modelo = new DefaultTableModel(null,titulo);
 
             Object [] fila = new Object[8];
-            for (PacienteVO pacienteVO:  pacienteVOs ) {
-                fila[0] = pacienteVO.getId();
-                fila[1] = pacienteVO.getNombre();
-                fila[2] = pacienteVO.getApellidoPaterno();
-                fila[3] = pacienteVO.getApellidoMaterno();
-                fila[4] = pacienteVO.getTelefono();
+            for (PacienteVO paciente:  pacienteVOs ) {
+                fila[0] = paciente.getId();
+                fila[1] = paciente.getNombre();
+                fila[2] = paciente.getApellidoPaterno();
+                fila[3] = paciente.getApellidoMaterno();
+                fila[4] = paciente.getTelefono();
                 modelo.addRow(fila);
             }
             jtbpaciente.setModel(modelo);
@@ -106,8 +107,7 @@ public class buscar_paciente extends javax.swing.JFrame {
         txtApePaterno = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         txtApeMaterno = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtOcupacion = new javax.swing.JTextField();
         fechaNacimiento = new com.toedter.calendar.JDateChooser();
@@ -199,14 +199,12 @@ public class buscar_paciente extends javax.swing.JFrame {
 
         txtApeMaterno.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
-        jButton4.setText("Actualizar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Eliminar");
 
         jLabel6.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
         jLabel6.setText("Ocupación:");
@@ -251,9 +249,8 @@ public class buscar_paciente extends javax.swing.JFrame {
                                                 .addComponent(fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 1, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnActualizar))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -297,9 +294,7 @@ public class buscar_paciente extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(txtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4))
+                .addComponent(btnActualizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -353,6 +348,7 @@ public class buscar_paciente extends javax.swing.JFrame {
 
     private void txtBuscar1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar1KeyReleased
             bindByCriteria();
+            limpairDatos();
     }//GEN-LAST:event_txtBuscar1KeyReleased
 
     private void jtbpacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbpacienteMouseClicked
@@ -361,11 +357,13 @@ public class buscar_paciente extends javax.swing.JFrame {
         String id = jtbpaciente.getValueAt(linea, 0).toString();
         System.err.println("id: " +  id);
         
-        PacienteController pacienteController = new PacienteController();
         Result<PacienteVO> pacienteResult = pacienteController.findById(Integer.parseInt(id));
         
         if(!pacienteResult.isOperationStatus()){
             JOptionPane.showMessageDialog(null,pacienteResult.getMessage() ,"Error",JOptionPane.ERROR_MESSAGE);
+            btnVerHistorial.setEnabled(false);
+            btnAgregarHistorial.setEnabled(false);
+            btnActualizar.setEnabled(false);
         }else{
             pacienteVO = pacienteResult.getResult();
             pacienteVO.setId(pacienteVO.getId());
@@ -380,6 +378,9 @@ public class buscar_paciente extends javax.swing.JFrame {
             txttelefono.setText(pacienteVO.getTelefono());
             fechaNacimiento.setDate(pacienteVO.getFechaNacimiento());
             txtOcupacion.setText(pacienteVO.getOcupacion());
+            btnVerHistorial.setEnabled(true);
+            btnAgregarHistorial.setEnabled(true);
+            btnActualizar.setEnabled(true);
         }
         
     }//GEN-LAST:event_jtbpacienteMouseClicked
@@ -395,9 +396,23 @@ public class buscar_paciente extends javax.swing.JFrame {
         lp.setVisible(true);
     }//GEN-LAST:event_btnAgregarHistorialActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        pacienteVO.setNombre(txtnombre.getText());
+        pacienteVO.setApellidoPaterno(txtApePaterno.getText());
+        pacienteVO.setApellidoMaterno(txtApeMaterno.getText());
+        pacienteVO.setDirecion(txtdirecion.getText());
+        pacienteVO.setGenero(cbxgenero.getSelectedItem().toString());
+        java.util.Date utilStartDate = fechaNacimiento.getDate();
+        pacienteVO.setFechaNacimiento(utilStartDate);
+        pacienteVO.setTelefono(txttelefono.getText());
+        pacienteVO.setOcupacion(txtOcupacion.getText());
+        Result<PacienteVO> result = pacienteController.update(pacienteVO);
+        JOptionPane.showMessageDialog(null, result.getMessage());
+        if(result.isOperationStatus()){
+            this.findAll();
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnVerHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerHistorialActionPerformed
         // TODO add your handling code here:
@@ -405,6 +420,20 @@ public class buscar_paciente extends javax.swing.JFrame {
         lp.setVisible(true);
     }//GEN-LAST:event_btnVerHistorialActionPerformed
 
+    public void limpairDatos(){
+        txtnombre.setText(null);
+        txtApePaterno.setText(null);
+        txtApeMaterno.setText(null);
+        txtdirecion.setText(null);
+        cbxgenero.setSelectedIndex(0);
+        txttelefono.setText(null);
+        fechaNacimiento.setDate(null);
+        txtOcupacion.setText(null);
+        
+        btnVerHistorial.setEnabled(false);
+        btnAgregarHistorial.setEnabled(false);
+        btnActualizar.setEnabled(false);
+    }
     /**
      * @param args the command line arguments
      */
@@ -442,12 +471,11 @@ public class buscar_paciente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Mensaje1;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregarHistorial;
     private javax.swing.JButton btnVerHistorial;
     public javax.swing.JComboBox<String> cbxgenero;
     private com.toedter.calendar.JDateChooser fechaNacimiento;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

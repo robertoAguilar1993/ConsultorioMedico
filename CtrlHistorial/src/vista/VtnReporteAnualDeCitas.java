@@ -5,6 +5,13 @@
  */
 package vista;
 
+import Controller.ReportController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import util.Result;
+import util.Util;
+import vo.ReporteBody;
+
 /**
  *
  * @author apple
@@ -12,12 +19,19 @@ package vista;
 public class VtnReporteAnualDeCitas extends javax.swing.JFrame {
 
     /**
+     * Variables globales
+     */
+    ReportController reportController = new ReportController();
+    
+    
+    /**
      * Creates new form vtnReporteAnualDeCitas
      */
     public VtnReporteAnualDeCitas() {
         initComponents();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jtblReportByYear.setModel(Util.getReportInit());
     }
 
     /**
@@ -30,16 +44,17 @@ public class VtnReporteAnualDeCitas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jycYear = new com.toedter.calendar.JYearChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtblReportByYear = new javax.swing.JTable();
         btnConsultar = new javax.swing.JButton();
+        total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Año:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblReportByYear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,24 +65,33 @@ public class VtnReporteAnualDeCitas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtblReportByYear);
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        total.setText("Total de citas:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(24, 24, 24)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConsultar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(24, 24, 24)
+                            .addComponent(jycYear, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnConsultar))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 786, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -78,15 +102,29 @@ public class VtnReporteAnualDeCitas extends javax.swing.JFrame {
                     .addComponent(btnConsultar)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jycYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(total)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int year = jycYear.getYear();
+            Result<List<ReporteBody>>  report = reportController.findByYear(year);
+            jtblReportByYear.setModel( Util.getReport( report ) );
+            total.setText("Total de citas: "  + jtblReportByYear.getRowCount());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Año no valido");
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,7 +166,8 @@ public class VtnReporteAnualDeCitas extends javax.swing.JFrame {
     private javax.swing.JButton btnConsultar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
+    private javax.swing.JTable jtblReportByYear;
+    private com.toedter.calendar.JYearChooser jycYear;
+    private javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
 }

@@ -55,13 +55,13 @@ public class HorarioTrabajoDao extends Conexion implements IHorarioTrabajoDao{
         Connection con = getConexion();
 
         String sql = "UPDATE  const_dts_conf_horario_trabajo SET hora_inicio = ?, hora_final = ?, dia_laboral = ? " +
-                "WHERE dia = ?";
+                "WHERE id_horario_trabajo = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, horarioTrabajoVO.getHoraInicio());
             ps.setString(2, horarioTrabajoVO.getHoraFinal());
             ps.setByte(3, horarioTrabajoVO.getDiaLobaral());
-            ps.setString(4, horarioTrabajoVO.getDia());
+            ps.setInt(4, horarioTrabajoVO.getId());
 
 
             int affectedRows = ps.executeUpdate();
@@ -69,7 +69,7 @@ public class HorarioTrabajoDao extends Conexion implements IHorarioTrabajoDao{
                 return new Result<HorarioTrabajoVO>(true, ConsultorioMedicoConst.DB_NO_SE_PUDO_GUARDAR, null);
             }
 
-            return new Result<HorarioTrabajoVO>(true, ConsultorioMedicoConst.DB_REGISTRADO_CORRECTAMENTE, horarioTrabajoVO);
+            return new Result<HorarioTrabajoVO>(true, ConsultorioMedicoConst.DB_ACTUALIZAR_CORRECTAMENTE, horarioTrabajoVO);
         } catch (SQLException ex) {
             Logger.getLogger(ReporteUltrasonicoDao.class.getName()).log(Level.SEVERE, null, ex);
             return new Result<HorarioTrabajoVO>(false, ConsultorioMedicoConst.DB_ERROR_SQL, null);

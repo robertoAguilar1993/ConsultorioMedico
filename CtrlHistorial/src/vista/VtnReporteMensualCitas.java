@@ -5,6 +5,13 @@
  */
 package vista;
 
+import Controller.ReportController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import util.Result;
+import util.Util;
+import vo.ReporteBody;
+
 /**
  *
  * @author apple
@@ -12,12 +19,18 @@ package vista;
 public class VtnReporteMensualCitas extends javax.swing.JFrame {
 
     /**
+     * Variables globales
+     */
+    ReportController reportController = new ReportController();
+    
+    /**
      * Creates new form VtnReporteMensualCitas
      */
     public VtnReporteMensualCitas() {
         initComponents();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jtblReportByMonth.setModel(Util.getReportInit());
     }
 
     /**
@@ -29,13 +42,14 @@ public class VtnReporteMensualCitas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMonthChooser1 = new com.toedter.calendar.JMonthChooser();
+        jmcMonth = new com.toedter.calendar.JMonthChooser();
         jLabel1 = new javax.swing.JLabel();
-        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jycYear = new com.toedter.calendar.JYearChooser();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtblReportByMonth = new javax.swing.JTable();
         btnConsultar = new javax.swing.JButton();
+        total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,7 +57,7 @@ public class VtnReporteMensualCitas extends javax.swing.JFrame {
 
         jLabel2.setText("Mes:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblReportByMonth.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -54,31 +68,40 @@ public class VtnReporteMensualCitas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtblReportByMonth);
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+
+        total.setText("Total de citas:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConsultar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(jycYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(41, 41, 41)
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(jmcMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnConsultar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,17 +109,32 @@ public class VtnReporteMensualCitas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jycYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jMonthChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jmcMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConsultar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(total)
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int month = jmcMonth.getMonth() + 1;
+            int year = jycYear.getYear();
+            Result<List<ReporteBody>>  report = reportController.findByMonth( month, year );
+            jtblReportByMonth.setModel( Util.getReport( report ) );
+            total.setText("Total de citas: " + jtblReportByMonth.getRowCount());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Mes o Año no valido");
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,9 +175,10 @@ public class VtnReporteMensualCitas extends javax.swing.JFrame {
     private javax.swing.JButton btnConsultar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private com.toedter.calendar.JYearChooser jYearChooser1;
+    private com.toedter.calendar.JMonthChooser jmcMonth;
+    private javax.swing.JTable jtblReportByMonth;
+    private com.toedter.calendar.JYearChooser jycYear;
+    private javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
 }

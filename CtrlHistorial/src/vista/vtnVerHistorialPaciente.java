@@ -57,6 +57,19 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                 pacienteVO.getApellidoMaterno());
         
         this.getHistorialConsulta();
+        txtEdad.setEditable(false);
+        txtPeso.setEditable(false);
+        txtFc.setEditable(false);
+        txtFr.setEditable(false);
+        txtTa.setEditable(false);
+        txtTalla.setEditable(false);
+        txtTemp.setEditable(false);
+        txaRx.setEditable(false);
+        txaDxs.setEditable(false);
+        txaParecimientoActual.setEditable(false);
+        txaPlanManejo.setEditable(false);
+        txaReporteUltrasonico.setEditable(false);
+        jDataProximaCita.setEnabled(false);
     }
     
     public final void getHistorialConsulta(){        

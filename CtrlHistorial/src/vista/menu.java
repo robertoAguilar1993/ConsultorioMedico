@@ -43,10 +43,11 @@ public class menu extends javax.swing.JFrame {
         btnMenuReportesSemanal = new javax.swing.JMenuItem();
         btnMenuReportesMensual = new javax.swing.JMenuItem();
         btnMenuReportesAnual = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         btnHoras = new javax.swing.JMenuItem();
+        btnPacientes = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -150,6 +151,26 @@ public class menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
+        jMenu7.setText("Administración");
+
+        btnHoras.setText("Horas");
+        btnHoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHorasActionPerformed(evt);
+            }
+        });
+        jMenu7.add(btnHoras);
+
+        btnPacientes.setText("Pacientes");
+        btnPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPacientesActionPerformed(evt);
+            }
+        });
+        jMenu7.add(btnPacientes);
+
+        jMenuBar1.add(jMenu7);
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ayuda.png"))); // NOI18N
         jMenu1.setText("Ayuda");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -166,18 +187,6 @@ public class menu extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenu5);
-
-        jMenu7.setText("Administración");
-
-        btnHoras.setText("Horas");
-        btnHoras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHorasActionPerformed(evt);
-            }
-        });
-        jMenu7.add(btnHoras);
-
-        jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
 
@@ -215,8 +224,8 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        vtneditarhistorial p= new vtneditarhistorial();
-        p.setVisible(true);
+        VtnCitaRapira citaRapira = new VtnCitaRapira();
+        citaRapira.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
@@ -268,6 +277,12 @@ public class menu extends javax.swing.JFrame {
         vtnAdministracionHoras.setVisible(true);
     }//GEN-LAST:event_btnHorasActionPerformed
 
+    private void btnPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacientesActionPerformed
+        // TODO add your handling code here:
+        VtnAdministracionPacientes vtn = new VtnAdministracionPacientes();
+        vtn.setVisible(true);
+    }//GEN-LAST:event_btnPacientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -311,6 +326,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMenuReportesMensual;
     private javax.swing.JMenuItem btnMenuReportesSemanal;
     private javax.swing.JMenuItem btnMenuVerCita;
+    private javax.swing.JMenuItem btnPacientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
