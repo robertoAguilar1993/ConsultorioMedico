@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59ca065e-daa1-4abd-b6d8-d2dc59920719">
+	<property name="template.type" value="columnar"/>
+	<property name="ireport.zoom" value="1.100000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT
+     const_dts_pacientes.`id_paciente` AS const_dts_pacientes_id_paciente,
+     const_dts_pacientes.`nombre` AS const_dts_pacientes_nombre,
+     const_dts_pacientes.`ap_paterno` AS const_dts_pacientes_ap_paterno,
+     const_dts_pacientes.`ap_materno` AS const_dts_pacientes_ap_materno,
+     const_dts_pacientes.`domicilio` AS const_dts_pacientes_domicilio,
+     const_dts_pacientes.`genero` AS const_dts_pacientes_genero,
+     const_dts_pacientes.`telefono` AS const_dts_pacientes_telefono,
+     const_dts_pacientes.`ocupacion` AS const_dts_pacientes_ocupacion,
+     const_dts_historial_sintomas.`id_historial_sintomas` AS const_dts_historial_sintomas_id_historial_sintomas,
+     const_dts_historial_sintomas.`id_historial` AS const_dts_historial_sintomas_id_historial,
+     const_dts_historial_sintomas.`id_paciente` AS const_dts_historial_sintomas_id_paciente,
+     const_dts_historial_sintomas.`antecedente_importante` AS const_dts_historial_sintomas_antecedente_importante,
+     const_dts_historial_mts.`id_historial_mts` AS const_dts_historial_mts_id_historial_mts,
+     const_dts_historial_mts.`id_paciente` AS const_dts_historial_mts_id_paciente,
+     const_dts_historial_mts.`id_receta` AS const_dts_historial_mts_id_receta,
+     const_dts_historial_mts.`id_historial` AS const_dts_historial_mts_id_historial,
+     const_dts_historial_mts.`id_reporte_ultrasonico` AS const_dts_historial_mts_id_reporte_ultrasonico,
+     const_dts_historial_mts.`fecha` AS const_dts_historial_mts_fecha,
+     const_dts_historial.`id_historial` AS const_dts_historial_id_historial,
+     const_dts_historial.`parecimiento_actual` AS const_dts_historial_parecimiento_actual,
+     const_dts_historial.`dxs` AS const_dts_historial_dxs,
+     const_dts_historial.`plan_manejo` AS const_dts_historial_plan_manejo,
+     const_dts_recetas.`id_receta` AS const_dts_recetas_id_receta,
+     const_dts_recetas.`edad` AS const_dts_recetas_edad,
+     const_dts_recetas.`peso` AS const_dts_recetas_peso,
+     const_dts_recetas.`talla` AS const_dts_recetas_talla,
+     const_dts_recetas.`temp` AS const_dts_recetas_temp,
+     const_dts_recetas.`fc` AS const_dts_recetas_fc,
+     const_dts_recetas.`fr` AS const_dts_recetas_fr,
+     const_dts_recetas.`ta` AS const_dts_recetas_ta,
+     const_dts_recetas.`rx` AS const_dts_recetas_rx,
+     const_dts_recetas.`fecha` AS const_dts_recetas_fecha
+FROM
+     `const_dts_pacientes` const_dts_pacientes,
+     `const_dts_historial_sintomas` const_dts_historial_sintomas,
+     `const_dts_historial_mts` const_dts_historial_mts,
+     `const_dts_historial` const_dts_historial,
+     `const_dts_recetas` const_dts_recetas]]>
+	</queryString>
+	<field name="const_dts_pacientes_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_pacientes_nombre" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ap_paterno" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ap_materno" class="java.lang.String"/>
+	<field name="const_dts_pacientes_domicilio" class="java.lang.String"/>
+	<field name="const_dts_pacientes_genero" class="java.lang.String"/>
+	<field name="const_dts_pacientes_telefono" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ocupacion" class="java.lang.String"/>
+	<field name="const_dts_historial_sintomas_id_historial_sintomas" class="java.lang.Integer"/>
+	<field name="const_dts_historial_sintomas_id_historial" class="java.lang.Integer"/>
+	<field name="const_dts_historial_sintomas_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_historial_sintomas_antecedente_importante" class="java.lang.String"/>
+	<field name="const_dts_historial_mts_id_historial_mts" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_receta" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_historial" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_reporte_ultrasonico" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_fecha" class="java.sql.Date"/>
+	<field name="const_dts_historial_id_historial" class="java.lang.Integer"/>
+	<field name="const_dts_historial_parecimiento_actual" class="java.lang.String"/>
+	<field name="const_dts_historial_dxs" class="java.lang.String"/>
+	<field name="const_dts_historial_plan_manejo" class="java.lang.String"/>
+	<field name="const_dts_recetas_id_receta" class="java.lang.Integer"/>
+	<field name="const_dts_recetas_edad" class="java.lang.Integer"/>
+	<field name="const_dts_recetas_peso" class="java.math.BigDecimal"/>
+	<field name="const_dts_recetas_talla" class="java.math.BigDecimal"/>
+	<field name="const_dts_recetas_temp" class="java.lang.String"/>
+	<field name="const_dts_recetas_fc" class="java.lang.String"/>
+	<field name="const_dts_recetas_fr" class="java.lang.String"/>
+	<field name="const_dts_recetas_ta" class="java.lang.String"/>
+	<field name="const_dts_recetas_rx" class="java.lang.String"/>
+	<field name="const_dts_recetas_fecha" class="java.sql.Date"/>
+	<group name="const_dts_pacientes_nombre">
+		<groupExpression><![CDATA[$F{const_dts_pacientes_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="31" forecolor="#B89F7D" backcolor="#9DB1B8" uuid="68ab659f-121b-4b0d-bd93-81eae66dfaa7"/>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="180" height="23" forecolor="#FFFFFF" uuid="8c6f20a5-6353-4564-ba64-e73e0591d7cd"/>
+						<textElement>
+							<font size="14" isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{const_dts_pacientes_nombre}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="Detail" positionType="Float" x="185" y="3" width="181" height="21" forecolor="#FFFFFF" uuid="126c6798-79b4-4ed7-a834-4658f9b1771c"/>
+						<textElement>
+							<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{const_dts_pacientes_ap_paterno}]]></textFieldExpression>
+					</textField>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="Detail" positionType="Float" x="369" y="3" width="181" height="21" forecolor="#FFFFFF" uuid="a31f8cb9-8657-4ff0-96b0-46ec2ac5afa2"/>
+						<textElement>
+							<font size="14" isBold="true" pdfFontName="Times-Bold"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{const_dts_pacientes_ap_materno}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="91" y="0" width="377" height="40" uuid="30bee52d-7120-4cac-9467-39ebf3ff0bcf"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[HISTORIAL CLINICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="2" y="98" width="321" height="29" uuid="6b9d4201-1774-4428-9490-b5082aceecc8"/>
+				<textElement>
+					<font size="22" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FICHA DE IDENTIFICACION ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="25" width="319" height="20" uuid="bbdcc479-49ac-4d2c-86d3-3ceef6a53c93"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[CONSULTORIO MÉDICO CON ULTRASONIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="40" width="324" height="31" uuid="6d0d9a17-b0ed-455b-8bf8-33c4aa737345"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Kunstler Script" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dr. Víctor Manuel García Domínguez]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="-4" width="106" height="100" uuid="daa02d77-1724-44a4-a6a8-5ab409546d85"/>
+				<imageExpression><![CDATA["C:\\Users\\ARROW\\Desktop\\resi_control\\ConsultorioMedico-master\\CtrlHistorial\\src\\imagenes\\logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="468" y="0" width="122" height="97" uuid="f5b395e1-49fd-488c-8eff-c0e42df692f3"/>
+				<imageExpression><![CDATA["C:\\Users\\ARROW\\Desktop\\resi_control\\ConsultorioMedico-master\\CtrlHistorial\\src\\imagenes\\logo1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="86" y="49" width="405" height="46" uuid="e9c444ad-f120-4cc9-a0b3-7609d7db7829"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<text><![CDATA[      MÉDICO CIRUJANO Y HOMEÓPATA  Ced. Prof. 1488390      ESPECIALISTA EN MEDICINA FAMILIAR Ced. Prof. 3277768]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="733" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="7" y="7" width="71" height="20" forecolor="#000000" uuid="b41f3d77-78e5-476a-bdd7-d8ce0dfe3b27"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Domicilio:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="77" y="8" width="473" height="18" uuid="688c00cc-7b9f-472b-9b68-a5818f722e47"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_pacientes_domicilio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="9" y="56" width="54" height="20" forecolor="#000000" uuid="5b5e07bb-b11b-487f-ad86-bb82adf67570"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Genero:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="66" y="57" width="49" height="19" uuid="05cfdf20-0fc7-4ad4-a21b-eb06cf020794"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_pacientes_genero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="8" y="31" width="69" height="20" forecolor="#000000" uuid="044c1b48-859d-4dfc-bb27-f523c2e020cc"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="79" y="31" width="143" height="20" uuid="3c7abee3-5aa5-4dcb-b3cc-84285b2341c1"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_pacientes_telefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="230" y="31" width="74" height="20" forecolor="#000000" uuid="8fb692ad-b90b-410c-bd1f-828178ff7d95"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ocupacion:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="305" y="31" width="245" height="20" uuid="58791f93-b766-445d-a0d6-d845830f9f53"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_pacientes_ocupacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="9" y="108" width="225" height="20" forecolor="#000000" uuid="7c2204ac-f237-46f9-bc3b-53f8cb3affc2"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ATECEDENTES IMPORTANCIA: ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="9" y="128" width="541" height="83" uuid="228030bb-37c7-48a3-a637-276fc6eccda2"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_historial_sintomas_antecedente_importante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="8" y="216" width="132" height="20" forecolor="#000000" uuid="b3fb53aa-3625-4ff2-9cee-fd52c822ae66"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Parecimiento actual:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="9" y="236" width="541" height="176" uuid="ca2a9831-d17c-4fd5-9343-0253f351a9e8"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_historial_parecimiento_actual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="9" y="416" width="42" height="20" forecolor="#000000" uuid="f6646f88-ab99-4156-9850-21eedd431f14"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dxs:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="11" y="436" width="539" height="79" uuid="2d2dd274-c94a-4f58-8a99-abc3907487e5"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_historial_dxs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="11" y="521" width="104" height="20" forecolor="#000000" uuid="c8052c13-f35a-4478-8350-b9d300a7506e"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Plan de manejo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="11" y="541" width="539" height="102" uuid="6f6c9668-1a80-475e-8d0b-48a99d79d923"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_historial_plan_manejo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="119" y="56" width="41" height="20" forecolor="#000000" uuid="2d45ddbe-6afc-4626-9c1a-ca6b3d2c2c8d"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="161" y="56" width="34" height="20" uuid="d2cd1311-b5cf-429e-8018-1e2a89659176"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_recetas_edad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="202" y="56" width="36" height="20" forecolor="#000000" uuid="9738f2e9-fe62-4fb0-b8ae-8b64dd2d5e06"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Peso:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="241" y="56" width="43" height="20" uuid="a4ca020d-1073-46ab-8070-2ef1f3cbe139"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_recetas_peso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="293" y="56" width="35" height="20" forecolor="#000000" uuid="1ba00a76-7bff-49c0-8f0f-245e8dd77ee4"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Talla:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="331" y="56" width="43" height="20" uuid="2d799a2e-501d-4659-880e-b90f26bbf088"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_recetas_talla}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="384" y="56" width="44" height="20" forecolor="#000000" uuid="85afc033-4319-4062-b46f-0c91f140a026"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Temp:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="430" y="56" width="43" height="20" uuid="401d3c7e-2a68-4e3e-93ab-07065d0be6f7"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_recetas_temp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="479" y="56" width="27" height="20" forecolor="#000000" uuid="cb57c503-e1c5-4f65-82ba-a9b426330660"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fc:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="507" y="56" width="43" height="20" uuid="6fa91bef-81bb-4d85-a080-01efd2e3157f"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_recetas_fc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="7" y="82" width="44" height="20" forecolor="#000000" uuid="eda3dce4-60dd-4b2b-b5a4-5f67e2794c95"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FR:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="53" y="82" width="43" height="20" uuid="53f6aa41-3b59-46bd-802f-a8764aa76f70"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_recetas_fr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="123" y="82" width="44" height="20" forecolor="#000000" uuid="2cd212b4-eb18-44cc-bf97-d3cadb1d7e7f"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[T/A:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="172" y="82" width="43" height="20" uuid="5f3e6938-7bf2-4255-a112-c501b215b1b5"/>
+				<textElement>
+					<font size="14" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{const_dts_recetas_ta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="3e3a9473-e843-487a-94ea-94844f84414f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#9DB1B8" uuid="6cbcb0fb-c2c3-49f0-942c-fa57be807c0f"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="-1" width="40" height="13" forecolor="#FFFFFF" uuid="c96170a6-6f5d-4247-b427-638bf574d0f7"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="-1" width="80" height="13" forecolor="#FFFFFF" uuid="803b5401-071f-421e-b62f-e6afd5fde14a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="c60d03ea-ec7b-4d86-ac22-28da5aecfa32"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

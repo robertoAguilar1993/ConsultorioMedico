@@ -36,16 +36,15 @@ public class VtnCitaRapira extends javax.swing.JFrame {
         this.initValores();
     }
 
-    public final void initValores(){
-        
+    public final void initValores() {
+
         txtEdad.setEditable(false);
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String  fecha = formatter.format(new Date());
+        String fecha = formatter.format(new Date());
         txtFecha.setText(fecha);
         txtFecha.setEditable(false);
         //jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Traditional Arabic", 1, 18))); // NOI18N
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,6 +135,12 @@ public class VtnCitaRapira extends javax.swing.JFrame {
         btnUpdateHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateHistorialActionPerformed(evt);
+            }
+        });
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
             }
         });
 
@@ -545,20 +550,20 @@ public class VtnCitaRapira extends javax.swing.JFrame {
 
     private void btnSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSintomasActionPerformed
 
-       String simtomas = txtSintoma.getText();
-       
-       if ( simtomas ==null || "".equals(simtomas) ) {
-           JOptionPane.showMessageDialog(null,"El sintoma no puede estar vacio");
-           return;
-       }
-       
-       DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
-       model.addRow(new Object[]{simtomas});
-       
-       jTblSintomas.setModel(model);
-       
-       txtSintoma.setText(String.valueOf(""));
-                
+        String simtomas = txtSintoma.getText();
+
+        if (simtomas == null || "".equals(simtomas)) {
+            JOptionPane.showMessageDialog(null, "El sintoma no puede estar vacio");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
+        model.addRow(new Object[]{simtomas});
+
+        jTblSintomas.setModel(model);
+
+        txtSintoma.setText(String.valueOf(""));
+
     }//GEN-LAST:event_btnSintomasActionPerformed
 
     private void txtFcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFcActionPerformed
@@ -574,166 +579,166 @@ public class VtnCitaRapira extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         //this.datosDumy();
-         if ( this.validateForm() ) {
-             this.crearReporte();
-         }
-        
+        if (this.validateForm()) {
+            this.crearReporte();
+        }
+
     }//GEN-LAST:event_btnUpdateHistorialActionPerformed
 
-    
+    public void crearReporte() {
+        HistorialMtsData historialMtsData = new HistorialMtsData();
 
-    public void crearReporte(){
-        HistorialMtsData historialMtsData = new HistorialMtsData();       
-        
         historialMtsData.setRecetaVO(getRecetaVO());
         historialMtsData.setHistorialVO(getHistorial());
         historialMtsData.setReporteUltrasonicoVO(getReporteUltrasonico());
         historialMtsData.setIdPaciente(0);
-        
+
         java.util.Date fechaNow = new Date();
         historialMtsData.setDate(fechaNow);
         historialMtsData.setSintomasVOList(getSintomasVOs());
-        
-        JOptionPane.showMessageDialog(null,"Procesando la información para crear reporte");
+
+        Imprimir o = new Imprimir(historialMtsData);
+        o.setVisible(true);
     }
 
     /**
      * =================================================================================================================
      * Validacon de los formularios
      * =================================================================================================================
+     *
      * @return
      */
-    public boolean validateForm(){
+    public boolean validateForm() {
         String mensage = ConsultorioMedicoConst.STRING_EMPTY;
         String sintomas = this.validateSintomas();
         String recetaMedica = this.validateRecetasMedicas();
         String historial = this.validateHistorial();
         String reporteUltrasonico = this.validateReporteUltrasonico();
 
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(sintomas) ){
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(sintomas)) {
             mensage += "Sintomas del paciente:\n";
             mensage += sintomas;
         }
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(recetaMedica) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(recetaMedica)) {
             mensage += "Receta Medica:\n";
             mensage += recetaMedica;
         }
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(historial) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(historial)) {
             mensage += "Historial:\n";
             mensage += historial;
         }
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(reporteUltrasonico) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(reporteUltrasonico)) {
             mensage += "Reporte de Ultrasonido:\n";
             mensage += reporteUltrasonico;
         }
 
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(mensage) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(mensage)) {
             mensage += "\n\n\n******* Favor los campos solicitados ********";
-            JOptionPane.showMessageDialog(null,mensage);
+            JOptionPane.showMessageDialog(null, mensage);
             return false;
         }
 
         return true;
     }
-    public String validateSintomas(){
-        if ( jTblSintomas.getRowCount() <= 0 ) {
+
+    public String validateSintomas() {
+        if (jTblSintomas.getRowCount() <= 0) {
             return "---->Debe de tener al menos un sintoma:\n";
         }
         return ConsultorioMedicoConst.STRING_EMPTY;
     }
-    public String validateRecetasMedicas(){
+
+    public String validateRecetasMedicas() {
         String recetaMedica = ConsultorioMedicoConst.STRING_EMPTY;
-        if(!Util.validateString(txtEdad.getText())){
-            recetaMedica +="---->El campo 'edad' es requediro\n";
-        }else if(!Util.validateInteger(txtEdad.getText())){
-            recetaMedica +="---->El campo 'edad' debe ser un valor numerico\n";
+        if (!Util.validateString(txtEdad.getText())) {
+            recetaMedica += "---->El campo 'edad' es requediro\n";
+        } else if (!Util.validateInteger(txtEdad.getText())) {
+            recetaMedica += "---->El campo 'edad' debe ser un valor numerico\n";
         }
 
-        if(!Util.validateString(txtPeso.getText())){
-            recetaMedica +="---->El campo 'peso' es requediro\n";
-        }else if(!Util.validateFloat(txtPeso.getText())){
-            recetaMedica +="---->El valor del campo 'peso' no es valido\n";
+        if (!Util.validateString(txtPeso.getText())) {
+            recetaMedica += "---->El campo 'peso' es requediro\n";
+        } else if (!Util.validateFloat(txtPeso.getText())) {
+            recetaMedica += "---->El valor del campo 'peso' no es valido\n";
         }
 
-        if(!Util.validateString(txtTalla.getText())){
-            recetaMedica +="---->El campo 'Talla' es requediro\n";
-        }else if(!Util.validateFloat(txtTalla.getText())){
-            recetaMedica +="---->El valor del 'Talla' peso no es valido\n";
+        if (!Util.validateString(txtTalla.getText())) {
+            recetaMedica += "---->El campo 'Talla' es requediro\n";
+        } else if (!Util.validateFloat(txtTalla.getText())) {
+            recetaMedica += "---->El valor del 'Talla' peso no es valido\n";
         }
 
-        if(!Util.validateString(txtTemp.getText())){
-            recetaMedica +="---->El campo 'Temp' es requediro\n";
+        if (!Util.validateString(txtTemp.getText())) {
+            recetaMedica += "---->El campo 'Temp' es requediro\n";
         }
 //        else if(!Util.validateFloat(txtTemp.getText())){
 //            recetaMedica +="---->El valor del 'Temp' peso no es valido";
 //        }
 
-        if(!Util.validateString(txtFc.getText())){
-            recetaMedica +="---->El campo 'Fc' es requediro\n";
+        if (!Util.validateString(txtFc.getText())) {
+            recetaMedica += "---->El campo 'Fc' es requediro\n";
         }
 
-        if(!Util.validateString(txtFr.getText())){
-            recetaMedica +="---->El campo 'Fr' es requediro\n";
+        if (!Util.validateString(txtFr.getText())) {
+            recetaMedica += "---->El campo 'Fr' es requediro\n";
         }
 
-        if(!Util.validateString(txtTa.getText())){
-            recetaMedica +="---->El campo 'T/A' es requediro\n";
+        if (!Util.validateString(txtTa.getText())) {
+            recetaMedica += "---->El campo 'T/A' es requediro\n";
         }
 
-        if(!Util.validateString(txtFecha.getText())){
-            recetaMedica +="---->El campo 'fecha' es requediro\n";
+        if (!Util.validateString(txtFecha.getText())) {
+            recetaMedica += "---->El campo 'fecha' es requediro\n";
         }
 
-        if(!Util.validateString(txaRx.getText())){
-            recetaMedica +="---->El campo 'RX' es requediro\n";
+        if (!Util.validateString(txaRx.getText())) {
+            recetaMedica += "---->El campo 'RX' es requediro\n";
         }
-
 
         return recetaMedica;
     }
 
-    public String validateHistorial(){
+    public String validateHistorial() {
         String historial = ConsultorioMedicoConst.STRING_EMPTY;
 
-        if(!Util.validateString(txaParecimientoActual.getText())){
-            historial +="---->El campo 'Parecimiento Actual' es requediro\n";
+        if (!Util.validateString(txaParecimientoActual.getText())) {
+            historial += "---->El campo 'Parecimiento Actual' es requediro\n";
         }
 
-        if(!Util.validateString(txaDxs.getText())){
-            historial +="---->El campo 'Dxs' es requediro\n";
+        if (!Util.validateString(txaDxs.getText())) {
+            historial += "---->El campo 'Dxs' es requediro\n";
         }
 
-        if(!Util.validateString(txaPlanManejo.getText())){
-            historial +="---->El campo 'Plan Manejo' es requediro\n";
+        if (!Util.validateString(txaPlanManejo.getText())) {
+            historial += "---->El campo 'Plan Manejo' es requediro\n";
         }
         return historial;
     }
 
-    public String validateReporteUltrasonico(){
+    public String validateReporteUltrasonico() {
         String reporteUltrasonico = ConsultorioMedicoConst.STRING_EMPTY;
-        if(!Util.validateString(txaReporteUltrasonico.getText())){
-            reporteUltrasonico +="---->El campo 'Reporte Ultrasonico' es requediro\n";
+        if (!Util.validateString(txaReporteUltrasonico.getText())) {
+            reporteUltrasonico += "---->El campo 'Reporte Ultrasonico' es requediro\n";
         }
         return reporteUltrasonico;
     }
-
-
 
     /**
      * =================================================================================================================
      * conversion de los formularios a objetos de negocio
      * =================================================================================================================
+     *
      * @return
      */
-    public RecetaVO getRecetaVO(){
+    public RecetaVO getRecetaVO() {
         RecetaVO recetaVO = new RecetaVO();
-       
+
         recetaVO.setEdad(Integer.parseInt(txtEdad.getText()));
         recetaVO.setPeso(Float.parseFloat(txtPeso.getText()));
         recetaVO.setTalla(Float.parseFloat(txtTalla.getText()));
         recetaVO.setTemp(txtTemp.getText());
         recetaVO.setFc(txtFc.getText());
-        recetaVO.setRf(txtFr.getText());
+        recetaVO.setFr(txtFr.getText());
         recetaVO.setTa(txtTa.getText());
         recetaVO.setRx(txaRx.getText());
         java.util.Date fechaNow = new Date();
@@ -741,8 +746,8 @@ public class VtnCitaRapira extends javax.swing.JFrame {
         recetaVO.setFechaProximaCita(null);
         return recetaVO;
     }
-    
-    public HistorialVO getHistorial(){
+
+    public HistorialVO getHistorial() {
         HistorialVO historialVO = new HistorialVO();
         historialVO.setParecimientoActual(txaParecimientoActual.getText());
         historialVO.setDxs(txaDxs.getText());
@@ -750,37 +755,42 @@ public class VtnCitaRapira extends javax.swing.JFrame {
         historialVO.setHistorialSintomasVOList(null);
         return historialVO;
     }
-    
-    
-    public ReporteUltrasonicoVO getReporteUltrasonico(){
+
+    public ReporteUltrasonicoVO getReporteUltrasonico() {
         ReporteUltrasonicoVO reporteUltrasonicoVO = new ReporteUltrasonicoVO();
         reporteUltrasonicoVO.setDescripcion(txaReporteUltrasonico.getText());
         return reporteUltrasonicoVO;
     }
 
-    
-    public List<SintomasVO> getSintomasVOs(){
+    public List<SintomasVO> getSintomasVOs() {
         List<SintomasVO> sintomasVOs = new ArrayList<SintomasVO>();
-        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel(); 
+        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
         int columna = 0;
-        for(int row = 0; row < model.getRowCount(); row++ ) {
+        for (int row = 0; row < model.getRowCount(); row++) {
             String sintoma = model.getValueAt(row, columna).toString();
-             sintomasVOs.add(new SintomasVO(sintoma));
+            sintomasVOs.add(new SintomasVO(sintoma));
         }
         return sintomasVOs;
     }
 
 
-   
-    
     private void jmiEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarActionPerformed
         // TODO add your handling code here:
-       DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel(); 
-       model.removeRow( jTblSintomas.getSelectedRow() );
-       jTblSintomas.setModel(model);
+        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
+        model.removeRow(jTblSintomas.getSelectedRow());
+        jTblSintomas.setModel(model);
     }//GEN-LAST:event_jmiEliminarActionPerformed
 
-    
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here
+        if (fechaNacimiento != null && fechaNacimiento.getDate() != null) {
+            Date fechaN = fechaNacimiento.getDate();
+            int edad = new Date().getYear() - fechaN.getYear();
+            txtEdad.setText(String.valueOf(edad));
+        }
+
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
     /**
      * @param args the command line arguments
      */

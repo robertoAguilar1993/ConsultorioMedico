@@ -24,7 +24,7 @@ public class CitasController {
     
 
     public List<String> getHoras(HorarioTrabajoVO horarioTrabajoVO){
-        return Util.getHorasCompletas(horarioTrabajoVO.getHoraInicio(), horarioTrabajoVO.getHoraFinal());
+        return Util.getHorasByMedias(horarioTrabajoVO.getHoraInicio(), horarioTrabajoVO.getHoraFinal());
     }
     
     public Result<List<CitaVO>> getCitasByDate(String  fecha){

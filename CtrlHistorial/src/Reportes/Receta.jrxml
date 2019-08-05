@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d730d923-d9d7-4880-998e-746ae3f1f326">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="127"/>
+	<parameter name="nombre " class="java.lang.String"/>
+	<parameter name="apMate" class="java.lang.String"/>
+	<parameter name="apPat" class="java.lang.String"/>
+	<parameter name="edad" class="java.lang.String"/>
+	<parameter name="peso" class="java.lang.String"/>
+	<parameter name="talla" class="java.lang.String"/>
+	<parameter name="tem" class="java.lang.String"/>
+	<parameter name="fc" class="java.lang.String"/>
+	<parameter name="fr" class="java.lang.String"/>
+	<parameter name="ta" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="prox cita" class="java.lang.String"/>
+	<parameter name="rx" class="java.lang.String"/>
+	<parameter name="imagenDir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     const_dts_pacientes.`id_paciente` AS const_dts_pacientes_id_paciente,
+     const_dts_pacientes.`nombre` AS const_dts_pacientes_nombre,
+     const_dts_pacientes.`ap_paterno` AS const_dts_pacientes_ap_paterno,
+     const_dts_pacientes.`ap_materno` AS const_dts_pacientes_ap_materno,
+     const_dts_pacientes.`fecha_nacimiento` AS const_dts_pacientes_fecha_nacimiento,
+     const_dts_recetas.`edad` AS const_dts_recetas_edad,
+     const_dts_recetas.`peso` AS const_dts_recetas_peso,
+     const_dts_recetas.`talla` AS const_dts_recetas_talla,
+     const_dts_recetas.`temp` AS const_dts_recetas_temp,
+     const_dts_recetas.`fc` AS const_dts_recetas_fc,
+     const_dts_recetas.`fr` AS const_dts_recetas_fr,
+     const_dts_recetas.`ta` AS const_dts_recetas_ta,
+     const_dts_recetas.`rx` AS const_dts_recetas_rx,
+     const_dts_recetas.`fecha` AS const_dts_recetas_fecha,
+     const_dts_recetas.`fecha_proxima_cita` AS const_dts_recetas_fecha_proxima_cita,
+     const_dts_recetas.`id_paciente` AS const_dts_recetas_id_paciente,
+     const_dts_pacientes.`nombre` AS const_dts_pacientes_nombre,
+     const_dts_pacientes.`ap_paterno` AS const_dts_pacientes_ap_paterno,
+     const_dts_pacientes.`ap_materno` AS const_dts_pacientes_ap_materno,
+     const_dts_pacientes.`domicilio` AS const_dts_pacientes_domicilio,
+     const_dts_pacientes.`genero` AS const_dts_pacientes_genero,
+     const_dts_pacientes.`fecha_nacimiento` AS const_dts_pacientes_fecha_nacimiento
+FROM
+     `const_dts_pacientes` const_dts_pacientes INNER JOIN `const_dts_recetas` const_dts_recetas ON const_dts_pacientes.`id_paciente` = const_dts_recetas.`id_paciente`]]>
+	</queryString>
+	<field name="const_dts_pacientes_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_pacientes_nombre" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ap_paterno" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ap_materno" class="java.lang.String"/>
+	<field name="const_dts_pacientes_fecha_nacimiento" class="java.sql.Date"/>
+	<field name="const_dts_recetas_edad" class="java.lang.Integer"/>
+	<field name="const_dts_recetas_peso" class="java.math.BigDecimal"/>
+	<field name="const_dts_recetas_talla" class="java.math.BigDecimal"/>
+	<field name="const_dts_recetas_temp" class="java.lang.String"/>
+	<field name="const_dts_recetas_fc" class="java.lang.String"/>
+	<field name="const_dts_recetas_fr" class="java.lang.String"/>
+	<field name="const_dts_recetas_ta" class="java.lang.String"/>
+	<field name="const_dts_recetas_rx" class="java.lang.String"/>
+	<field name="const_dts_recetas_fecha" class="java.sql.Date"/>
+	<field name="const_dts_recetas_fecha_proxima_cita" class="java.sql.Date"/>
+	<field name="const_dts_recetas_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_pacientes_domicilio" class="java.lang.String"/>
+	<field name="const_dts_pacientes_genero" class="java.lang.String"/>
+	<field name="const_dts_pacientes_telefono" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ocupacion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="129" y="-2" width="290" height="20" uuid="ec59dce9-418e-42d9-82ba-bb075402a7a2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[CONSULTORIO MÉDICO CON ULTRASONIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="22" width="272" height="24" uuid="626c93fe-7826-4f8c-a153-d84cc55bcb6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dr. Víctor Manuel García Domínguez]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="50" width="541" height="20" uuid="0d79194d-42a8-4c56-9247-9bec382a5b53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[MÉDICO CIRUJANO Y HOMEÓPATA  Ced. Prof. 1488390      ESPECIALISTA EN MEDICINA FAMILIAR Ced. Prof. 3277768]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="65" width="339" height="20" uuid="0d284e1e-81db-4993-8a95-1c02ceebbc4b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[4ª. Av. Poniente Nte. No. 85     Barrio Cruz Grande  Comitán, Chiapas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="80" width="100" height="20" uuid="dd5bbe1d-cdce-4694-bf53-79e2c9bc1bda"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Cel. 963 102 49 95 ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="8" y="-17" width="79" height="72" uuid="443e3ecb-2536-4cdd-ad41-c28dd9977dca"/>
+				<imageExpression><![CDATA[$P{imagenDir}+"logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="-15" width="83" height="70" uuid="09b9b40b-1284-4b39-bb35-23e9e0963ad1"/>
+				<imageExpression><![CDATA[$P{imagenDir}+"logo1.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="3" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="56" height="20" uuid="2e939747-445b-4ba0-ab9b-08ef3d645085"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Paciente:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="55" y="15" width="442" height="1" uuid="090d6368-cdad-4763-aecc-b7b68670528d"/>
+			</line>
+			<textField>
+				<reportElement x="188" y="1" width="117" height="20" uuid="09641475-7c95-420f-84db-9f9a1fb6c619"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{apMate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="1" width="126" height="20" uuid="742fd51f-830f-49eb-b92e-f35eff152efb"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre }]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="1" width="120" height="20" uuid="eef70f29-d8cc-4bd2-a98e-ebb5cedf1adc"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{apPat}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="252" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="5" y="5" width="546" height="243" uuid="8dce159e-32b2-43e5-91db-ff80fd72a71d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="5" width="33" height="20" uuid="82c4bcf2-9bc1-4a21-932a-952120db3943"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="29" width="33" height="20" uuid="9314d3e0-69b5-4dfe-8aa2-1dc2d8f0e048"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Peso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="53" width="34" height="20" uuid="df3c7249-6629-47e3-9aae-3143f37925a2"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Talla:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="78" width="35" height="20" uuid="ea0f34eb-b649-49ca-aadf-ca9acb183816"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Temp:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="103" width="33" height="20" uuid="157247a5-061c-43fe-8f7b-e4d8c1217da8"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[FC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="128" width="33" height="20" uuid="184bb3ec-265d-4042-bc5b-f679198d506e"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[FR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="153" width="34" height="20" uuid="80e07ced-54ed-4dba-9a98-846e0d7c0a78"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[T/A:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="176" width="37" height="20" uuid="eaada681-fee6-46ad-b103-a1ac3437ae81"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="205" width="108" height="20" uuid="af946d3a-d989-42bc-9093-cd6edf49a394"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[PRÓXIMA CITA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="6" width="46" height="20" uuid="8c65ea31-90eb-4bc2-aea1-997323964c07"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[RX:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="205" width="113" height="20" uuid="485cc564-420f-4ed5-9111-310632b82bec"/>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="462" y="215" width="78" height="1" uuid="96568f69-8cd1-45bc-8ee8-feb53dde3297"/>
+			</line>
+			<line>
+				<reportElement x="57" y="19" width="42" height="1" uuid="9e763994-35fa-4fe1-88a8-6da0dd4cce0d"/>
+			</line>
+			<line>
+				<reportElement x="55" y="42" width="42" height="1" uuid="7726b94e-8a0b-41a4-9969-97f61414a158"/>
+			</line>
+			<line>
+				<reportElement x="59" y="66" width="42" height="1" uuid="37e92e31-7a74-4fb9-bae2-26d1acb3122d"/>
+			</line>
+			<line>
+				<reportElement x="57" y="91" width="42" height="1" uuid="88f2b517-4cd3-470e-8bde-9a28cee2de62"/>
+			</line>
+			<line>
+				<reportElement x="57" y="116" width="42" height="1" uuid="ac255f61-e11d-4b4e-a3c3-c6d453c610f9"/>
+			</line>
+			<line>
+				<reportElement x="58" y="141" width="42" height="1" uuid="eb270183-a0ea-4551-b0d2-6fab8a400016"/>
+			</line>
+			<line>
+				<reportElement x="58" y="164" width="42" height="1" uuid="65f99770-71bc-4b03-98a4-1d2ca6b4f66b"/>
+			</line>
+			<line>
+				<reportElement x="57" y="190" width="42" height="1" uuid="d6fa4cca-3d4b-4c6b-8f47-fcb0e860a7dc"/>
+			</line>
+			<line>
+				<reportElement x="111" y="218" width="139" height="1" uuid="4c6623dd-82dc-47cf-b3e7-26878e5241c1"/>
+			</line>
+			<textField>
+				<reportElement x="57" y="7" width="54" height="18" uuid="a4b895ca-8340-4d3d-94f8-0137c1ae1863"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="29" width="53" height="14" uuid="b135f35a-5137-41a6-ac14-486c16fe0d0a"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{peso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="53" width="46" height="19" uuid="2e99a119-36c2-472a-8315-13c1e951614d"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{talla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="78" width="48" height="16" uuid="0c688ed9-8c34-444c-a179-c7ab3dec3eb1"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="104" width="52" height="19" uuid="f219d067-f31b-4b59-970e-80d0847d53af"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="128" width="45" height="19" uuid="1cdc0508-3fa3-4f1e-91d7-8def877a1cd4"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="151" width="45" height="20" uuid="be59c954-3ed8-450d-834f-53c570f301a9"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="176" width="62" height="20" uuid="47e42f0f-418a-4fa2-b062-2f36e38cc37d"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="205" width="104" height="15" uuid="f5ebf8a1-17cb-4588-900f-d73e7846ba46"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prox cita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="29" width="402" height="170" uuid="a2663670-7144-47ac-b43a-e9ecd6e2cb3c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rx}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -37,6 +37,8 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
      HistorialPacienteController historialPacienteController = 
                 new HistorialPacienteController();
     boolean isOperationSearchHistory;
+    
+    HistorialMtsData data;
             
     /**
      * Creates new form vtnHistorialPaciente
@@ -161,6 +163,7 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
         jcbFechaConsultas = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         txtNombreCompleto = new javax.swing.JLabel();
+        btnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -169,9 +172,12 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Fechas de consulta:");
 
-        jTblSintomas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jTblSintomas.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jTblSintomas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -207,53 +213,68 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sintomas del Paciente", jPanel1);
 
-        jLabel4.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Edad:");
 
-        jLabel5.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Peso:");
 
-        jLabel6.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("Talla:");
 
-        jLabel7.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel7.setText("Temp:");
 
-        jLabel8.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("FC:");
 
-        jLabel9.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setText("FR:");
 
-        jLabel10.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setText("T/A:");
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel11.setText("Fecha:");
 
-        jLabel12.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setText("PRÓXIMA CITA:");
 
         txaRx.setColumns(20);
-        txaRx.setFont(new java.awt.Font("Arial Narrow", 0, 12)); // NOI18N
+        txaRx.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txaRx.setRows(5);
         jScrollPane2.setViewportView(txaRx);
 
+        txtEdad.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        txtPeso.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        txtTalla.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        txtFc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtFc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFcActionPerformed(evt);
             }
         });
 
+        txtFr.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        txtTa.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        txtFecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
         txtTemp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        jLabel13.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setText("RX:");
+
+        jDataProximaCita.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -299,7 +320,7 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                         .addComponent(jDataProximaCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel13)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,10 +337,12 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                             .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -347,7 +370,7 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Receta Medica", jPanel2);
@@ -420,12 +443,11 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jLabel16)
-                        .addGap(34, 34, 34))
+                        .addComponent(jLabel16))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,7 +459,7 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Historial", jPanel4);
@@ -462,11 +484,12 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reporte de Ultrasonido ", jPanel3);
 
+        jcbFechaConsultas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcbFechaConsultas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbFechaConsultas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -474,9 +497,18 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText("Nombre Completo:");
 
+        txtNombreCompleto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtNombreCompleto.setText("jLabel3");
+
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -485,7 +517,9 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(67, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -493,8 +527,9 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jcbFechaConsultas, 0, 680, Short.MAX_VALUE)
-                            .addComponent(txtNombreCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                            .addComponent(txtNombreCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnImprimir))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,10 +541,11 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jcbFechaConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbFechaConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -545,6 +581,9 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
                     llenarRecetaMedica(historialMtsData.getRecetaVO());
                     llenarHistorial(historialMtsData.getHistorialVO());
                     llenarReporteUltrasonico(historialMtsData.getReporteUltrasonicoVO());
+                    this.data = result.getResult();
+                    this.data.setPacienteVO(pacienteVO);
+                    this.data.setId(Integer.parseInt(idHistorialSeleccionado));
                  }else{
                      limpiarAntecedentesImportantes();
                      limpiarHistorial();
@@ -555,6 +594,12 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
             }           
         }        
     }//GEN-LAST:event_jcbFechaConsultasItemStateChanged
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        Imprimir imprimir = new Imprimir(data);
+        imprimir.setVisible(true);
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     @SuppressWarnings("empty-statement")
     public void llenarSintomas(List<SintomasVO> sintomasVOList) {
@@ -595,7 +640,7 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
             txtTalla.setText(String.valueOf(recetaVO.getTalla()));
             txtTemp.setText(String.valueOf(recetaVO.getTemp()));
             txtFc.setText(String.valueOf(recetaVO.getFc()));
-            txtFr.setText(String.valueOf(recetaVO.getRf()));
+            txtFr.setText(String.valueOf(recetaVO.getFr()));
             txtTa.setText(String.valueOf(recetaVO.getTa()));
 
             SimpleDateFormat formatoLargoEsMX = new SimpleDateFormat(
@@ -724,6 +769,7 @@ public class vtnVerHistorialPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImprimir;
     private com.toedter.calendar.JDateChooser jDataProximaCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

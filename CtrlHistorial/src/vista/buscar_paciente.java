@@ -124,7 +124,7 @@ public class buscar_paciente extends javax.swing.JFrame {
         Mensaje1.setForeground(new java.awt.Color(130, 130, 130));
         Mensaje1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Mensaje1.setText("Ingrese Nombre del paciente a Buscar...");
-        jPanel8.add(Mensaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 460, 20));
+        jPanel8.add(Mensaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 460, 20));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search-24.png"))); // NOI18N
         jPanel8.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 14, 30, 30));
@@ -297,6 +297,8 @@ public class buscar_paciente extends javax.swing.JFrame {
                 .addComponent(btnActualizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        fechaNacimiento.getAccessibleContext().setAccessibleName("dd/mm/aa");
 
         btnVerHistorial.setText("Ver historial");
         btnVerHistorial.addActionListener(new java.awt.event.ActionListener() {

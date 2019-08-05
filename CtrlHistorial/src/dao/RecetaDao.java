@@ -37,7 +37,7 @@ public class RecetaDao extends Conexion implements IRecetaDao {
                 recetaVO.setTalla(rs.getFloat("talla"));
                 recetaVO.setTemp(rs.getString("temp"));
                 recetaVO.setFc(rs.getString("fc"));
-                recetaVO.setRf(rs.getString("rf"));
+                recetaVO.setFr(rs.getString("rf"));
                 recetaVO.setTa(rs.getString("ta"));
                 recetaVO.setRx(rs.getString("rx"));
                 recetaVO.setFecha(new java.util.Date( rs.getDate("fecha").getTime()));
@@ -71,7 +71,7 @@ public class RecetaDao extends Conexion implements IRecetaDao {
                 receta.setTalla(rs.getFloat("talla"));
                 receta.setTemp(rs.getString("temp"));
                 receta.setFc(rs.getString("fc"));
-                receta.setRf(rs.getString("rf"));
+                receta.setFr(rs.getString("rf"));
                 receta.setTa(rs.getString("ta"));
                 receta.setRx(rs.getString("rx"));
                 receta.setFecha(new java.util.Date( rs.getDate("fecha").getTime()));
@@ -101,7 +101,7 @@ public class RecetaDao extends Conexion implements IRecetaDao {
             ps.setFloat(3, recetaVO.getTalla());
             ps.setString(4, recetaVO.getTemp());
             ps.setString(5, recetaVO.getFc());
-            ps.setString(6, recetaVO.getRf());
+            ps.setString(6, recetaVO.getFr());
             ps.setString(7, recetaVO.getTa());
             ps.setString(8, recetaVO.getRx());
             ps.setDate(9, new java.sql.Date(recetaVO.getFecha().getTime()));
@@ -142,7 +142,7 @@ public class RecetaDao extends Conexion implements IRecetaDao {
             ps.setFloat(3, recetaVO.getTalla());
             ps.setString(4, recetaVO.getTemp());
             ps.setString(5, recetaVO.getFc());
-            ps.setString(6, recetaVO.getRf());
+            ps.setString(6, recetaVO.getFr());
             ps.setString(7, recetaVO.getTa());
             ps.setString(8, recetaVO.getRx());
             ps.setDate(9, new java.sql.Date(recetaVO.getFecha().getTime()));

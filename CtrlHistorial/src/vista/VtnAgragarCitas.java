@@ -126,12 +126,14 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jcalFecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcalFecha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jcalFechaMousePressed(evt);
             }
         });
 
+        jtblHistorialCitas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jtblHistorialCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"9:00 AM", "Disponible", null},
@@ -160,6 +162,7 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
         jtblHistorialCitas.setComponentPopupMenu(menuHoras);
         jScrollPane1.setViewportView(jtblHistorialCitas);
 
+        jcbPaciente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcbPaciente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbPaciente.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -167,8 +170,11 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Seleccione un paciente:");
 
+        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARROW\\Desktop\\Nueva carpeta (2)\\appointment_102882.png")); // NOI18N
         jButton1.setText("AGENDAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,22 +182,27 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText("Edad:");
 
         txtEdad.setFocusable(false);
 
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Sexo:");
 
         txtSexo.setFocusable(false);
 
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("Domicilio:");
 
         txtDomicilio.setFocusable(false);
 
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Telefono:");
 
         txtTelefono.setFocusable(false);
 
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Ocupación:");
 
         txtOcupacion.setFocusable(false);
@@ -258,7 +269,7 @@ public class VtnAgragarCitas extends javax.swing.JFrame {
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(txtOcupacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jcalFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))

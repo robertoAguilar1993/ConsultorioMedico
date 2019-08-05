@@ -55,6 +55,9 @@ public class VtnVerCitas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jcalFechaVer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jtblHistorialCitasVer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jtblHistorialCitasVer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"9:00 AM", "Disponible", null},
@@ -96,11 +99,11 @@ public class VtnVerCitas extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jcalFechaVer, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         jcalFechaVer.addPropertyChangeListener(new PropertyChangeListener(){

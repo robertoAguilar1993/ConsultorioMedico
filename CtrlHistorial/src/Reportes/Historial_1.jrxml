@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59ca065e-daa1-4abd-b6d8-d2dc59920719">
+	<property name="template.type" value="columnar"/>
+	<property name="ireport.zoom" value="1.5000000000000009"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="994"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="mater" class="java.lang.String"/>
+	<parameter name="pater" class="java.lang.String"/>
+	<parameter name="domicilio" class="java.lang.String"/>
+	<parameter name="telefo" class="java.lang.String"/>
+	<parameter name="ocupacion" class="java.lang.String"/>
+	<parameter name="genero" class="java.lang.String"/>
+	<parameter name="edad" class="java.lang.String"/>
+	<parameter name="peso" class="java.lang.String"/>
+	<parameter name="talla" class="java.lang.String"/>
+	<parameter name="tem" class="java.lang.String"/>
+	<parameter name="fc" class="java.lang.String"/>
+	<parameter name="fr" class="java.lang.String"/>
+	<parameter name="ta" class="java.lang.String"/>
+	<parameter name="atecedentes " class="java.lang.String"/>
+	<parameter name="dxs" class="java.lang.String"/>
+	<parameter name="manejo" class="java.lang.String"/>
+	<parameter name="actual" class="java.lang.String"/>
+	<parameter name="imagenDir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="const_dts_pacientes_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_pacientes_nombre" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ap_paterno" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ap_materno" class="java.lang.String"/>
+	<field name="const_dts_pacientes_domicilio" class="java.lang.String"/>
+	<field name="const_dts_pacientes_genero" class="java.lang.String"/>
+	<field name="const_dts_pacientes_telefono" class="java.lang.String"/>
+	<field name="const_dts_pacientes_ocupacion" class="java.lang.String"/>
+	<field name="const_dts_historial_sintomas_id_historial_sintomas" class="java.lang.Integer"/>
+	<field name="const_dts_historial_sintomas_id_historial" class="java.lang.Integer"/>
+	<field name="const_dts_historial_sintomas_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_historial_sintomas_antecedente_importante" class="java.lang.String"/>
+	<field name="const_dts_historial_mts_id_historial_mts" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_paciente" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_receta" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_historial" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_id_reporte_ultrasonico" class="java.lang.Integer"/>
+	<field name="const_dts_historial_mts_fecha" class="java.sql.Date"/>
+	<field name="const_dts_historial_id_historial" class="java.lang.Integer"/>
+	<field name="const_dts_historial_parecimiento_actual" class="java.lang.String"/>
+	<field name="const_dts_historial_dxs" class="java.lang.String"/>
+	<field name="const_dts_historial_plan_manejo" class="java.lang.String"/>
+	<field name="const_dts_recetas_id_receta" class="java.lang.Integer"/>
+	<field name="const_dts_recetas_edad" class="java.lang.Integer"/>
+	<field name="const_dts_recetas_peso" class="java.math.BigDecimal"/>
+	<field name="const_dts_recetas_talla" class="java.math.BigDecimal"/>
+	<field name="const_dts_recetas_temp" class="java.lang.String"/>
+	<field name="const_dts_recetas_fc" class="java.lang.String"/>
+	<field name="const_dts_recetas_fr" class="java.lang.String"/>
+	<field name="const_dts_recetas_ta" class="java.lang.String"/>
+	<field name="const_dts_recetas_rx" class="java.lang.String"/>
+	<field name="const_dts_recetas_fecha" class="java.sql.Date"/>
+	<group name="const_dts_pacientes_nombre">
+		<groupExpression><![CDATA[$F{const_dts_pacientes_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="555" height="31" forecolor="#B89F7D" backcolor="#9DB1B8" uuid="68ab659f-121b-4b0d-bd93-81eae66dfaa7"/>
+					<textField>
+						<reportElement x="8" y="5" width="194" height="20" uuid="c7952c67-76d2-4bea-8ed8-4bb4ffa91979"/>
+						<textElement>
+							<font fontName="Arial" size="13"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="209" y="5" width="137" height="20" uuid="fff36bec-e972-4d0d-b440-f441b4af56b0"/>
+						<textElement>
+							<font fontName="Arial" size="13"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{mater}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement x="372" y="5" width="134" height="20" uuid="9d63c789-4594-4016-9a57-0fd7c64452bc"/>
+						<textElement>
+							<font fontName="Arial" size="13"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$P{pater}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="91" y="0" width="377" height="40" uuid="30bee52d-7120-4cac-9467-39ebf3ff0bcf"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="22" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[HISTORIAL CLINICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="2" y="98" width="321" height="29" uuid="6b9d4201-1774-4428-9490-b5082aceecc8"/>
+				<textElement>
+					<font size="22" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[FICHA DE IDENTIFICACION ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="25" width="319" height="20" uuid="bbdcc479-49ac-4d2c-86d3-3ceef6a53c93"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[CONSULTORIO MÉDICO CON ULTRASONIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="40" width="324" height="31" uuid="6d0d9a17-b0ed-455b-8bf8-33c4aa737345"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dr. Víctor Manuel García Domínguez]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="-4" width="106" height="100" uuid="daa02d77-1724-44a4-a6a8-5ab409546d85"/>
+				<imageExpression><![CDATA[$P{imagenDir}+"logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="468" y="0" width="122" height="97" uuid="f5b395e1-49fd-488c-8eff-c0e42df692f3"/>
+				<imageExpression><![CDATA[$P{imagenDir}+"logo1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="86" y="49" width="405" height="46" uuid="e9c444ad-f120-4cc9-a0b3-7609d7db7829"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<text><![CDATA[      MÉDICO CIRUJANO Y HOMEÓPATA  Ced. Prof. 1488390      ESPECIALISTA EN MEDICINA FAMILIAR Ced. Prof. 3277768]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="733" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="4" y="7" width="70" height="20" forecolor="#000000" uuid="b41f3d77-78e5-476a-bdd7-d8ce0dfe3b27"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Domicilio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="4" y="57" width="54" height="20" forecolor="#000000" uuid="5b5e07bb-b11b-487f-ad86-bb82adf67570"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Genero:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="4" y="31" width="69" height="20" forecolor="#000000" uuid="044c1b48-859d-4dfc-bb27-f523c2e020cc"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="230" y="31" width="74" height="20" forecolor="#000000" uuid="8fb692ad-b90b-410c-bd1f-828178ff7d95"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ocupacion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="9" y="108" width="225" height="20" forecolor="#000000" uuid="7c2204ac-f237-46f9-bc3b-53f8cb3affc2"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ATECEDENTES IMPORTANCIA: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="8" y="216" width="132" height="20" forecolor="#000000" uuid="b3fb53aa-3625-4ff2-9cee-fd52c822ae66"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Parecimiento actual:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="9" y="416" width="42" height="20" forecolor="#000000" uuid="f6646f88-ab99-4156-9850-21eedd431f14"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dxs:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="11" y="521" width="104" height="20" forecolor="#000000" uuid="c8052c13-f35a-4478-8350-b9d300a7506e"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Plan de manejo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="134" y="57" width="41" height="20" forecolor="#000000" uuid="2d45ddbe-6afc-4626-9c1a-ca6b3d2c2c8d"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="238" y="58" width="36" height="20" forecolor="#000000" uuid="9738f2e9-fe62-4fb0-b8ae-8b64dd2d5e06"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Peso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="340" y="58" width="35" height="20" forecolor="#000000" uuid="1ba00a76-7bff-49c0-8f0f-245e8dd77ee4"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Talla:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="436" y="58" width="44" height="20" forecolor="#000000" uuid="85afc033-4319-4062-b46f-0c91f140a026"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Temp:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="9" y="82" width="27" height="20" forecolor="#000000" uuid="cb57c503-e1c5-4f65-82ba-a9b426330660"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fc:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="87" y="82" width="44" height="20" forecolor="#000000" uuid="eda3dce4-60dd-4b2b-b5a4-5f67e2794c95"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" positionType="Float" x="203" y="82" width="31" height="20" forecolor="#000000" uuid="2cd212b4-eb18-44cc-bf97-d3cadb1d7e7f"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[T/A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="7" width="469" height="20" uuid="2006d83c-868a-4fee-ab05-10d4d9680413"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{domicilio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="32" width="142" height="20" uuid="161734ab-7a73-4e56-b0bf-739e02972b2a"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telefo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="31" width="160" height="20" uuid="1b711c07-22e0-4395-af67-30b9aff23c4a"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ocupacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="57" width="63" height="20" uuid="91daf9b9-41a6-4a1e-af24-71764bb1cf32"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{genero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="57" width="54" height="20" uuid="1ef39bb0-b5f2-4f74-87e2-b191e433f56a"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="58" width="55" height="20" uuid="6341703b-f53b-4849-955f-e52c08a6aa22"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{peso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="58" width="54" height="20" uuid="88d08054-3792-4328-8269-35cfe75ab777"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{talla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="479" y="58" width="57" height="20" uuid="f06fb386-31a4-417d-9612-123a620b8c86"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="38" y="82" width="37" height="20" uuid="a3dea685-963e-43fd-afc5-b1702be188a8"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="82" width="40" height="20" uuid="12d3d428-7f98-4b3f-9231-d43db63b43bb"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="235" y="82" width="41" height="20" uuid="90cfe47b-afbc-447e-9263-c731a49bd7cf"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="539" width="524" height="192" uuid="d3aecefa-ec6a-440a-996e-e1a00f69237b"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{manejo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="436" width="527" height="74" uuid="0c60265f-7c64-4c95-b701-e33e0be58ccf"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dxs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="129" width="526" height="87" uuid="519ce597-f919-420d-9a35-7d6b1022eb29"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{atecedentes }]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="236" width="527" height="170" uuid="a4235cb5-122f-4489-93d3-5c0e81d6e3ba"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{actual}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="3e3a9473-e843-487a-94ea-94844f84414f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#9DB1B8" uuid="6cbcb0fb-c2c3-49f0-942c-fa57be807c0f"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="-1" width="40" height="13" forecolor="#FFFFFF" uuid="c96170a6-6f5d-4247-b427-638bf574d0f7"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="-1" width="80" height="13" forecolor="#FFFFFF" uuid="803b5401-071f-421e-b62f-e6afd5fde14a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="c60d03ea-ec7b-4d86-ac22-28da5aecfa32"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

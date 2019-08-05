@@ -81,6 +81,8 @@ public class Util {
            hora ++;
        }
 
+       listHora.remove(listHora.size()-1);
+       
         return  listHora;
     }
     

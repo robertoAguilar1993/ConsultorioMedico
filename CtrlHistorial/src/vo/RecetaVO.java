@@ -12,7 +12,7 @@ public class RecetaVO {
     private float talla;
     private String temp;
     private String fc;
-    private String rf;
+    private String fr;
     private String ta;
     private String rx;
     private Date fecha;
@@ -74,12 +74,12 @@ public class RecetaVO {
         this.fc = fc;
     }
 
-    public String getRf() {
-        return rf;
+    public String getFr() {
+        return fr;
     }
 
-    public void setRf(String rf) {
-        this.rf = rf;
+    public void setFr(String fr) {
+        this.fr = fr;
     }
 
     public String getTa() {
@@ -131,7 +131,7 @@ public class RecetaVO {
                 ", talla=" + talla +
                 ", temp='" + temp + '\'' +
                 ", fc='" + fc + '\'' +
-                ", rf='" + rf + '\'' +
+                ", rf='" + fr + '\'' +
                 ", ta='" + ta + '\'' +
                 ", rx='" + rx + '\'' +
                 ", fecha=" + fecha +

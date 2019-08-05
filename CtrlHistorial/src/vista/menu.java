@@ -52,13 +52,13 @@ public class menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo2.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/aa6.png"))); // NOI18N
 
         jMenuBar1.setFont(new java.awt.Font("Arial Narrow", 0, 14)); // NOI18N
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registrar.png"))); // NOI18N
         jMenu2.setText(" Agregar Paciente  ");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu2MouseClicked(evt);
@@ -67,10 +67,11 @@ public class menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/historila2.png"))); // NOI18N
-        jMenu3.setText("  Historial  ");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenu3.setText(" Historial  ");
+        jMenu3.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jMenu3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jMenuItem1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bus.png"))); // NOI18N
         jMenuItem1.setText("Buscar Paciente ");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +81,7 @@ public class menu extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem1);
 
+        jMenuItem2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editar.png"))); // NOI18N
         jMenuItem2.setText("Cita Rápida");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +95,7 @@ public class menu extends javax.swing.JFrame {
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/calendar.png"))); // NOI18N
         jMenu6.setText("Citas");
+        jMenu6.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add_icon.png"))); // NOI18N
         jMenuItem5.setText("Agregar");
@@ -151,8 +154,11 @@ public class menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu7.setText("Administración");
+        jMenu7.setText("  Administracion  ");
+        jMenu7.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
 
+        btnHoras.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnHoras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/arena32.png"))); // NOI18N
         btnHoras.setText("Horas");
         btnHoras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +167,8 @@ public class menu extends javax.swing.JFrame {
         });
         jMenu7.add(btnHoras);
 
+        btnPacientes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/paci32.png"))); // NOI18N
         btnPacientes.setText("Pacientes");
         btnPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,14 +180,14 @@ public class menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu7);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ayuda.png"))); // NOI18N
-        jMenu1.setText("Ayuda");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenu1.setText("  Ayuda  ");
+        jMenu1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/salir.png"))); // NOI18N
-        jMenu5.setText("Cerrar Sesión");
+        jMenu5.setText(" Cerrar Sesión");
         jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenu5.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jMenu5.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -194,17 +202,11 @@ public class menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(445, 445, 445)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 526, Short.MAX_VALUE)
         );
 
         pack();

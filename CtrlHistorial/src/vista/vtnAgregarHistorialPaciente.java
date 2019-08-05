@@ -6,12 +6,15 @@
 package vista;
 
 import Controller.HistorialPacienteController;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.Conexion;
 
 import util.ConsultorioMedicoConst;
 import util.Result;
@@ -34,10 +37,13 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     /**
      * Variables
      */
+    Conexion cn = new Conexion();
     PacienteVO pacienteVO = new PacienteVO();
-    HistorialPacienteController historialPacienteController = 
-                new HistorialPacienteController();
+    HistorialPacienteController historialPacienteController
+            = new HistorialPacienteController();
     HistorialMtsVO historialMtsVO;
+    HistorialMtsData data;
+
     /**
      * Creates new form vtnHistorialPaciente
      */
@@ -46,7 +52,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-    
+
     public vtnAgregarHistorialPaciente(PacienteVO pacienteVO) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -54,24 +60,24 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         this.pacienteVO = pacienteVO;
         this.initValores();
     }
-    
-    public final void initValores(){
-        txtNombreCompleto.setText(pacienteVO.getNombre() + " " + 
-                pacienteVO.getApellidoPaterno() + " " + 
-                pacienteVO.getApellidoMaterno());
-        
+
+    public final void initValores() {
+        txtNombreCompleto.setText(pacienteVO.getNombre() + " "
+                + pacienteVO.getApellidoPaterno() + " "
+                + pacienteVO.getApellidoMaterno());
+
         int edad = new Date().getYear() - pacienteVO.getFechaNacimiento().getYear();
-        
+
         txtEdad.setText(String.valueOf(edad));
         txtEdad.setEditable(false);
-        
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String  fecha = formatter.format(new Date());
+        String fecha = formatter.format(new Date());
         txtFecha.setText(fecha);
         txtFecha.setEditable(false);
         jDataProximaCita.setEnabled(false);
+        btnImprimir.setEnabled(false);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,6 +90,8 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
         menuSintomas = new javax.swing.JPopupMenu();
         jmiEliminar = new javax.swing.JMenuItem();
+        menuAntecedentes = new javax.swing.JPopupMenu();
+        jmiEliminar1 = new javax.swing.JMenuItem();
         btnUpdateHistorial = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtNombreCompleto = new javax.swing.JTextField();
@@ -117,6 +125,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jDataProximaCita = new com.toedter.calendar.JDateChooser();
         btnAgendarCita = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -133,6 +142,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         txaReporteUltrasonico = new javax.swing.JTextArea();
+        btnImprimir = new javax.swing.JButton();
 
         jmiEliminar.setText("Eliminar");
         jmiEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +152,14 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         });
         menuSintomas.add(jmiEliminar);
 
+        jmiEliminar1.setText("Eliminar");
+        jmiEliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminar1ActionPerformed(evt);
+            }
+        });
+        menuAntecedentes.add(jmiEliminar1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -149,6 +167,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             }
         });
 
+        btnUpdateHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guarda.png"))); // NOI18N
         btnUpdateHistorial.setText("Guardar");
         btnUpdateHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,11 +175,17 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setText("Nombre del paciente:");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtNombreCompleto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setText("Sintomas :");
 
+        btnSintomas.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnSintomas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_opc.png"))); // NOI18N
         btnSintomas.setText("Agregar");
         btnSintomas.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +194,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             }
         });
 
-        jTblSintomas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTblSintomas.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jTblSintomas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -203,7 +228,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                         .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(btnSintomas)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +240,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                     .addComponent(btnSintomas))
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Sintomas del Paciente", jPanel1);
@@ -248,7 +273,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel12.setText("PRÓXIMA CITA:");
 
         txaRx.setColumns(20);
-        txaRx.setFont(new java.awt.Font("Arial Narrow", 0, 12)); // NOI18N
+        txaRx.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         txaRx.setRows(5);
         jScrollPane2.setViewportView(txaRx);
 
@@ -263,10 +288,20 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Traditional Arabic", 1, 14)); // NOI18N
         jLabel13.setText("RX:");
 
+        btnAgendarCita.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnAgendarCita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/appointment_102882.png"))); // NOI18N
         btnAgendarCita.setText("Agendar cita");
         btnAgendarCita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgendarCitaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -275,59 +310,61 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))
-                                .addGap(15, 15, 15))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(13, 13, 13)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtFecha)
-                            .addComponent(txtFr, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFc, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTemp, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTa)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTalla)
-                                .addComponent(txtPeso)))))
-                .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addGap(18, 18, 18)
-                            .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAgendarCita))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(btnAgendarCita)
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel10))
+                                        .addGap(15, 15, 15))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(13, 13, 13)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtFecha)
+                                    .addComponent(txtFr, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFc, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTemp, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTa)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4))
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTalla)
+                                    .addComponent(txtPeso))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel13)))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -360,13 +397,23 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgendarCita))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jDataProximaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAgendarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Receta Medica", jPanel2);
@@ -406,6 +453,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTblAntecedentesImportantes.setComponentPopupMenu(menuAntecedentes);
         jScrollPane4.setViewportView(jTblAntecedentesImportantes);
 
         btnagregarSintomasImportantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_opc.png"))); // NOI18N
@@ -459,7 +507,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Historial", jPanel4);
@@ -484,10 +532,17 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Reporte de Ultrasonido ", jPanel3);
+        jTabbedPane1.addTab("   Reporte de Ultrasonido  ", jPanel3);
+
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -495,28 +550,36 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(45, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(txtNombreCompleto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdateHistorial)
-                        .addGap(110, 110, 110))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnImprimir)
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdateHistorial)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnUpdateHistorial))
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -524,20 +587,20 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
     private void btnSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSintomasActionPerformed
 
-       String simtomas = txtSintoma.getText();
-       
-       if ( simtomas ==null || "".equals(simtomas) ) {
-           JOptionPane.showMessageDialog(null,"El sintoma no puede estar vacio");
-           return;
-       }
-       
-       DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
-       model.addRow(new Object[]{simtomas});
-       
-       jTblSintomas.setModel(model);
-       
-       txtSintoma.setText(String.valueOf(""));
-                
+        String simtomas = txtSintoma.getText();
+
+        if (simtomas == null || "".equals(simtomas)) {
+            JOptionPane.showMessageDialog(null, "El sintoma no puede estar vacio");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
+        model.addRow(new Object[]{simtomas});
+
+        jTblSintomas.setModel(model);
+
+        txtSintoma.setText(String.valueOf(""));
+
     }//GEN-LAST:event_btnSintomasActionPerformed
 
     private void txtFcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFcActionPerformed
@@ -545,14 +608,20 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFcActionPerformed
 
     /**
-     * Metodo encargado en abrir la ventana para ver los antecedentes importantes
-     * @param evt 
+     * Metodo encargado en abrir la ventana para ver los antecedentes
+     * importantes
+     *
+     * @param evt
      */
     private void btnagregarSintomasImportantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarSintomasImportantesActionPerformed
         // TODO add your handling code here:
-        VtnAntecedentesImportantes  vtnAntecedentesImportantes = 
-                new VtnAntecedentesImportantes(this, true);
-        vtnAntecedentesImportantes.setVisible(true);
+        String antecedente = JOptionPane.showInputDialog("Ingrese el antecedente importante");
+        if (antecedente != null && !"".equals(antecedente)) {
+            DefaultTableModel model = (DefaultTableModel) jTblAntecedentesImportantes.getModel();
+            model.addRow(new Object[]{antecedente});
+
+            jTblSintomas.setModel(model);
+        }
     }//GEN-LAST:event_btnagregarSintomasImportantesActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -560,198 +629,203 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
+    String id;
     private void btnUpdateHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHistorialActionPerformed
-        // TODO add your handling code here:
 
         //this.datosDumy();
-         if ( this.validateForm() ) {
-             if (null != btnUpdateHistorial.getText() ) switch (btnUpdateHistorial.getText()) {
-                 case "Guardar":
-                     this.crearHistorial();
-                     btnUpdateHistorial.setText( "Actualizar" );
-                     break;
-                 case "Actualizar":
-                     this.actualizarHistorial();
-                     break;
-             }
-         }
-        
+        if (this.validateForm()) {
+            if (null != btnUpdateHistorial.getText()) {
+                switch (btnUpdateHistorial.getText()) {
+                    case "Guardar":
+                        this.crearHistorial();
+                        btnUpdateHistorial.setText("Actualizar");
+                        btnImprimir.setEnabled(true);
+                        break;
+                    case "Actualizar":
+                        this.actualizarHistorial();
+                        break;
+                }
+            }
+        }
+
+
     }//GEN-LAST:event_btnUpdateHistorialActionPerformed
 
-    
+    public void crearHistorial() {
+        HistorialMtsData historialMtsData = new HistorialMtsData();
 
-    public void crearHistorial(){
-        HistorialMtsData historialMtsData = new HistorialMtsData();       
-        
         historialMtsData.setRecetaVO(getRecetaVO());
         historialMtsData.setHistorialVO(getHistorial());
         historialMtsData.setReporteUltrasonicoVO(getReporteUltrasonico());
         historialMtsData.setIdPaciente((int) pacienteVO.getId());
-        
+
         java.util.Date fechaNow = new Date();
         historialMtsData.setDate(fechaNow);
         historialMtsData.setSintomasVOList(getSintomasVOs());
-        
-        Result<HistorialMtsData> result= historialPacienteController.add(historialMtsData);
-        if(result.isOperationStatus()){
+
+        Result<HistorialMtsData> result = historialPacienteController.add(historialMtsData);
+        if (result.isOperationStatus()) {
             historialMtsVO = new HistorialMtsVO();
-            historialMtsVO.setId(result.getResult().getId() );
+            historialMtsVO.setId(result.getResult().getId());
             historialMtsVO.setIdHistorial(result.getResult().getHistorialVO().getId());
             historialMtsVO.setIdPaciente((int) this.pacienteVO.getId());
             historialMtsVO.setIdReceta(result.getResult().getRecetaVO().getId());
             historialMtsVO.setIdReporteUltrasonico(result.getResult().getReporteUltrasonicoVO().getId());
             System.err.println("historialMtsVO: " + historialMtsVO.toString());
+            this.data = result.getResult();
         }
+
         JOptionPane.showMessageDialog(null, result.getMessage());
     }
-    
-    public void actualizarHistorial(){
-        HistorialMtsData historialMtsData = new HistorialMtsData();       
+
+    public void actualizarHistorial() {
+        HistorialMtsData historialMtsData = new HistorialMtsData();
         historialMtsData.setId(historialMtsVO.getId());
         historialMtsData.setRecetaVO(getRecetaVO());
         historialMtsData.setHistorialVO(getHistorial());
         historialMtsData.setReporteUltrasonicoVO(getReporteUltrasonico());
         historialMtsData.setIdPaciente((int) pacienteVO.getId());
-        
+
         java.util.Date fechaNow = new Date();
         historialMtsData.setDate(fechaNow);
         historialMtsData.setSintomasVOList(getSintomasVOs());
-        
-        Result<HistorialMtsData> result= historialPacienteController.update(historialMtsData);
+
+        Result<HistorialMtsData> result = historialPacienteController.update(historialMtsData);
+        this.data = result.getResult();
         System.out.println(result.toString());
         JOptionPane.showMessageDialog(null, result.getMessage());
     }
-    
 
     /**
      * =================================================================================================================
      * Validacon de los formularios
      * =================================================================================================================
+     *
      * @return
      */
-    public boolean validateForm(){
+    public boolean validateForm() {
         String mensage = ConsultorioMedicoConst.STRING_EMPTY;
         String sintomas = this.validateSintomas();
         String recetaMedica = this.validateRecetasMedicas();
         String historial = this.validateHistorial();
         String reporteUltrasonico = this.validateReporteUltrasonico();
 
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(sintomas) ){
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(sintomas)) {
             mensage += "Sintomas del paciente:\n";
             mensage += sintomas;
         }
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(recetaMedica) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(recetaMedica)) {
             mensage += "Receta Medica:\n";
             mensage += recetaMedica;
         }
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(historial) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(historial)) {
             mensage += "Historial:\n";
             mensage += historial;
         }
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(reporteUltrasonico) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(reporteUltrasonico)) {
             mensage += "Reporte de Ultrasonido:\n";
             mensage += reporteUltrasonico;
         }
 
-        if( !ConsultorioMedicoConst.STRING_EMPTY.equals(mensage) ) {
+        if (!ConsultorioMedicoConst.STRING_EMPTY.equals(mensage)) {
             mensage += "\n\n\n******* Favor los campos solicitados ********";
-            JOptionPane.showMessageDialog(null,mensage);
+            JOptionPane.showMessageDialog(null, mensage);
             return false;
         }
 
         return true;
     }
-    public String validateSintomas(){
-        if ( jTblSintomas.getRowCount() <= 0 ) {
+
+    public String validateSintomas() {
+        if (jTblSintomas.getRowCount() <= 0) {
             return "---->Debe de tener al menos un sintoma:\n";
         }
         return ConsultorioMedicoConst.STRING_EMPTY;
     }
-    public String validateRecetasMedicas(){
+
+    public String validateRecetasMedicas() {
         String recetaMedica = ConsultorioMedicoConst.STRING_EMPTY;
-        if(!Util.validateString(txtEdad.getText())){
-            recetaMedica +="---->El campo 'edad' es requediro\n";
-        }else if(!Util.validateInteger(txtEdad.getText())){
-            recetaMedica +="---->El campo 'edad' debe ser un valor numerico\n";
+        if (!Util.validateString(txtEdad.getText())) {
+            recetaMedica += "---->El campo 'edad' es requediro\n";
+        } else if (!Util.validateInteger(txtEdad.getText())) {
+            recetaMedica += "---->El campo 'edad' debe ser un valor numerico\n";
         }
 
-        if(!Util.validateString(txtPeso.getText())){
-            recetaMedica +="---->El campo 'peso' es requediro\n";
-        }else if(!Util.validateFloat(txtPeso.getText())){
-            recetaMedica +="---->El valor del campo 'peso' no es valido\n";
+        if (!Util.validateString(txtPeso.getText())) {
+            recetaMedica += "---->El campo 'peso' es requediro\n";
+        } else if (!Util.validateFloat(txtPeso.getText())) {
+            recetaMedica += "---->El valor del campo 'peso' no es valido\n";
         }
 
-        if(!Util.validateString(txtTalla.getText())){
-            recetaMedica +="---->El campo 'Talla' es requediro\n";
-        }else if(!Util.validateFloat(txtTalla.getText())){
-            recetaMedica +="---->El valor del 'Talla' peso no es valido\n";
+        if (!Util.validateString(txtTalla.getText())) {
+            recetaMedica += "---->El campo 'Talla' es requediro\n";
+        } else if (!Util.validateFloat(txtTalla.getText())) {
+            recetaMedica += "---->El valor del 'Talla' peso no es valido\n";
         }
 
-        if(!Util.validateString(txtTemp.getText())){
-            recetaMedica +="---->El campo 'Temp' es requediro\n";
+        if (!Util.validateString(txtTemp.getText())) {
+            recetaMedica += "---->El campo 'Temp' es requediro\n";
         }
 //        else if(!Util.validateFloat(txtTemp.getText())){
 //            recetaMedica +="---->El valor del 'Temp' peso no es valido";
 //        }
 
-        if(!Util.validateString(txtFc.getText())){
-            recetaMedica +="---->El campo 'Fc' es requediro\n";
+        if (!Util.validateString(txtFc.getText())) {
+            recetaMedica += "---->El campo 'Fc' es requediro\n";
         }
 
-        if(!Util.validateString(txtFr.getText())){
-            recetaMedica +="---->El campo 'Fr' es requediro\n";
+        if (!Util.validateString(txtFr.getText())) {
+            recetaMedica += "---->El campo 'Fr' es requediro\n";
         }
 
-        if(!Util.validateString(txtTa.getText())){
-            recetaMedica +="---->El campo 'T/A' es requediro\n";
+        if (!Util.validateString(txtTa.getText())) {
+            recetaMedica += "---->El campo 'T/A' es requediro\n";
         }
 
-        if(!Util.validateString(txtFecha.getText())){
-            recetaMedica +="---->El campo 'fecha' es requediro\n";
+        if (!Util.validateString(txtFecha.getText())) {
+            recetaMedica += "---->El campo 'fecha' es requediro\n";
         }
 
-        if(!Util.validateString(txaRx.getText())){
-            recetaMedica +="---->El campo 'RX' es requediro\n";
+        if (!Util.validateString(txaRx.getText())) {
+            recetaMedica += "---->El campo 'RX' es requediro\n";
         }
-
 
         return recetaMedica;
     }
 
-    public String validateHistorial(){
+    public String validateHistorial() {
         String historial = ConsultorioMedicoConst.STRING_EMPTY;
 
-        if(!Util.validateString(txaParecimientoActual.getText())){
-            historial +="---->El campo 'Parecimiento Actual' es requediro\n";
+        if (!Util.validateString(txaParecimientoActual.getText())) {
+            historial += "---->El campo 'Parecimiento Actual' es requediro\n";
         }
 
-        if(!Util.validateString(txaDxs.getText())){
-            historial +="---->El campo 'Dxs' es requediro\n";
+        if (!Util.validateString(txaDxs.getText())) {
+            historial += "---->El campo 'Dxs' es requediro\n";
         }
 
-        if(!Util.validateString(txaPlanManejo.getText())){
-            historial +="---->El campo 'Plan Manejo' es requediro\n";
+        if (!Util.validateString(txaPlanManejo.getText())) {
+            historial += "---->El campo 'Plan Manejo' es requediro\n";
         }
         return historial;
     }
 
-    public String validateReporteUltrasonico(){
+    public String validateReporteUltrasonico() {
         String reporteUltrasonico = ConsultorioMedicoConst.STRING_EMPTY;
-        if(!Util.validateString(txaReporteUltrasonico.getText())){
-            reporteUltrasonico +="---->El campo 'Reporte Ultrasonico' es requediro\n";
+        if (!Util.validateString(txaReporteUltrasonico.getText())) {
+            reporteUltrasonico += "---->El campo 'Reporte Ultrasonico' es requediro\n";
         }
         return reporteUltrasonico;
     }
-
-
 
     /**
      * =================================================================================================================
      * conversion de los formularios a objetos de negocio
      * =================================================================================================================
+     *
      * @return
      */
-    public RecetaVO getRecetaVO(){
+    public RecetaVO getRecetaVO() {
         RecetaVO recetaVO = new RecetaVO();
         if (historialMtsVO != null) {
             recetaVO.setId(historialMtsVO.getIdReceta());
@@ -761,7 +835,7 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         recetaVO.setTalla(Float.parseFloat(txtTalla.getText()));
         recetaVO.setTemp(txtTemp.getText());
         recetaVO.setFc(txtFc.getText());
-        recetaVO.setRf(txtFr.getText());
+        recetaVO.setFr(txtFr.getText());
         recetaVO.setTa(txtTa.getText());
         recetaVO.setRx(txaRx.getText());
         java.util.Date fechaNow = new Date();
@@ -770,67 +844,63 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         recetaVO.setFechaProximaCita(proximaxita);
         return recetaVO;
     }
-    
-    public HistorialVO getHistorial(){
+
+    public HistorialVO getHistorial() {
         HistorialVO historialVO = new HistorialVO();
         if (historialMtsVO != null) {
             historialVO.setId(historialMtsVO.getIdHistorial());
-        }  
+        }
         historialVO.setParecimientoActual(txaParecimientoActual.getText());
         historialVO.setDxs(txaDxs.getText());
         historialVO.setPlanManejo(txaPlanManejo.getText());
         historialVO.setHistorialSintomasVOList(getHistorialSintomasVOs());
         return historialVO;
     }
-    
-    public List<HistorialSintomasVO> getHistorialSintomasVOs(){
+
+    public List<HistorialSintomasVO> getHistorialSintomasVOs() {
         List<HistorialSintomasVO> historialSintomasVOs = new ArrayList<HistorialSintomasVO>();
-        DefaultTableModel model = (DefaultTableModel) jTblAntecedentesImportantes.getModel(); 
+        DefaultTableModel model = (DefaultTableModel) jTblAntecedentesImportantes.getModel();
         int columna = 0;
-        for(int row = 0; row < model.getRowCount(); row++ ) {
+        for (int row = 0; row < model.getRowCount(); row++) {
             String antecedenteImportante = model.getValueAt(row, columna).toString();
-             historialSintomasVOs.add(new HistorialSintomasVO(antecedenteImportante));
+            historialSintomasVOs.add(new HistorialSintomasVO(antecedenteImportante));
         }
         return historialSintomasVOs;
     }
-    
-    public ReporteUltrasonicoVO getReporteUltrasonico(){
+
+    public ReporteUltrasonicoVO getReporteUltrasonico() {
         ReporteUltrasonicoVO reporteUltrasonicoVO = new ReporteUltrasonicoVO();
         if (historialMtsVO != null) {
             reporteUltrasonicoVO.setId(historialMtsVO.getIdReporteUltrasonico());
-        } 
+        }
         reporteUltrasonicoVO.setDescripcion(txaReporteUltrasonico.getText());
         return reporteUltrasonicoVO;
     }
 
-    
-    public List<SintomasVO> getSintomasVOs(){
+    public List<SintomasVO> getSintomasVOs() {
         List<SintomasVO> sintomasVOs = new ArrayList<SintomasVO>();
-        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel(); 
+        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
         int columna = 0;
-        for(int row = 0; row < model.getRowCount(); row++ ) {
+        for (int row = 0; row < model.getRowCount(); row++) {
             String sintoma = model.getValueAt(row, columna).toString();
-             sintomasVOs.add(new SintomasVO(sintoma));
+            sintomasVOs.add(new SintomasVO(sintoma));
         }
         return sintomasVOs;
     }
-
 
     /**
      * =================================================================================================================
      * Datos Dumy
      * =================================================================================================================
      */
-    public void datosDumy(){
-        HistorialMtsData historialMtsData = new HistorialMtsData();       
+    public void datosDumy() {
+        HistorialMtsData historialMtsData = new HistorialMtsData();
         List<SintomasVO> sintomasVOs = new ArrayList<SintomasVO>();
         RecetaVO recetaVO = new RecetaVO();
         HistorialVO historialVO = new HistorialVO();
         List<HistorialSintomasVO> historialSintomasVOs = new ArrayList<HistorialSintomasVO>();
         ReporteUltrasonicoVO reporteUltrasonicoVO = new ReporteUltrasonicoVO();
 
-        
-        
         /**
          * Recetas
          */
@@ -839,50 +909,40 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         recetaVO.setTalla(1.68f);
         recetaVO.setTemp("NA");
         recetaVO.setFc("N/A");
-        recetaVO.setRf("N/A");
+        recetaVO.setFr("N/A");
         recetaVO.setTa("N/A");
         recetaVO.setRx("N/A");
         java.util.Date fechaNow = new Date();
         recetaVO.setFecha(fechaNow);
         recetaVO.setFechaProximaCita(fechaNow);
         historialMtsData.setRecetaVO(recetaVO);
-        
-        
+
         /**
          * Historial
          */
         historialVO.setParecimientoActual("Parecimiento actual");
         historialVO.setDxs("Dxs");
         historialVO.setPlanManejo("Plan de manejo");
-        
-        
-          /***
+
+        /**
+         * *
          * Historial de sintomas
          */
-        
         historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 1"));
         historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 2"));
         historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 3"));
         historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 4"));
         historialSintomasVOs.add(new HistorialSintomasVO("Antecente importante 5"));
         historialVO.setHistorialSintomasVOList(historialSintomasVOs);
-        
-        
-        
+
         historialMtsData.setHistorialVO(historialVO);
-        
-        
-      
-        
-        
-        
+
         /**
          * Reporte ultrasonico
          */
         reporteUltrasonicoVO.setDescripcion("descripcion del reporte ultrasonico");
         historialMtsData.setReporteUltrasonicoVO(reporteUltrasonicoVO);
 
-        
         /**
          * Sintomas
          */
@@ -890,44 +950,104 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
         sintomasVOs.add(new SintomasVO("Sintoma 2"));
         sintomasVOs.add(new SintomasVO("Sintoma 3"));
         sintomasVOs.add(new SintomasVO("Sintoma 4"));
-        sintomasVOs.add(new SintomasVO("Sintoma 5"));       
+        sintomasVOs.add(new SintomasVO("Sintoma 5"));
         historialMtsData.setSintomasVOList(sintomasVOs);
-        
+
         /**
          * Id del paciente
          */
         historialMtsData.setIdPaciente((int) pacienteVO.getId());
-        
+
         /**
          * Fecha
          */
         historialMtsData.setDate(fechaNow);
-        
-        
-        
-        Result<HistorialMtsData> result= historialPacienteController.add(historialMtsData);
+
+        Result<HistorialMtsData> result = historialPacienteController.add(historialMtsData);
         System.out.println(result.toString());
     }
-    
-    
+
+
     private void jmiEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarActionPerformed
         // TODO add your handling code here:
-       DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel(); 
-       model.removeRow( jTblSintomas.getSelectedRow() );
-       jTblSintomas.setModel(model);
+        DefaultTableModel model = (DefaultTableModel) jTblSintomas.getModel();
+        model.removeRow(jTblSintomas.getSelectedRow());
+        jTblSintomas.setModel(model);
     }//GEN-LAST:event_jmiEliminarActionPerformed
+
 
     private void btnAgendarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarCitaActionPerformed
         // TODO add your handling code here:
         VtnAgragarCitas vtnAgragarCitas = new VtnAgragarCitas(this.pacienteVO);
         vtnAgragarCitas.setVisible(true);
-        
+
     }//GEN-LAST:event_btnAgendarCitaActionPerformed
 
-    public static void setProximaCita(com.toedter.calendar.JCalendar fechaProximaCita){
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+        Receta();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        Imprimir imprimir = new Imprimir(data);
+        imprimir.setVisible(true);
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void jmiEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminar1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTblAntecedentesImportantes.getModel();
+        model.removeRow(jTblAntecedentesImportantes.getSelectedRow());
+        jTblAntecedentesImportantes.setModel(model);
+    }//GEN-LAST:event_jmiEliminar1ActionPerformed
+
+    public static void setProximaCita(com.toedter.calendar.JCalendar fechaProximaCita) {
         jDataProximaCita.setDate(fechaProximaCita.getDate());
     }
-    
+
+    public void Receta() {
+
+        try {
+            Object[] opciones = {" Aceptar ", " Cancelar "};
+            int eleccion = JOptionPane.showOptionDialog(null,
+                    "se genera un Receta, desea continial", "Mensaje de Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+
+            if (eleccion == JOptionPane.YES_OPTION) {
+                /* String master = 
+                 System.getProperty("C:\\Users\\ARROW\\Desktop\\resi_control\\ConsultorioMedico-master"
+                 + "\\CtrlHistorial\\build\\classes" + "\\Reportescc");
+                 //\\Reportes\\Receta.jasper*/
+
+                String master = System.getProperty("user.dir") + "\\Receta.jasper";
+                // String master = System.getProperty("user.dir") + "\\newReport.jasper";
+
+                HashMap parametros = new HashMap();
+
+          ///parametros.put("parameter1", "ok");
+                parametros.put("const_dts_pacientes_nombre", txtNombreCompleto.getText());
+                parametros.put("const_dts_recetas_edad", txtEdad.getText());
+                parametros.put("const_dts_recetas_peso", txtPeso.getText());
+                parametros.put("const_dts_recetas_talla", txtTalla.getText());
+                parametros.put("const_dts_recetas_temp", txtTemp.getText());
+                parametros.put("const_dts_recetas_fc", txtFc.getText());
+
+                parametros.put("const_dts_recetas_fr", txtFr.getText());
+                parametros.put("const_dts_recetas_ta", txtTa.getText());
+                parametros.put("const_dts_recetas_rx", txaRx.getText());
+                parametros.put("const_dts_recetas_fecha", txtFecha.getText());
+                parametros.put("const_dts_recetas_fecha_proxima_cita", jDataProximaCita.getDate());
+
+       // JasperPrint informe = JasperFillManager.fillReport(master, parametros, new JREmptyDataSource());
+                // JasperViewer.viewReport(informe, false);      
+            } else {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "error general lanzando reporte" + e.getMessage().toString());
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -966,9 +1086,11 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendarCita;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnSintomas;
     private javax.swing.JButton btnUpdateHistorial;
     private javax.swing.JButton btnagregarSintomasImportantes;
+    private javax.swing.JButton jButton1;
     private static com.toedter.calendar.JDateChooser jDataProximaCita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1000,6 +1122,8 @@ public class vtnAgregarHistorialPaciente extends javax.swing.JFrame {
     private javax.swing.JTable jTblAntecedentesImportantes;
     private javax.swing.JTable jTblSintomas;
     private javax.swing.JMenuItem jmiEliminar;
+    private javax.swing.JMenuItem jmiEliminar1;
+    private javax.swing.JPopupMenu menuAntecedentes;
     private javax.swing.JPopupMenu menuSintomas;
     private javax.swing.JTextArea txaDxs;
     private javax.swing.JTextArea txaParecimientoActual;
